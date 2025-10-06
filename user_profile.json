@@ -1,0 +1,56 @@
+{
+  "patient_summary": {
+    "basic_profile": {
+      "age": 42,
+      "sex": "male",
+      "BMI": 26.5,
+      "ancestry": ["Caucasian"],
+      "activity_level": "moderate (3 days/week exercise)",
+      "diet_style": ["low_carb", "intermittent_fasting"],
+      "supplements": [
+        "Ashwagandha 600 mg Daily (for Stress resilience)",
+        "L-theanine 200 mg As needed (for Focus, calm)",
+        "Omega-3 1500 mg Daily (for Cardiometabolic support)"
+      ],
+      "medications": ["Atorvastatin 10 mg Daily (for Cholesterol)"]
+    },
+    "biomarker_findings": {
+      "high": [
+        {"name": "Calculated Total Cholesterol", "value": 201.77, "unit": "mg/dL"},
+        {"name": "Triglyceride:HDL Ratio", "value": 1.29, "unit": "ratio"},
+        {"name": "Albumin", "value": 6.58, "unit": "g/dL"},
+        {"name": "Sex Hormone-Binding Globulin (SHBG)", "value": 71.72, "unit": "nmol/L"}
+      ],
+      "low": [
+        {"name": "Calcium", "value": 8.16, "unit": "mg/dL"},
+        {"name": "Triglycerides", "value": 40.63, "unit": "mg/dL"},
+        {"name": "Total Protein", "value": 5.2, "unit": "g/dL"}
+      ],
+      "critical": [
+        {"name": "Dehydroepiandrosterone Sulfate (DHEA-S)", "value": 317.86, "unit": "mcg/dL"}
+      ]
+    },
+    "key_health_patterns": [
+      "Low protein status potentially affecting muscle maintenance and recovery",
+      "Elevated stress hormones such as DHEA-S reflecting chronic stress impact",
+      "Imbalanced cholesterol profile with slightly elevated total cholesterol and LDL cholesterol need attention",
+      "Non-restorative sleep contributing to poor stress recovery and daytime fatigue"
+    ],
+    "lifestyle_and_context": {
+      "medical_conditions": ["hypertension", "elevated_lipids"],
+      "family_history": ["heart_attack", "high_blood_pressure"],
+      "stress_level": 9,
+      "sleep_pattern": "6–to–8 hrs with frequent night waking and non-restorative sleep",
+      "environmental_exposures": ["air_travel_fatigue"],
+      "known_allergies": [],
+      "skin_conditions": [],
+      "chronic_pain": []
+    },
+    "functional_goals": [
+      "Support healthy weight management and metabolic function",
+      "Enhance stress resilience and nervous system support",
+      "Support overall detoxification and antioxidant defense",
+      "Improve sleep quality and recovery"
+    ]
+  }
+}

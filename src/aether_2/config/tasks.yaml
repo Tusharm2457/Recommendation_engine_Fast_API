@@ -1,0 +1,182 @@
+evaluate_inputs:
+  description: >
+    You are given the following structured medical data in a nested JSON format: {patient_and_blood_data}
+    Your job is to:
+    - Pass this input to the BiomarkerEvaluationInput tool, which returns analysis and threshold evaluations
+      for all relevant biomarkers.
+    - Identify and flag any biomarkers that are out of range, borderline, or clinically significant based
+      on the tool’s output.
+    The tool returns a list of flagged biomarkers (each categorized as either "high" or "low"),
+    and a summary report with counts.
+
+    Example format:
+    |
+      {
+        "flagged_biomarkers": [
+          {
+            "name": "Dehydroepiandrosterone Sulfate (DHEA-S)",
+            "value": 317.86,
+            "unit": "mcg/dL",
+            "category": "high"
+          },
+          {
+            "name": "Calcium",
+            "value": 8.16,
+            "unit": "mg/dL",
+            "category": "low"
+          }
+        ],
+        "summary": {
+          "total_biomarkers_evaluated": 37,
+          "healthy_markers": 29,
+          "low_markers": 3,
+          "high_markers": 5
+        }
+      }
+
+    Make sure the structure of the output is consistent in every run.
+    If the tool returns a status of "no_data", you can analyze it yourself.
+    Save the same text to Flagged_biomarkers.md file.
+  expected_output: >
+    A structured output that includes:
+
+    A list of flagged biomarkers, with the whole report from the tool.
+    
+  agent: biomarker_preprocessor
+
+evaluate_focus_areas:
+  description: >
+    Use the evaluate_user_focus_areas tool to process {patient_and_blood_data} and produce a ranked
+    list of Core Focus Areas. The output should reflect the *net weighted scores* assigned
+    to each focus area (not flags). Each line must include the full name of the focus area,
+    its code in parentheses, and the numeric score to two decimal places.
+
+    Example format:
+    "Cardiometabolic & Metabolic Health (CM): 0.50"
+    "Stress-Axis & Nervous System Resilience (STR): 0.50"
+    "Hormonal Health (Transport) (HRM): 0.50"
+
+    Save the same text to focus_areas.md via the task's output_file.
+  expected_output: >
+    A ranked list (highest score first) of focus areas in plain text with their codes and scores.
+  agent: focus_area_agent
+
+compile_user_profile:
+  description: >
+    Use the compile_user_profile tool to create a comprehensive user profile by combining 
+    {patient_and_blood_data} with the flagged biomarkers from the previous task. The profile should include:
+    
+    1. Basic demographic and lifestyle information
+    2. Categorized biomarker findings (high/low)
+    3. Key health patterns identified from the data
+    4. Lifestyle and contextual factors
+    5. Functional goals for health optimization
+    
+    The output should be a structured JSON format that can be used by downstream agents
+    for ingredient discovery and supplement recommendations.
+  expected_output: >
+    A comprehensive JSON user profile containing patient summary with basic profile,
+    biomarker findings, health patterns, lifestyle context, and functional goals.
+  agent: user_profile_compiler
+
+
+
+#ingredient_discovery_task:
+ # description: >
+  #  The user has a biomarkers that are flagged as low. Use the SerperDevTool to search for ingredients
+   # that are typically recommended to support this biomarker. Focus on specific forms (e.g., "Magnesium Bisglycinate").
+    #Only use information found via web search.
+  #expected_output: >
+   # A JSON object with keys: "biomarker", "status", and "recommended_ingredients". For example :
+   # {
+   #   "biomarker": "Ferritin",
+   #   "status": "low",
+   #   "recommended_ingredients": ["Iron (Ferrous Bisglycinate)", "Vitamin C"]
+   # }
+  #agent: ingredient_discovery_agent
+
+
+
+#search_supplements_for_ingredients:
+ # description: >
+  #  You are given a list of biomarkers and their associated recommended ingredients.
+   # Use the fuzzy_dsld_search tool to find supplement products from the DSLD dataset.
+   # Search each ingredient. If matching supplements are found, include them in the output.
+   # If no results are found, skip the ingredient. Do not generate or guess any product.
+  
+  #expected_output: >
+  #  Return a JSON object. Only include ingredients with matching results. Do not include skipped ones.
+  #  Example format:
+  #  {
+  #    "LDL Cholesterol": {
+   #     "Psyllium Husk": [
+   #      {
+   #         "product_name": "Fiber Choice Daily Prebiotic Fiber",
+   #         "ingredient": "Psyllium Husk",
+    #        "amount": "3.4",
+    #        "unit": "g",
+    #        "url": "https://dsld.od.nih.gov/label/4567"
+    #     }
+    #  ],
+    #     "Plant Sterols": [
+    #     {
+    #        "product_name": "CholestOff",
+    #        "ingredient": "Plant Sterols",
+    #        "amount": "900",
+    #         "unit": "mg",
+    #         "url": "https://dsld.od.nih.gov/label/9999"
+    #     }
+    #  ]
+    #}
+     #           }
+  #agent: supplement_search_agent
+
+#summarize_data:
+#  description: >
+#    You are given the following structured medical data in JSON format: {medical_data}
+#    Your job is to convert this into a clear, detailed, and complete natural-language summary.
+#    You must not omit any information present in the JSON — include all vitals, symptoms, metadata, and values,
+#    even if they seem minor. This output will be used by a medical analyst to form a hypothesis.
+#  expected_output: >
+#    A faithful, plain-English summary that includes every element from the JSON input.
+#    It should be easy to read and medically relevant, but not compressed or filtered.
+#  agent: summarizer
+#
+#form_hypothesis:
+#  description: >
+#    Use only the medical knowledge provided by the BiomarkerKnowledgeTool to interpret the patient summary and form a medical hypothesis.
+#    Do not rely on your own assumptions or any external knowledge. If the data is insufficient, ask the user for data that will help you.
+#    Once you have that data, proceed with your hypothesis. If the user says they can't provide you with the data, close the task.
+#  expected_output: >
+#    A medically grounded hypothesis based solely on the BiomarkerKnowledgeTool and any additional human-supplied input.
+#    If the data remains insufficient even after follow-up, state that the data is "insufficient" explicitly and explain what further clarification is required.
+#  agent: clinical_reasoner
+
+# New task for ranking ingredients
+rank_ingredients:
+  description: >
+    Using the compiled user profile from the previous step, rank ingredients from
+    inputs/transformed_ingredients.json. Return a ranked list with a one-line rationale
+    for each ingredient explaining why it suits the user's profile.
+  expected_output: >
+    JSON with key "ranked_ingredients": list of { name, score, components, why }.
+  agent: ingredient_ranker
+
+# Final task for supplement recommendations
+generate_supplement_recommendations:
+  description: >
+    Generate personalized supplement recommendations by combining the user profile, ranked ingredients,
+    and focus areas. For each top ingredient, determine appropriate dosage, frequency, and provide
+    evidence-based rationale. Include relevant focus area codes (CFA) for each recommendation.
+    
+    Format each recommendation with:
+    - Supplement name (with specific form if applicable)
+    - Dosage amount and unit
+    - Frequency and timing
+    - Evidence-based "why" explanation
+    - Relevant focus area codes (CFA)
+  expected_output: >
+    JSON with key "supplement_recommendations": list of { supplement, dosage, frequency, why, cfa }.
+  agent: supplement_recommender
+
+

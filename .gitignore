@@ -1,0 +1,10 @@
+.env
+__pycache__/
+.DS_Store
+.ideasrc/aether_2/tools/.env.save
+*.env.save
+.env*
+src/aether_2/tools/.env
+src/aether_2/tools/.env.save
+*.env
+.env*

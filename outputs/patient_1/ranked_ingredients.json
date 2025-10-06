@@ -1,0 +1,169 @@
+{
+  "ranked_ingredients": [
+    {
+      "name": "Vitamin C",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Vitamin C is recommended because it supported by evidence."
+    },
+    {
+      "name": "Vitamin E",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Vitamin E is recommended because it supported by evidence."
+    },
+    {
+      "name": "Ashwagandha",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Ashwagandha is recommended because it supported by evidence."
+    },
+    {
+      "name": "Vitamin A",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Vitamin A is recommended because it supported by evidence."
+    },
+    {
+      "name": "Biotin",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Biotin is recommended because it supported by evidence."
+    },
+    {
+      "name": "Black Cohosh",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Black Cohosh is recommended because it supported by evidence."
+    },
+    {
+      "name": "Boron",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Boron is recommended because it supported by evidence."
+    },
+    {
+      "name": "Thiamin",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Thiamin is recommended because it supported by evidence."
+    },
+    {
+      "name": "Vitamin B12",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Vitamin B12 is recommended because it supported by evidence."
+    },
+    {
+      "name": "Vitamin B6",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Vitamin B6 is recommended because it supported by evidence."
+    },
+    {
+      "name": "Calcium",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Calcium is recommended because it supported by evidence."
+    },
+    {
+      "name": "Carnitine",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Carnitine is recommended because it supported by evidence."
+    },
+    {
+      "name": "Choline",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Choline is recommended because it supported by evidence."
+    },
+    {
+      "name": "Chromium",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Chromium is recommended because it supported by evidence."
+    },
+    {
+      "name": "Copper",
+      "score": 0.02,
+      "components": {
+        "semantic": 0.0,
+        "rule": 0.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Copper is recommended because it supported by evidence."
+    }
+  ]
+}

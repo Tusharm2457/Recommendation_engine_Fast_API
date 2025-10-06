@@ -1,0 +1,1942 @@
+{
+  "Vitamin C": {
+    "ingredient_name": "Vitamin C",
+    "core_health_problems": [
+      "Cancer prevention",
+      "Cardiovascular disease",
+      "Age-related macular degeneration (AMD)",
+      "Cataracts"
+    ],
+    "secondary_health_problems": [
+      "Common cold",
+      "Immune function support",
+      "Oxidative stress-related conditions"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Smoking",
+      "Exposure to secondhand smoke",
+      "Limited food variety",
+      "Extreme physical exercise",
+      "Cold environments"
+    ],
+    "special_cases": [
+      "Infants fed evaporated or boiled milk",
+      "People with severe malabsorption",
+      "People with chronic diseases like cancer or kidney disease requiring hemodialysis"
+    ],
+    "cases_when_not_recommended": [
+      "Individuals with hereditary hemochromatosis",
+      "Patients undergoing chemotherapy or radiation therapy",
+      "Postmenopausal women with diabetes taking high doses of supplements"
+    ],
+    "key_actions": [
+      "Antioxidant activity",
+      "Collagen synthesis",
+      "Improves nonheme iron absorption",
+      "Immune system support",
+      "Limits free radical damage"
+    ],
+    "relevant_conditions": [
+      "Scurvy",
+      "Cancer",
+      "Cardiovascular disease",
+      "Age-related macular degeneration",
+      "Cataracts",
+      "Common cold"
+    ],
+    "biomarkers_mentioned": [
+      "Iron"
+    ],
+    "biomarker_recommendations": [
+      "Iron: unclear"
+    ],
+    "chunk_text": "Vitamin C, also known as ascorbic acid, is a water-soluble nutrient with antioxidant properties that supports collagen synthesis, immune function, and nonheme iron absorption. It is beneficial for conditions like cancer prevention, cardiovascular disease, age-related macular degeneration, cataracts, and the common cold. However, it may not be recommended for individuals with hereditary hemochromatosis, those undergoing cancer treatments, or postmenopausal women with diabetes taking high doses."
+  },
+  "Vitamin E": {
+    "ingredient_name": "Vitamin E",
+    "core_health_problems": [
+      "Heart disease",
+      "Cancer",
+      "Eye disorders",
+      "Cognitive decline"
+    ],
+    "secondary_health_problems": [
+      "Immune system dysfunction",
+      "Oxidative stress-related conditions"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Exposure to cigarette smoke",
+      "Air pollution",
+      "Ultraviolet light from the sun"
+    ],
+    "special_cases": [
+      "Premature babies of very low birth weight",
+      "People with fat-malabsorption disorders",
+      "People with abetalipoproteinemia",
+      "People with ataxia and vitamin E deficiency (AVED)"
+    ],
+    "cases_when_not_recommended": [
+      "People undergoing chemotherapy or radiation therapy",
+      "People taking anticoagulant or antiplatelet medications",
+      "People with low vitamin K intake",
+      "Men at risk of prostate cancer"
+    ],
+    "key_actions": [
+      "Acts as an antioxidant",
+      "Protects cells from free radical damage",
+      "Boosts immune system",
+      "Inhibits platelet aggregation",
+      "Regulates gene expression",
+      "Dilates blood vessels",
+      "Inhibits blood clotting"
+    ],
+    "relevant_conditions": [
+      "Coronary heart disease",
+      "Prostate cancer",
+      "Bladder cancer",
+      "Age-related macular degeneration (AMD)",
+      "Cataracts",
+      "Alzheimer's disease",
+      "Mild cognitive impairment"
+    ],
+    "biomarkers_mentioned": [
+      "LDL Cholesterol",
+      "HDL Cholesterol"
+    ],
+    "biomarker_recommendations": [
+      "LDL Cholesterol: unclear",
+      "HDL Cholesterol: unclear"
+    ],
+    "chunk_text": "Vitamin E is a fat-soluble antioxidant that protects cells from free radical damage and supports immune function. It has been studied for its potential benefits in heart disease, cancer, eye disorders, and cognitive decline, though results are inconsistent. High doses of vitamin E supplements may pose risks, including increased bleeding and prostate cancer in men."
+  },
+  "Ashwagandha": {
+    "ingredient_name": "Ashwagandha",
+    "core_health_problems": [
+      "Stress",
+      "Anxiety",
+      "Sleep problems"
+    ],
+    "secondary_health_problems": [
+      "Fatigue",
+      "Insomnia"
+    ],
+    "medicine_category": [
+      "Ayurvedic"
+    ],
+    "lifestyle_factors": [],
+    "special_cases": [
+      "May affect thyroid function",
+      "May interact with medications (e.g., thyroid medications, antidiabetes medications, antihypertensives, immunosuppressants, sedatives)",
+      "May increase testosterone levels"
+    ],
+    "cases_when_not_recommended": [
+      "Pregnant women",
+      "Breastfeeding women",
+      "Men with hormone-sensitive prostate cancer",
+      "People with pre-existing liver disease"
+    ],
+    "key_actions": [
+      "Reduces stress and anxiety",
+      "Improves sleep quality and duration",
+      "Lowers cortisol levels"
+    ],
+    "relevant_conditions": [
+      "Generalized anxiety disorder",
+      "Insomnia"
+    ],
+    "biomarkers_mentioned": [
+      "Thyroid Stimulating Hormone (TSH)",
+      "Triiodothyronine (T3)",
+      "Thyroxine (T4)",
+      "Cortisol",
+      "Total Bilirubin"
+    ],
+    "biomarker_recommendations": [
+      "TSH: recommended when low",
+      "T3: recommended when low",
+      "T4: recommended when low",
+      "Cortisol: recommended when high",
+      "Total Bilirubin: unclear"
+    ],
+    "chunk_text": "Ashwagandha, commonly used in Ayurvedic medicine, may help reduce stress and anxiety, improve sleep quality, and lower cortisol levels. It has shown benefits for generalized anxiety disorder and insomnia, particularly at doses of 500-600 mg/day for 6-8 weeks. However, it may affect thyroid function, interact with certain medications, and is not recommended for pregnant or breastfeeding women or men with hormone-sensitive prostate cancer."
+  },
+  "Vitamin A": {
+    "ingredient_name": "Vitamin A",
+    "core_health_problems": [
+      "Age-related macular degeneration (AMD)",
+      "Cancer",
+      "Measles"
+    ],
+    "secondary_health_problems": [
+      "Respiratory diseases (e.g., pneumonia)",
+      "Anemia",
+      "Diarrhea",
+      "Blindness"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Smoking",
+      "Exposure to asbestos",
+      "Low dietary intake of fruits and vegetables"
+    ],
+    "special_cases": [
+      "Premature infants",
+      "Infants, children, pregnant and lactating women in low-income and middle-income countries",
+      "People with cystic fibrosis",
+      "Individuals with gastrointestinal disorders (e.g., Crohn’s disease, ulcerative colitis, celiac disease)"
+    ],
+    "cases_when_not_recommended": [
+      "Pregnant or lactating women should avoid high doses of preformed vitamin A",
+      "Smokers and former smokers should avoid high-dose beta-carotene supplements",
+      "People exposed to asbestos should avoid high-dose beta-carotene supplements"
+    ],
+    "key_actions": [
+      "Supports normal vision",
+      "Regulates cell growth and differentiation",
+      "Enhances immune function",
+      "Promotes growth and development"
+    ],
+    "relevant_conditions": [
+      "Xerophthalmia",
+      "Night blindness",
+      "AMD",
+      "Measles",
+      "Cancer"
+    ],
+    "biomarkers_mentioned": [
+      "Alanine Aminotransferase (ALT)",
+      "Aspartate Aminotransferase (AST)"
+    ],
+    "biomarker_recommendations": [
+      "ALT: unclear",
+      "AST: unclear"
+    ],
+    "chunk_text": "Vitamin A is a fat-soluble vitamin essential for vision, immune function, and growth. It plays a role in preventing age-related macular degeneration, certain cancers, and measles, particularly in populations at risk of deficiency. High doses of preformed vitamin A and beta-carotene supplements are contraindicated for smokers, former smokers, and pregnant women due to potential adverse effects."
+  },
+  "Biotin": {
+    "ingredient_name": "Biotin",
+    "core_health_problems": [
+      "Neurological disorders",
+      "Cutaneous symptoms"
+    ],
+    "secondary_health_problems": [
+      "Hair loss",
+      "Brittle nails",
+      "Skin rashes"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Chronic alcohol exposure"
+    ],
+    "special_cases": [
+      "Pregnant women",
+      "Breastfeeding women",
+      "Individuals with biotinidase deficiency"
+    ],
+    "cases_when_not_recommended": [
+      "High doses may interfere with laboratory tests"
+    ],
+    "key_actions": [
+      "Cofactor for carboxylases in metabolism",
+      "Supports fatty acid, glucose, and amino acid metabolism",
+      "Involved in gene regulation and cell signaling"
+    ],
+    "relevant_conditions": [
+      "Brittle nails",
+      "Uncombable hair syndrome",
+      "Skin rash in infants"
+    ],
+    "biomarkers_mentioned": [
+      "Thyroid Stimulating Hormone (TSH)",
+      "25-(OH) Vitamin D"
+    ],
+    "biomarker_recommendations": [
+      "TSH: unclear",
+      "25-(OH) Vitamin D: unclear"
+    ],
+    "chunk_text": "Biotin is a B-vitamin that acts as a cofactor for enzymes involved in fatty acid, glucose, and amino acid metabolism. It supports neurological and cutaneous health, with potential benefits for brittle nails, uncombable hair syndrome, and skin rashes in infants. High doses of biotin may interfere with laboratory tests, including those for thyroid and vitamin D levels."
+  },
+  "Black Cohosh": {
+    "ingredient_name": "Black Cohosh",
+    "core_health_problems": [
+      "Menopausal symptoms"
+    ],
+    "secondary_health_problems": [
+      "Vasomotor symptoms",
+      "Hot flashes",
+      "Night sweats",
+      "Vaginal dryness",
+      "Heart palpitations",
+      "Tinnitus",
+      "Vertigo",
+      "Sleep disturbances",
+      "Nervousness",
+      "Irritability"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [],
+    "special_cases": [
+      "Pregnant women should not take black cohosh except under the supervision of their healthcare provider",
+      "Studies have not rigorously evaluated its use during pregnancy"
+    ],
+    "cases_when_not_recommended": [
+      "Individuals with liver disorders should avoid black cohosh",
+      "Users who develop symptoms of liver trouble, such as abdominal pain, dark urine, or jaundice, should discontinue use and contact their doctor"
+    ],
+    "key_actions": [
+      "Potential antioxidant activity",
+      "Potential anti-inflammatory activity",
+      "Potential modulation of serotonergic pathways",
+      "Potential selective estrogen receptor modulator activity"
+    ],
+    "relevant_conditions": [
+      "Menopausal symptoms",
+      "Vasomotor symptoms",
+      "Hot flashes",
+      "Night sweats",
+      "Vaginal dryness"
+    ],
+    "biomarkers_mentioned": [
+      "Alanine Aminotransferase (ALT)",
+      "Aspartate Aminotransferase (AST)"
+    ],
+    "biomarker_recommendations": [
+      "Unclear",
+      "Unclear"
+    ],
+    "chunk_text": "Black cohosh is a perennial plant commonly used for menopausal symptoms such as hot flashes, night sweats, and vaginal dryness. It may exert effects through antioxidant, anti-inflammatory, or serotonergic modulation pathways, though its active ingredients and mechanisms remain unclear. Pregnant women and individuals with liver disorders are advised to avoid its use without medical supervision."
+  },
+  "Boron": {
+    "ingredient_name": "Boron",
+    "core_health_problems": [
+      "Osteoarthritis",
+      "Bone health"
+    ],
+    "secondary_health_problems": [
+      "Cancer risk reduction"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Vegetarian diets tend to provide higher boron intakes due to plant-based foods"
+    ],
+    "special_cases": [
+      "Boron deficiency might affect brain function by reducing mental alertness and impairing executive brain function",
+      "Low-boron diets might elevate urinary calcium and magnesium excretion and lower serum estrogen in postmenopausal women"
+    ],
+    "cases_when_not_recommended": [
+      "Extremely high doses of boron (e.g., 15,000 to 20,000 mg) can be fatal",
+      "Boron from cleaning products or pesticides (e.g., borax or boric acid) can cause toxicity symptoms such as nausea, vomiting, diarrhea, and convulsions"
+    ],
+    "key_actions": [
+      "Might reduce inflammation",
+      "Might influence calcium metabolism and bone formation",
+      "Might affect steroid hormone function, including vitamin D and estrogen"
+    ],
+    "relevant_conditions": [
+      "Osteoarthritis",
+      "Bone mineral density",
+      "Prostate cancer",
+      "Lung cancer",
+      "Cervical cancer"
+    ],
+    "biomarkers_mentioned": [
+      "Calcium",
+      "25-(OH) Vitamin D"
+    ],
+    "biomarker_recommendations": [
+      "Calcium: unclear",
+      "25-(OH) Vitamin D: unclear"
+    ],
+    "chunk_text": "Boron is a trace element found in many plant-based foods and beverages. It may help reduce inflammation, support bone health, and influence calcium metabolism and steroid hormone function. Preliminary evidence suggests boron might reduce symptoms of osteoarthritis and lower the risk of certain cancers, though more research is needed."
+  },
+  "Thiamin": {
+    "ingredient_name": "Thiamin",
+    "core_health_problems": [
+      "Wernicke-Korsakoff syndrome",
+      "Beriberi",
+      "Heart failure"
+    ],
+    "secondary_health_problems": [
+      "Diabetes complications",
+      "Alzheimer's disease"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Alcohol dependence",
+      "Low dietary intake",
+      "Aging",
+      "Malnutrition associated with HIV/AIDS",
+      "Bariatric surgery"
+    ],
+    "special_cases": [
+      "Chronic alcohol use disorders",
+      "Elderly individuals in institutions",
+      "Patients with severe gastrointestinal disorders",
+      "Rapidly progressing hematologic malignancies",
+      "Drug use disorders",
+      "AIDS"
+    ],
+    "cases_when_not_recommended": [],
+    "key_actions": [
+      "Helps turn food into energy",
+      "Supports growth, development, and function of cells",
+      "Serves as a cofactor for enzymes involved in glucose, amino acid, and lipid metabolism"
+    ],
+    "relevant_conditions": [
+      "Diabetes",
+      "Heart failure",
+      "Alzheimer's disease",
+      "Wernicke-Korsakoff syndrome",
+      "Beriberi"
+    ],
+    "biomarkers_mentioned": [],
+    "biomarker_recommendations": [],
+    "chunk_text": "Thiamin, also known as vitamin B1, plays a critical role in energy metabolism and supports the growth, development, and function of cells. It is particularly relevant for addressing conditions such as Wernicke-Korsakoff syndrome, beriberi, heart failure, diabetes complications, and Alzheimer's disease. Lifestyle factors like alcohol dependence, aging, and malnutrition can increase the risk of thiamin deficiency."
+  },
+  "Vitamin B12": {
+    "ingredient_name": "Vitamin B12",
+    "core_health_problems": [
+      "Megaloblastic anemia",
+      "Neurological damage",
+      "Cognitive impairment"
+    ],
+    "secondary_health_problems": [
+      "Depression",
+      "Infertility",
+      "Heart palpitations"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Vegetarian or vegan diets",
+      "Low socioeconomic status",
+      "Pregnancy or breastfeeding with vegan diets"
+    ],
+    "special_cases": [
+      "Older adults with low hydrochloric acid",
+      "People with pernicious anemia",
+      "People with gastrointestinal disorders like Crohn's disease or celiac disease",
+      "People who have had gastrointestinal surgery"
+    ],
+    "cases_when_not_recommended": [],
+    "key_actions": [
+      "Supports red blood cell formation",
+      "Maintains healthy nerve cells",
+      "Aids in DNA synthesis",
+      "Reduces homocysteine levels"
+    ],
+    "relevant_conditions": [
+      "Pernicious anemia",
+      "Celiac disease",
+      "Crohn's disease",
+      "Atrophic gastritis",
+      "Neural tube defects in infants"
+    ],
+    "biomarkers_mentioned": [
+      "Methylmalonic acid (MMA)",
+      "Homocysteine"
+    ],
+    "biomarker_recommendations": [
+      "Methylmalonic acid (MMA): high",
+      "Homocysteine: high"
+    ],
+    "chunk_text": "Vitamin B12 is essential for red blood cell formation, nerve health, and DNA synthesis. It is particularly beneficial for addressing megaloblastic anemia, neurological damage, and cognitive impairment. Groups at risk of deficiency include older adults, vegetarians, and individuals with gastrointestinal disorders or pernicious anemia."
+  },
+  "Vitamin B6": {
+    "ingredient_name": "Vitamin B6",
+    "core_health_problems": [
+      "Cardiovascular disease",
+      "Cancer",
+      "Cognitive decline",
+      "Premenstrual syndrome (PMS)",
+      "Nausea and vomiting in pregnancy"
+    ],
+    "secondary_health_problems": [
+      "Weakened immune function",
+      "Microcytic anemia",
+      "Dermatitis with cheilosis",
+      "Glossitis",
+      "Depression",
+      "Confusion"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Alcohol dependence",
+      "Smoking",
+      "Obesity"
+    ],
+    "special_cases": [
+      "Pregnant women with preeclampsia or eclampsia",
+      "People with autoimmune disorders (e.g., rheumatoid arthritis, celiac disease, Crohn's disease, ulcerative colitis)",
+      "Individuals with impaired renal function (e.g., end-stage renal disease, chronic renal insufficiency, kidney transplant)",
+      "Patients taking antiepileptic drugs",
+      "Patients treated with theophylline"
+    ],
+    "cases_when_not_recommended": [
+      "High doses of vitamin B6 supplements (1–6 g/day for prolonged periods)",
+      "Pregnant women exceeding tolerable upper intake levels without medical supervision"
+    ],
+    "key_actions": [
+      "Involvement in more than 100 enzyme reactions",
+      "Supports protein metabolism",
+      "Promotes neurotransmitter biosynthesis",
+      "Maintains normal homocysteine levels",
+      "Enhances immune function",
+      "Supports hemoglobin formation"
+    ],
+    "relevant_conditions": [
+      "Stroke",
+      "Colorectal cancer",
+      "Dementia",
+      "Morning sickness",
+      "Behavioral side effects of levetiracetam"
+    ],
+    "biomarkers_mentioned": [
+      "Homocysteine"
+    ],
+    "biomarker_recommendations": [
+      "Homocysteine: recommended when low"
+    ],
+    "chunk_text": "Vitamin B6 is a water-soluble vitamin involved in over 100 enzyme reactions, primarily supporting protein metabolism, neurotransmitter biosynthesis, and immune function. It is beneficial for conditions such as cardiovascular disease, cancer, cognitive decline, PMS, and nausea during pregnancy. However, excessive supplementation can lead to severe sensory neuropathy and other adverse effects, and pregnant women should consult a physician before use."
+  },
+  "Calcium": {
+    "ingredient_name": "Calcium",
+    "core_health_problems": [
+      "Osteoporosis",
+      "Preeclampsia",
+      "Metabolic syndrome"
+    ],
+    "secondary_health_problems": [
+      "Rickets",
+      "Osteomalacia",
+      "Cancer",
+      "Cardiovascular disease",
+      "Weight management"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Low dietary calcium intake",
+      "Avoidance of dairy products",
+      "Lactose intolerance",
+      "Milk allergy",
+      "Vegan diet",
+      "Living in poverty"
+    ],
+    "special_cases": [
+      "Postmenopausal women",
+      "Pregnant women with low calcium intake"
+    ],
+    "cases_when_not_recommended": [
+      "Risk of kidney stones",
+      "Risk of cardiovascular disease",
+      "Risk of prostate cancer"
+    ],
+    "key_actions": [
+      "Builds and maintains strong bones",
+      "Supports muscle movement",
+      "Facilitates nerve signaling",
+      "Helps blood vessels transport blood",
+      "Assists in hormone release"
+    ],
+    "relevant_conditions": [
+      "Fragile bones",
+      "Bone fractures",
+      "Hypertension",
+      "Colorectal cancer",
+      "Prostate cancer",
+      "Obesity",
+      "Diabetes"
+    ],
+    "biomarkers_mentioned": [
+      "Calcium",
+      "25-(OH) Vitamin D",
+      "Triglycerides",
+      "HDL Cholesterol"
+    ],
+    "biomarker_recommendations": [
+      "Calcium: unclear",
+      "25-(OH) Vitamin D: unclear",
+      "Triglycerides: unclear",
+      "HDL Cholesterol: unclear"
+    ],
+    "chunk_text": "Calcium is a vital mineral that supports bone health, muscle function, nerve signaling, and blood vessel activity. It is particularly important for postmenopausal women and pregnant women with low calcium intake, but excessive supplementation may increase risks of kidney stones, cardiovascular disease, and prostate cancer. Calcium is found in dairy products, fortified foods, and supplements, with absorption influenced by dietary factors and vitamin D levels."
+  },
+  "Carnitine": {
+    "ingredient_name": "Carnitine",
+    "core_health_problems": [
+      "Cardiovascular disease",
+      "Peripheral artery disease",
+      "Insulin resistance",
+      "Type 2 diabetes",
+      "Infertility",
+      "Osteoarthritis",
+      "Alzheimer's disease",
+      "Dementia"
+    ],
+    "secondary_health_problems": [
+      "Athletic performance issues",
+      "Weight loss challenges"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Vegan diet",
+      "Vegetarian diet",
+      "Low intake of animal products"
+    ],
+    "special_cases": [
+      "Premature infants",
+      "Individuals with end-stage renal disease",
+      "People on hemodialysis",
+      "People with primary carnitine deficiency"
+    ],
+    "cases_when_not_recommended": [
+      "People with seizure disorders (risk of increased seizures)",
+      "People with chronic kidney disease (risk of muscle weakness)",
+      "High doses (3 grams or more per day) causing nausea, vomiting, stomach cramps, diarrhea, and fishy body odor"
+    ],
+    "key_actions": [
+      "Helps transport long-chain fatty acids into mitochondria for energy production",
+      "Supports fatty acid oxidation",
+      "Reduces oxidative stress",
+      "Improves sperm motility and morphology",
+      "May reduce inflammation and pain in osteoarthritis",
+      "May improve insulin sensitivity and glucose metabolism"
+    ],
+    "relevant_conditions": [
+      "Alzheimer's disease",
+      "Dementia",
+      "Cardiovascular disease",
+      "Peripheral artery disease",
+      "Insulin resistance",
+      "Type 2 diabetes",
+      "Male infertility",
+      "Female infertility (PCOS)",
+      "Osteoarthritis",
+      "Athletic performance",
+      "Weight loss"
+    ],
+    "biomarkers_mentioned": [
+      "Apolipoprotein A1 (APOA1)",
+      "Apolipoprotein B (APOB)",
+      "LDL Cholesterol",
+      "Total Cholesterol",
+      "Lipoprotein (a)",
+      "Triglycerides",
+      "% Hemoglobin A1C"
+    ],
+    "biomarker_recommendations": [
+      {
+        "Apolipoprotein A1 (APOA1)": "unclear"
+      },
+      {
+        "Apolipoprotein B (APOB)": "recommended when high"
+      },
+      {
+        "LDL Cholesterol": "recommended when high"
+      },
+      {
+        "Total Cholesterol": "recommended when high"
+      },
+      {
+        "Lipoprotein (a)": "unclear"
+      },
+      {
+        "Triglycerides": "unclear"
+      },
+      {
+        "% Hemoglobin A1C": "recommended when high"
+      }
+    ],
+    "chunk_text": "Carnitine is a nutrient that supports energy production by transporting fatty acids into mitochondria and reducing oxidative stress. It may benefit conditions such as cardiovascular disease, peripheral artery disease, insulin resistance, type 2 diabetes, infertility, osteoarthritis, and cognitive decline. However, high doses can cause gastrointestinal issues, muscle weakness in chronic kidney disease, and increased seizure risk in those with seizure disorders."
+  },
+  "Choline": {
+    "ingredient_name": "Choline",
+    "core_health_problems": [
+      "Cardiovascular disease",
+      "Neurological disorders",
+      "Nonalcoholic fatty liver disease (NAFLD)"
+    ],
+    "secondary_health_problems": [
+      "Muscle damage",
+      "Liver damage",
+      "Fat deposits in the liver"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Pregnancy",
+      "Low vitamin B12 status",
+      "Low folate intake",
+      "Obesity",
+      "Overweight"
+    ],
+    "special_cases": [
+      "Pregnant women",
+      "People with certain genetic conditions",
+      "Patients requiring total parenteral nutrition (TPN)"
+    ],
+    "cases_when_not_recommended": [
+      "High choline intake may increase cardiovascular disease risk"
+    ],
+    "key_actions": [
+      "Regulates memory, mood, and muscle control",
+      "Forms cell membranes",
+      "Supports liver function",
+      "Modulates gene expression",
+      "Affects lipid transport and metabolism"
+    ],
+    "relevant_conditions": [
+      "Cardiovascular disease",
+      "Neurological disorders",
+      "Nonalcoholic fatty liver disease (NAFLD)",
+      "Neural tube defects"
+    ],
+    "biomarkers_mentioned": [
+      "Alanine Aminotransferase (ALT)"
+    ],
+    "biomarker_recommendations": [
+      "ALT: recommended when high"
+    ],
+    "chunk_text": "Choline is an essential nutrient required for brain and nervous system functions, including memory and mood regulation, as well as for forming cell membranes and supporting liver function. It may help prevent nonalcoholic fatty liver disease (NAFLD) and support cardiovascular health, though excessive intake could increase cardiovascular disease risk. Pregnant women, individuals with genetic conditions, and patients on total parenteral nutrition are at higher risk of choline inadequacy."
+  },
+  "Chromium": {
+    "ingredient_name": "Chromium",
+    "core_health_problems": [
+      "Type 2 diabetes",
+      "Metabolic syndrome",
+      "Polycystic ovary syndrome (PCOS)"
+    ],
+    "secondary_health_problems": [
+      "Dyslipidemia",
+      "Weight management"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Dietary intake of high-sugar foods",
+      "Use of stainless steel cookware"
+    ],
+    "special_cases": [
+      "People with kidney disease or liver disease should be cautious about taking high amounts of chromium"
+    ],
+    "cases_when_not_recommended": [
+      "Chromium supplements might interact with insulin, metformin, other antidiabetes medications, and levothyroxine"
+    ],
+    "key_actions": [
+      "Potentiates insulin action",
+      "Might help carbohydrate, lipid, and protein metabolism",
+      "Might have antioxidant effects"
+    ],
+    "relevant_conditions": [
+      "Impaired glucose tolerance",
+      "High fasting blood glucose",
+      "Elevated LDL cholesterol",
+      "Low HDL cholesterol",
+      "Elevated triglycerides",
+      "Obesity"
+    ],
+    "biomarkers_mentioned": [
+      "Hemoglobin A1C",
+      "HDL Cholesterol",
+      "LDL Cholesterol",
+      "Triglycerides",
+      "Total Cholesterol",
+      "Testosterone, Free (calc)",
+      "Testosterone, Total (Males)"
+    ],
+    "biomarker_recommendations": [
+      "Hemoglobin A1C: recommended when high",
+      "HDL Cholesterol: recommended when low",
+      "LDL Cholesterol: recommended when high",
+      "Triglycerides: recommended when high",
+      "Total Cholesterol: recommended when high",
+      "Testosterone, Free (calc): recommended when high",
+      "Testosterone, Total (Males): recommended when high"
+    ],
+    "chunk_text": "Chromium is a mineral that might help with carbohydrate, lipid, and protein metabolism by potentiating insulin action. It has been studied for its potential benefits in managing type 2 diabetes, metabolic syndrome, PCOS, dyslipidemia, and weight management, though results are mixed. People with kidney or liver disease should be cautious about high chromium intake, and it may interact with medications like insulin, metformin, and levothyroxine."
+  },
+  "Copper": {
+    "ingredient_name": "Copper",
+    "core_health_problems": [
+      "Cardiovascular disease",
+      "Alzheimer's disease"
+    ],
+    "secondary_health_problems": [
+      "Connective tissue disorders",
+      "Osteoporosis",
+      "Anemia",
+      "Hypercholesterolemia",
+      "Increased risk of infection"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "High dietary intake of zinc",
+      "Celiac disease"
+    ],
+    "special_cases": [
+      "Menkes disease",
+      "Wilson's disease"
+    ],
+    "cases_when_not_recommended": [
+      "Excessive intake of copper from water pipes or supplements",
+      "Patients with Wilson's disease"
+    ],
+    "key_actions": [
+      "Supports energy production",
+      "Aids in connective tissue synthesis",
+      "Supports blood vessel formation",
+      "Maintains nervous and immune systems",
+      "Activates genes",
+      "Supports brain development",
+      "Defense against oxidative damage"
+    ],
+    "relevant_conditions": [
+      "Copper deficiency",
+      "Cardiovascular disease",
+      "Alzheimer's disease",
+      "Celiac disease",
+      "Menkes disease",
+      "Wilson's disease"
+    ],
+    "biomarkers_mentioned": [
+      "LDL Cholesterol",
+      "Total Cholesterol",
+      "High-Sensitivity CRP"
+    ],
+    "biomarker_recommendations": [
+      "LDL Cholesterol: unclear",
+      "Total Cholesterol: unclear",
+      "High-Sensitivity CRP: unclear"
+    ],
+    "chunk_text": "Copper is an essential mineral involved in energy production, connective tissue synthesis, and brain development. It supports the nervous and immune systems, activates genes, and defends against oxidative damage. Copper may play a role in cardiovascular disease and Alzheimer's disease, though evidence is mixed, and excessive intake can lead to toxicity or liver damage."
+  },
+  "Vitamin D": {
+    "ingredient_name": "Vitamin D",
+    "core_health_problems": [
+      "Osteoporosis",
+      "Rickets",
+      "Osteomalacia"
+    ],
+    "secondary_health_problems": [
+      "Cancer mortality reduction",
+      "Cardiovascular disease risk reduction",
+      "Muscle weakness",
+      "Depression",
+      "Multiple sclerosis",
+      "Type 2 diabetes"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Limited sun exposure",
+      "Dark skin",
+      "Older age",
+      "Breastfeeding without supplementation",
+      "Obesity",
+      "Gastric bypass surgery",
+      "Fat malabsorption conditions (e.g., Crohn’s disease, celiac disease, ulcerative colitis)"
+    ],
+    "special_cases": [
+      "Breastfed infants require supplementation",
+      "Older adults have reduced skin synthesis of vitamin D",
+      "People with dark skin produce less vitamin D from sunlight",
+      "Individuals with obesity may need higher doses",
+      "People with gastric bypass surgery may require supplementation"
+    ],
+    "cases_when_not_recommended": [
+      "Excessive vitamin D intake can cause hypercalcemia, kidney stones, and toxicity",
+      "Combination of vitamin D and thiazide diuretics may lead to hypercalcemia",
+      "High doses of vitamin D may reduce the potency of certain statins",
+      "Vitamin D supplementation does not reduce fractures or falls in community-dwelling older adults"
+    ],
+    "key_actions": [
+      "Promotes calcium absorption",
+      "Maintains serum calcium and phosphate levels",
+      "Supports bone mineralization",
+      "Reduces inflammation",
+      "Modulates cell growth and immune function"
+    ],
+    "relevant_conditions": [
+      "Osteoporosis",
+      "Rickets",
+      "Osteomalacia",
+      "Cancer mortality",
+      "Cardiovascular disease",
+      "Depression",
+      "Multiple sclerosis",
+      "Type 2 diabetes"
+    ],
+    "biomarkers_mentioned": [
+      "Calcium",
+      "Hemoglobin A1C",
+      "Triglycerides",
+      "LDL Cholesterol",
+      "HDL Cholesterol",
+      "25-(OH) Vitamin D",
+      "Total Cholesterol"
+    ],
+    "biomarker_recommendations": [
+      "Calcium: recommended when low",
+      "Hemoglobin A1C: unclear",
+      "Triglycerides: unclear",
+      "LDL Cholesterol: unclear",
+      "HDL Cholesterol: unclear",
+      "25-(OH) Vitamin D: recommended when low",
+      "Total Cholesterol: unclear"
+    ],
+    "chunk_text": "Vitamin D is essential for calcium absorption and bone health, preventing conditions like osteoporosis, rickets, and osteomalacia. It also plays roles in reducing inflammation, supporting immune function, and modulating cell growth. While supplementation is beneficial for certain groups, excessive intake can lead to toxicity, hypercalcemia, and kidney stones."
+  },
+  "Fluoride": {
+    "ingredient_name": "Fluoride",
+    "core_health_problems": [
+      "Dental caries",
+      "Bone fractures"
+    ],
+    "secondary_health_problems": [
+      "Dental fluorosis",
+      "Skeletal fluorosis"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Access to fluoridated water",
+      "Consumption of foods and beverages made with fluoridated water"
+    ],
+    "special_cases": [
+      "Pregnant women transferring fluoride to fetuses",
+      "Children living in areas with low fluoride in water"
+    ],
+    "cases_when_not_recommended": [
+      "Infants and children receiving excessive fluoride leading to dental fluorosis",
+      "Long-term ingestion of high fluoride levels causing skeletal fluorosis",
+      "Swallowing large amounts of fluoride from dental products or supplements"
+    ],
+    "key_actions": [
+      "Prevents tooth decay",
+      "Strengthens tooth enamel",
+      "Stimulates bone formation",
+      "Inhibits bacterial activity in dental plaque",
+      "Enhances tooth remineralization"
+    ],
+    "relevant_conditions": [
+      "Tooth decay",
+      "Cavities",
+      "Bone health",
+      "Dental fluorosis",
+      "Skeletal fluorosis"
+    ],
+    "biomarkers_mentioned": [
+      "Calcium"
+    ],
+    "biomarker_recommendations": [
+      "unclear"
+    ],
+    "chunk_text": "Fluoride is a mineral that helps prevent tooth decay, strengthens enamel, and supports bone health. It is commonly obtained from fluoridated water, dental products, and some dietary supplements. Excessive fluoride intake can lead to conditions like dental fluorosis or skeletal fluorosis, particularly in children and those exposed to high levels over time."
+  },
+  "Folate": {
+    "ingredient_name": "Folate",
+    "core_health_problems": [
+      "Neural tube defects",
+      "Megaloblastic anemia",
+      "Cardiovascular disease",
+      "Stroke"
+    ],
+    "secondary_health_problems": [
+      "Depression",
+      "Cognitive decline",
+      "Cancer risk modulation",
+      "Preterm birth",
+      "Congenital heart defects"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Alcohol use disorder",
+      "Poor diet",
+      "Malabsorptive disorders"
+    ],
+    "special_cases": [
+      "Women of childbearing age",
+      "Pregnant women",
+      "People with MTHFR polymorphism"
+    ],
+    "cases_when_not_recommended": [
+      "Patients taking methotrexate for cancer",
+      "Patients with vitamin B12 deficiency without medical supervision"
+    ],
+    "key_actions": [
+      "Supports DNA synthesis",
+      "Facilitates cell division",
+      "Lowers homocysteine levels",
+      "Prevents neural tube defects"
+    ],
+    "relevant_conditions": [
+      "Neural tube defects",
+      "Megaloblastic anemia",
+      "Depression",
+      "Stroke",
+      "Congenital heart defects",
+      "Cognitive decline",
+      "Cancer risk modulation"
+    ],
+    "biomarkers_mentioned": [
+      "Homocysteine"
+    ],
+    "biomarker_recommendations": [
+      "Homocysteine: Recommended when high"
+    ],
+    "chunk_text": "Folate is a B-vitamin essential for DNA synthesis, cell division, and lowering homocysteine levels. It plays a critical role in preventing neural tube defects, supporting cardiovascular health, and reducing the risk of megaloblastic anemia. Folate is particularly important for women of childbearing age, pregnant women, and individuals with certain genetic polymorphisms."
+  },
+  "Iodine": {
+    "ingredient_name": "Iodine",
+    "core_health_problems": [
+      "Thyroid hormone production issues",
+      "Fetal and infant developmental problems",
+      "Cognitive function impairment during childhood"
+    ],
+    "secondary_health_problems": [
+      "Fibrocystic breast disease",
+      "Radiation-induced thyroid cancer"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Not using iodized salt",
+      "Following a vegan diet",
+      "Consuming few or no dairy products, seafood, and eggs",
+      "Living in regions with iodine-deficient soils",
+      "Consuming foods containing goitrogens"
+    ],
+    "special_cases": [
+      "Pregnant women needing higher iodine intake",
+      "Lactating women requiring sufficient iodine for breast milk",
+      "Infants depending on maternal iodine sufficiency"
+    ],
+    "cases_when_not_recommended": [
+      "Taking high doses of iodine with antithyroid medications",
+      "Using potassium iodide with ACE inhibitors",
+      "Using potassium iodide with potassium-sparing diuretics"
+    ],
+    "key_actions": [
+      "Supports thyroid hormone synthesis",
+      "Regulates metabolism",
+      "Promotes proper skeletal and brain development",
+      "Reduces risk of thyroid cancer in radiation emergencies"
+    ],
+    "relevant_conditions": [
+      "Goiter",
+      "Hypothyroidism",
+      "Cretinism",
+      "Fibrocystic breast disease",
+      "Radiation-induced thyroid cancer"
+    ],
+    "biomarkers_mentioned": [
+      "Thyroid Stimulating Hormone (TSH)"
+    ],
+    "biomarker_recommendations": [
+      "TSH: unclear"
+    ],
+    "chunk_text": "Iodine is essential for thyroid hormone production, which regulates metabolism and supports fetal and infant development. It is particularly important for pregnant and lactating women, as well as infants, to ensure proper growth and cognitive function. Iodine also plays a role in preventing goiter, fibrocystic breast disease, and radiation-induced thyroid cancer."
+  },
+  "Iron": {
+    "ingredient_name": "Iron",
+    "core_health_problems": [
+      "Iron deficiency anemia",
+      "Anemia of chronic disease"
+    ],
+    "secondary_health_problems": [
+      "Impaired cognitive function",
+      "Immune dysfunction",
+      "Difficulty concentrating",
+      "Fatigue",
+      "Body temperature regulation issues"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Vegetarian diet",
+      "Heavy menstrual bleeding",
+      "Frequent blood donation",
+      "Poor diet",
+      "Malabsorptive disorders",
+      "Blood loss"
+    ],
+    "special_cases": [
+      "Pregnancy",
+      "Infants and young children",
+      "Cancer patients",
+      "People with gastrointestinal disorders or surgeries",
+      "Heart failure patients"
+    ],
+    "cases_when_not_recommended": [
+      "Hereditary hemochromatosis",
+      "Concurrent use of vitamin C supplements in hemochromatosis",
+      "Taking levothyroxine within 4 hours of iron supplements",
+      "Taking levodopa with iron supplements"
+    ],
+    "key_actions": [
+      "Supports hemoglobin production",
+      "Facilitates oxygen transport in the body",
+      "Supports myoglobin for muscle metabolism",
+      "Contributes to hormone synthesis",
+      "Enhances erythropoiesis"
+    ],
+    "relevant_conditions": [
+      "Iron deficiency anemia",
+      "Anemia of chronic disease",
+      "Low birthweight in infants",
+      "Premature birth",
+      "Impaired infant brain development",
+      "Delayed psychological development in children"
+    ],
+    "biomarkers_mentioned": [
+      "Ferritin",
+      "Hemoglobin",
+      "Hematocrit"
+    ],
+    "biomarker_recommendations": [
+      "Ferritin: low",
+      "Hemoglobin: low",
+      "Hematocrit: low"
+    ],
+    "chunk_text": "Iron is a mineral essential for hemoglobin production, oxygen transport, and hormone synthesis. It addresses conditions such as iron deficiency anemia and anemia of chronic disease, while supporting cognitive function, immune health, and muscle metabolism. Special considerations include pregnancy, infants, and individuals with gastrointestinal disorders, while contraindications include hereditary hemochromatosis and certain medication interactions."
+  },
+  "Vitamin K": {
+    "ingredient_name": "Vitamin K",
+    "core_health_problems": [
+      "Osteoporosis",
+      "Coronary heart disease"
+    ],
+    "secondary_health_problems": [
+      "Vascular calcification",
+      "Bleeding disorders"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Malabsorption disorders",
+      "Bariatric surgery"
+    ],
+    "special_cases": [
+      "Newborns not treated with vitamin K at birth",
+      "People with malabsorption disorders"
+    ],
+    "cases_when_not_recommended": [
+      "Interactions with warfarin (Coumadin) and similar anticoagulants"
+    ],
+    "key_actions": [
+      "Supports blood clotting",
+      "Improves bone health",
+      "Reduces vascular calcification"
+    ],
+    "relevant_conditions": [
+      "Osteoporosis",
+      "Coronary heart disease",
+      "Vitamin K deficiency bleeding (VKDB)"
+    ],
+    "biomarkers_mentioned": [
+      "Calcium"
+    ],
+    "biomarker_recommendations": [
+      "unclear"
+    ],
+    "chunk_text": "Vitamin K is a fat-soluble nutrient essential for blood clotting, bone health, and reducing vascular calcification. It is particularly important for individuals with osteoporosis and coronary heart disease, and its deficiency can lead to bleeding disorders. Special considerations include newborns and individuals with malabsorption disorders, while caution is advised for those taking warfarin due to potential interactions."
+  },
+  "Magnesium": {
+    "ingredient_name": "Magnesium",
+    "core_health_problems": [
+      "Hypertension",
+      "Type 2 diabetes",
+      "Osteoporosis",
+      "Migraine headaches"
+    ],
+    "secondary_health_problems": [
+      "Cardiovascular disease",
+      "Stroke",
+      "Insulin resistance"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Chronic alcoholism",
+      "Low dietary intake",
+      "Older age"
+    ],
+    "special_cases": [
+      "People with gastrointestinal diseases (e.g., Crohn's disease, celiac disease)",
+      "People with type 2 diabetes",
+      "People with long-term alcoholism",
+      "Older adults with chronic diseases or medications affecting magnesium status"
+    ],
+    "cases_when_not_recommended": [
+      "High doses of magnesium supplements or medications in individuals with impaired renal function or kidney failure"
+    ],
+    "key_actions": [
+      "Regulates muscle and nerve function",
+      "Controls blood glucose levels",
+      "Regulates blood pressure",
+      "Supports protein synthesis",
+      "Contributes to bone health",
+      "Involved in DNA and RNA synthesis",
+      "Plays a role in energy production and oxidative phosphorylation"
+    ],
+    "relevant_conditions": [
+      "Hypertension",
+      "Cardiovascular disease",
+      "Type 2 diabetes",
+      "Osteoporosis",
+      "Migraine headaches",
+      "Magnesium deficiency"
+    ],
+    "biomarkers_mentioned": [
+      "Calcium",
+      "25-(OH) Vitamin D"
+    ],
+    "biomarker_recommendations": [
+      "Calcium: unclear",
+      "25-(OH) Vitamin D: unclear"
+    ],
+    "chunk_text": "Magnesium is a vital nutrient involved in muscle and nerve function, blood glucose control, and blood pressure regulation. It supports bone health, energy production, and the synthesis of DNA and RNA. Magnesium may help with conditions such as hypertension, type 2 diabetes, osteoporosis, and migraines, though excessive supplementation can pose risks, particularly for individuals with kidney issues."
+  },
+  "Manganese": {
+    "ingredient_name": "Manganese",
+    "core_health_problems": [
+      "Bone health",
+      "Diabetes"
+    ],
+    "secondary_health_problems": [
+      "Oxidative stress",
+      "Endothelial dysfunction"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Iron deficiency increases manganese absorption",
+      "Chronic liver disease impairs manganese elimination"
+    ],
+    "special_cases": [
+      "Infants absorb higher proportions of manganese than adults",
+      "Formula-fed infants retain about 20% of the manganese they consume"
+    ],
+    "cases_when_not_recommended": [
+      "People with chronic liver disease are more susceptible to manganese neurotoxicity",
+      "People should not consume more manganese than the upper limits unless recommended by a healthcare provider"
+    ],
+    "key_actions": [
+      "Cofactor for enzymes involved in amino acid, cholesterol, glucose, and carbohydrate metabolism",
+      "Reactive oxygen species scavenging",
+      "Bone formation",
+      "Blood clotting and hemostasis in conjunction with vitamin K"
+    ],
+    "relevant_conditions": [
+      "Osteoporosis",
+      "Type 2 diabetes",
+      "Mood changes",
+      "Premenstrual pain"
+    ],
+    "biomarkers_mentioned": [
+      "Ferritin"
+    ],
+    "biomarker_recommendations": [
+      "Ferritin: low"
+    ],
+    "chunk_text": "Manganese is an essential trace element involved in bone formation, glucose metabolism, and reactive oxygen species scavenging. It plays a role in maintaining bone health and may influence diabetes risk, though research is inconclusive. Iron deficiency increases manganese absorption, and individuals with chronic liver disease are at higher risk of manganese toxicity."
+  },
+  "Molybdenum": {
+    "ingredient_name": "Molybdenum",
+    "core_health_problems": [
+      "Molybdenum cofactor deficiency"
+    ],
+    "secondary_health_problems": [
+      "Seizures",
+      "Severe brain damage",
+      "Encephalopathy",
+      "Tachycardia",
+      "Tachypnea",
+      "Headache",
+      "Night blindness",
+      "Coma"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Exposure to high levels of molybdenum in air and soil (e.g., mining and metalworking)"
+    ],
+    "special_cases": [
+      "Rare genetic disorder preventing molybdenum utilization (molybdenum cofactor deficiency)",
+      "Acquired molybdenum deficiency during total parenteral nutrition devoid of molybdenum"
+    ],
+    "cases_when_not_recommended": [
+      "Excessive intake leading to achy joints, gout-like symptoms, and high uric acid levels"
+    ],
+    "key_actions": [
+      "Processes proteins and genetic material like DNA",
+      "Breaks down drugs and toxic substances",
+      "Metabolizes sulfur-containing amino acids and heterocyclic compounds",
+      "Regulates molybdenum levels via kidneys"
+    ],
+    "relevant_conditions": [
+      "Rare genetic disorder (molybdenum cofactor deficiency)",
+      "Industrial exposure to molybdenum"
+    ],
+    "biomarkers_mentioned": [],
+    "biomarker_recommendations": [],
+    "chunk_text": "Molybdenum is an essential mineral that supports protein and DNA processing, as well as the breakdown of drugs and toxins. Deficiency is rare but can occur in individuals with molybdenum cofactor deficiency or during parenteral nutrition lacking molybdenum. Excessive exposure, such as in mining or metalworking, may lead to gout-like symptoms and high uric acid levels."
+  },
+  "Niacin": {
+    "ingredient_name": "Niacin",
+    "core_health_problems": [
+      "Pellagra",
+      "Hyperlipidemia"
+    ],
+    "secondary_health_problems": [
+      "Cardiovascular disease",
+      "Liver problems",
+      "Diabetes"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Undernutrition",
+      "Alcohol use disorder",
+      "Anorexia",
+      "Inflammatory bowel disease",
+      "Liver cirrhosis",
+      "Low iron intake",
+      "Low riboflavin intake",
+      "Low vitamin B6 intake"
+    ],
+    "special_cases": [
+      "Hartnup disease",
+      "Carcinoid syndrome"
+    ],
+    "cases_when_not_recommended": [
+      "Persistent hyperglycemia",
+      "Acute gout",
+      "Unexplained abdominal pain",
+      "New-onset atrial fibrillation",
+      "Severe skin reactions",
+      "Weight loss",
+      "Hepatic transaminase levels more than two or three times the upper limits of normal"
+    ],
+    "key_actions": [
+      "Helps turn food into energy",
+      "Supports cell development and function",
+      "Lowers LDL cholesterol",
+      "Raises HDL cholesterol",
+      "Lowers triglycerides",
+      "Supports antioxidant function",
+      "Maintains genome integrity",
+      "Controls gene expression",
+      "Facilitates cellular communication"
+    ],
+    "relevant_conditions": [
+      "Atherosclerosis",
+      "High blood cholesterol",
+      "Low HDL cholesterol",
+      "High LDL cholesterol",
+      "High triglycerides",
+      "Diabetes",
+      "Skin flushing",
+      "Hepatitis",
+      "Liver failure"
+    ],
+    "biomarkers_mentioned": [
+      "HDL Cholesterol",
+      "LDL Cholesterol",
+      "Triglycerides",
+      "Hemoglobin A1C",
+      "Alanine Aminotransferase (ALT)",
+      "Aspartate Aminotransferase (AST)",
+      "Lipoprotein (a)"
+    ],
+    "biomarker_recommendations": [
+      {
+        "HDL Cholesterol": "high"
+      },
+      {
+        "LDL Cholesterol": "low"
+      },
+      {
+        "Triglycerides": "low"
+      },
+      {
+        "Hemoglobin A1C": "unclear"
+      },
+      {
+        "Alanine Aminotransferase (ALT)": "unclear"
+      },
+      {
+        "Aspartate Aminotransferase (AST)": "unclear"
+      },
+      {
+        "Lipoprotein (a)": "low"
+      }
+    ],
+    "chunk_text": "Niacin, also known as vitamin B3, plays a critical role in energy production, cell function, and maintaining genome integrity. It is effective in lowering LDL cholesterol, raising HDL cholesterol, and reducing triglycerides, though high doses can lead to side effects such as skin flushing, liver problems, and increased blood sugar levels. Niacin is particularly beneficial for conditions like pellagra, hyperlipidemia, and atherosclerosis but should be used cautiously in individuals with liver issues, diabetes, or severe skin reactions."
+  },
+  "Omega-3 Fatty Acids": {
+    "ingredient_name": "Omega-3 Fatty Acids",
+    "core_health_problems": [
+      "Cardiovascular disease",
+      "Infant health and neurodevelopment",
+      "Age-related macular degeneration (AMD)"
+    ],
+    "secondary_health_problems": [
+      "Dry eye disease",
+      "Rheumatoid arthritis",
+      "Cancer prevention",
+      "Alzheimer’s disease and cognitive function"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Low seafood consumption",
+      "Pregnancy and breastfeeding"
+    ],
+    "special_cases": [
+      "Pregnancy and breastfeeding (recommended 8-12 ounces of seafood per week)",
+      "High triglyceride levels (recommended prescription omega-3s)"
+    ],
+    "cases_when_not_recommended": [
+      "High risk of bleeding when taken with anticoagulants like warfarin",
+      "High doses (above 5 g/day EPA and DHA) may increase risk of atrial fibrillation"
+    ],
+    "key_actions": [
+      "Anti-inflammatory effects",
+      "Reduction of triglyceride levels",
+      "Support for cell membrane integrity"
+    ],
+    "relevant_conditions": [
+      "Cardiovascular disease",
+      "Dry eye disease",
+      "Rheumatoid arthritis",
+      "Preterm birth",
+      "Alzheimer’s disease",
+      "Cancer (breast and colorectal)",
+      "Age-related macular degeneration (AMD)"
+    ],
+    "biomarkers_mentioned": [
+      "Triglycerides"
+    ],
+    "biomarker_recommendations": [
+      "low"
+    ],
+    "chunk_text": "Omega-3 fatty acids are essential components of cell membranes and play key roles in cardiovascular health, infant neurodevelopment, and reducing inflammation. They are found in foods like fish and flaxseed, as well as supplements such as fish oil. Omega-3s are particularly beneficial for managing triglyceride levels and supporting heart health, but high doses may increase the risk of bleeding or atrial fibrillation."
+  },
+  "Pantothenic Acid": {
+    "ingredient_name": "Pantothenic Acid",
+    "core_health_problems": [
+      "Hyperlipidemia",
+      "Neurodegeneration associated with brain iron accumulation (PKAN)"
+    ],
+    "secondary_health_problems": [
+      "High cholesterol",
+      "High triglyceride levels"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Severe malnutrition"
+    ],
+    "special_cases": [
+      "People with pantothenate kinase-associated neurodegeneration (PKAN)"
+    ],
+    "cases_when_not_recommended": [],
+    "key_actions": [
+      "Synthesis of coenzyme A (CoA)",
+      "Fatty acid synthesis and degradation",
+      "Lipoprotein metabolism"
+    ],
+    "relevant_conditions": [
+      "Hyperlipidemia",
+      "High cholesterol",
+      "High triglyceride levels",
+      "Neurodegeneration associated with brain iron accumulation (PKAN)"
+    ],
+    "biomarkers_mentioned": [
+      "HDL Cholesterol",
+      "LDL Cholesterol",
+      "Triglycerides",
+      "Total Cholesterol"
+    ],
+    "biomarker_recommendations": [
+      "HDL Cholesterol: recommended when high",
+      "LDL Cholesterol: recommended when low",
+      "Triglycerides: recommended when low",
+      "Total Cholesterol: recommended when low"
+    ],
+    "chunk_text": "Pantothenic acid, also known as vitamin B5, plays a key role in the synthesis of coenzyme A (CoA) and fatty acid metabolism. It is being studied for its potential benefits in managing hyperlipidemia, including lowering LDL cholesterol, triglycerides, and total cholesterol while increasing HDL cholesterol. Additionally, it may have relevance in addressing neurodegeneration associated with brain iron accumulation (PKAN)."
+  },
+  "Phosphorus": {
+    "ingredient_name": "Phosphorus",
+    "core_health_problems": [
+      "Chronic kidney disease (CKD)",
+      "Cardiovascular disease (CVD)"
+    ],
+    "secondary_health_problems": [
+      "Bone mineralization issues",
+      "Refeeding syndrome"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Excessive alcohol intake",
+      "Chewing or swallowing problems"
+    ],
+    "special_cases": [
+      "Preterm newborns",
+      "People with genetic phosphate regulation disorders",
+      "Patients with severe malnutrition"
+    ],
+    "cases_when_not_recommended": [
+      "People with kidney disease",
+      "People with heart disease",
+      "People with dehydration"
+    ],
+    "key_actions": [
+      "Regulation of gene transcription",
+      "Activation of enzymes",
+      "Maintenance of normal pH in extracellular fluid",
+      "Intracellular energy storage"
+    ],
+    "relevant_conditions": [
+      "Osteopenia of prematurity",
+      "X-linked hypophosphatemic rickets",
+      "Refeeding hypophosphatemia"
+    ],
+    "biomarkers_mentioned": [
+      "Calcium",
+      "Creatinine",
+      "Blood Urea Nitrogen (BUN)",
+      "eGFR"
+    ],
+    "biomarker_recommendations": [
+      {
+        "Calcium": "unclear"
+      },
+      {
+        "Creatinine": "unclear"
+      },
+      {
+        "Blood Urea Nitrogen (BUN)": "unclear"
+      },
+      {
+        "eGFR": "unclear"
+      }
+    ],
+    "chunk_text": "Phosphorus is an essential mineral involved in energy production, gene transcription, and enzyme activation. It plays a critical role in bone health and is linked to conditions such as chronic kidney disease and cardiovascular disease. Special considerations include preterm newborns, genetic phosphate regulation disorders, and malnutrition-related refeeding syndrome."
+  },
+  "Potassium": {
+    "ingredient_name": "Potassium",
+    "core_health_problems": [
+      "Hypertension",
+      "Stroke",
+      "Kidney stones",
+      "Bone health issues",
+      "Type 2 diabetes"
+    ],
+    "secondary_health_problems": [
+      "Hyperkalemia",
+      "Hypokalemia",
+      "Cardiac arrhythmias",
+      "Glucose intolerance"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "High sodium intake",
+      "Low intake of fruits and vegetables",
+      "Use of diuretics",
+      "Laxative abuse",
+      "Heavy sweating",
+      "Eating clay (pica)",
+      "Prolonged diarrhea or vomiting"
+    ],
+    "special_cases": [
+      "People with inflammatory bowel disease",
+      "People with chronic kidney disease",
+      "People with adrenal insufficiency",
+      "People with congestive heart failure",
+      "People with type 1 diabetes",
+      "People with liver disease"
+    ],
+    "cases_when_not_recommended": [
+      "People with impaired potassium excretion",
+      "People taking ACE inhibitors",
+      "People taking potassium-sparing diuretics",
+      "People at risk of hyperkalemia"
+    ],
+    "key_actions": [
+      "Regulates blood pressure",
+      "Supports nerve transmission",
+      "Aids muscle contraction",
+      "Maintains kidney function",
+      "Reduces calcium loss in urine",
+      "Improves bone mineral density",
+      "Supports insulin secretion"
+    ],
+    "relevant_conditions": [
+      "Hypertension",
+      "Stroke",
+      "Kidney stones",
+      "Bone mineral density loss",
+      "Type 2 diabetes",
+      "Hypokalemia",
+      "Hyperkalemia",
+      "Cardiac arrhythmias"
+    ],
+    "biomarkers_mentioned": [
+      "Calcium",
+      "Creatinine"
+    ],
+    "biomarker_recommendations": [
+      "Calcium: unclear",
+      "Creatinine: unclear"
+    ],
+    "chunk_text": "Potassium is an essential mineral that supports blood pressure regulation, nerve transmission, muscle contraction, and kidney function. It is beneficial for conditions such as hypertension, stroke, kidney stones, and type 2 diabetes, and it may improve bone mineral density. However, it should be used cautiously in individuals with impaired potassium excretion or those taking certain medications like ACE inhibitors or potassium-sparing diuretics."
+  },
+  "Probiotics": {
+    "ingredient_name": "Probiotics",
+    "core_health_problems": [
+      "Atopic dermatitis",
+      "Pediatric acute infectious diarrhea",
+      "Antibiotic-associated diarrhea",
+      "Necrotizing enterocolitis",
+      "Inflammatory bowel disease",
+      "Irritable bowel syndrome",
+      "Hypercholesterolemia",
+      "Obesity"
+    ],
+    "secondary_health_problems": [
+      "Digestive tract protection",
+      "Gut microbiome improvement",
+      "Reduction of inflammation",
+      "Improved digestion and gut function"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Consumption of antibiotics",
+      "Dietary intake of fermented or unfermented foods with added probiotics"
+    ],
+    "special_cases": [
+      "Probiotics might reduce the risk of atopic dermatitis when taken during pregnancy and infancy",
+      "Probiotics might reduce the risk of necrotizing enterocolitis in preterm infants when specific strains are used",
+      "Probiotics might reduce symptoms of ulcerative colitis when combined with medications"
+    ],
+    "cases_when_not_recommended": [
+      "Probiotics might not be safe for preterm infants due to risk of infections",
+      "Probiotics might cause harm in people who are severely ill or immunocompromised",
+      "Probiotics are not recommended for Crohn’s disease",
+      "Probiotics are not recommended for children with acute infectious gastroenteritis in the United States and Canada"
+    ],
+    "key_actions": [
+      "Protect the digestive tract from harmful microorganisms",
+      "Improve digestion and gut function",
+      "Influence the gut microbiome",
+      "Reduce inflammation",
+      "Produce bioactive metabolites",
+      "Normalize perturbed microbiota",
+      "Reduce luminal pH in the colon",
+      "Strengthen gut barrier function"
+    ],
+    "relevant_conditions": [
+      "Atopic dermatitis",
+      "Pediatric acute infectious diarrhea",
+      "Antibiotic-associated diarrhea",
+      "Necrotizing enterocolitis",
+      "Inflammatory bowel disease",
+      "Irritable bowel syndrome",
+      "Hypercholesterolemia",
+      "Obesity"
+    ],
+    "biomarkers_mentioned": [
+      "LDL Cholesterol",
+      "Total Cholesterol"
+    ],
+    "biomarker_recommendations": [
+      "LDL Cholesterol: recommended when high",
+      "Total Cholesterol: recommended when high"
+    ],
+    "chunk_text": "Probiotics are live microorganisms that provide health benefits, particularly in the digestive tract, by improving gut microbiome composition and function. They may help manage conditions such as atopic dermatitis, pediatric diarrhea, antibiotic-associated diarrhea, and irritable bowel syndrome, among others. However, probiotics are not recommended for preterm infants or immunocompromised individuals due to potential safety concerns."
+  },
+  "Riboflavin": {
+    "ingredient_name": "Riboflavin",
+    "core_health_problems": [
+      "Migraine headaches",
+      "Cancer prevention"
+    ],
+    "secondary_health_problems": [
+      "Anemia",
+      "Cataracts"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Vegetarian athletes",
+      "Pregnant or lactating women who rarely consume meats or dairy products",
+      "People who are vegan and/or consume little milk"
+    ],
+    "special_cases": [
+      "People with riboflavin transporter deficiency"
+    ],
+    "cases_when_not_recommended": [],
+    "key_actions": [
+      "Plays a role in energy production",
+      "Supports cellular function, growth, and development",
+      "Helps maintain normal levels of homocysteine",
+      "Supports metabolism of fats, drugs, and steroids"
+    ],
+    "relevant_conditions": [
+      "Migraine headaches",
+      "Riboflavin deficiency",
+      "Preeclampsia",
+      "Congenital heart defects",
+      "Colorectal cancer",
+      "Lung cancer"
+    ],
+    "biomarkers_mentioned": [],
+    "biomarker_recommendations": [],
+    "chunk_text": "Riboflavin, also known as vitamin B2, is essential for energy production, cellular function, and the metabolism of fats, drugs, and steroids. It may help prevent migraine headaches and support cancer prevention, though evidence is mixed. Riboflavin deficiency is rare but can lead to anemia, cataracts, and other health issues, particularly in at-risk groups such as vegetarian athletes, vegans, and individuals with riboflavin transporter deficiency."
+  },
+  "Selenium": {
+    "ingredient_name": "Selenium",
+    "core_health_problems": [
+      "Thyroid disease",
+      "Cancer",
+      "Cardiovascular disease",
+      "Cognitive decline",
+      "Alzheimer’s disease",
+      "HIV infection",
+      "Male fertility"
+    ],
+    "secondary_health_problems": [
+      "Keshan disease",
+      "Kashin-Beck disease",
+      "Congenital hypothyroidism",
+      "Postpartum thyroiditis",
+      "Chronic autoimmune thyroiditis (Hashimoto’s thyroiditis)"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Smoking",
+      "Vegetarian or vegan dietary patterns",
+      "Diets consisting mostly of plant foods grown in selenium-deficient soils"
+    ],
+    "special_cases": [
+      "People undergoing kidney dialysis",
+      "People living with HIV",
+      "Pregnant women with HIV",
+      "People living in selenium-deficient regions"
+    ],
+    "cases_when_not_recommended": [
+      "Men over age 55 with high baseline selenium status",
+      "Pregnant women with thyroid peroxidase antibodies (TPOAb) as per American Thyroid Association recommendation"
+    ],
+    "key_actions": [
+      "Supports thyroid hormone production",
+      "Protects cells from oxidative damage",
+      "Supports immune function",
+      "Plays a role in DNA synthesis",
+      "Supports reproduction",
+      "Reduces inflammation",
+      "Acts as an antioxidant"
+    ],
+    "relevant_conditions": [
+      "Thyroid disease",
+      "Prostate cancer",
+      "Colorectal cancer",
+      "Lung cancer",
+      "Bladder cancer",
+      "Skin cancer",
+      "Esophageal cancer",
+      "Gastric cancer",
+      "Cardiovascular disease",
+      "Cognitive decline",
+      "Alzheimer’s disease",
+      "HIV infection",
+      "Male infertility",
+      "Postpartum thyroiditis",
+      "Chronic autoimmune thyroiditis (Hashimoto’s thyroiditis)"
+    ],
+    "biomarkers_mentioned": [
+      "Thyroid Stimulating Hormone (TSH)",
+      "Total Cholesterol",
+      "HDL Cholesterol",
+      "Non-HDL Cholesterol"
+    ],
+    "biomarker_recommendations": [
+      "TSH: unclear",
+      "Total Cholesterol: unclear",
+      "HDL Cholesterol: unclear",
+      "Non-HDL Cholesterol: unclear"
+    ],
+    "chunk_text": "Selenium is an essential nutrient that supports thyroid hormone production, immune function, and DNA synthesis. It plays a role in reducing inflammation and oxidative damage, with potential benefits for thyroid disease, certain cancers, cardiovascular health, cognitive decline, and male fertility. Selenium supplementation may be beneficial in specific populations, such as those undergoing kidney dialysis or living in selenium-deficient regions, but it is not recommended for men over 55 with high selenium status or pregnant women with thyroid autoimmunity."
+  },
+  "Valerian": {
+    "ingredient_name": "Valerian",
+    "core_health_problems": [
+      "Insomnia",
+      "Sleep disorders"
+    ],
+    "secondary_health_problems": [
+      "Nervous tension",
+      "Gastrointestinal spasms",
+      "Epileptic seizures",
+      "Attention deficit hyperactivity disorder"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [],
+    "special_cases": [
+      "Theoretical possibility of additive sedative effects from alcohol or sedative drugs such as barbiturates and benzodiazepines"
+    ],
+    "cases_when_not_recommended": [
+      "Women who are pregnant or nursing",
+      "Children younger than 3 years old"
+    ],
+    "key_actions": [
+      "Sedative effects",
+      "May increase gamma aminobutyric acid (GABA) availability in the synaptic cleft",
+      "May block GABA reuptake into nerve cells",
+      "May inhibit an enzyme that destroys GABA"
+    ],
+    "relevant_conditions": [
+      "Insomnia",
+      "Sleep disorders",
+      "Nervous tension"
+    ],
+    "biomarkers_mentioned": [],
+    "biomarker_recommendations": [],
+    "chunk_text": "Valerian is a dietary supplement commonly used for insomnia and other sleep disorders. It may exert sedative effects by increasing GABA availability, blocking GABA reuptake, and inhibiting enzymes that destroy GABA. While some studies suggest potential benefits, evidence remains inconclusive due to methodological flaws and variability in valerian preparations."
+  },
+  "Zinc": {
+    "ingredient_name": "Zinc",
+    "core_health_problems": [
+      "Diarrhea in children",
+      "Age-related macular degeneration (AMD)",
+      "Acute childhood diarrhea",
+      "Pneumonia in children"
+    ],
+    "secondary_health_problems": [
+      "Common cold",
+      "Type 2 diabetes",
+      "HIV-related complications",
+      "Gestational diabetes",
+      "Diabetic foot ulcers"
+    ],
+    "medicine_category": [
+      "Functional"
+    ],
+    "lifestyle_factors": [
+      "Vegetarian or vegan diets",
+      "Alcohol use disorder",
+      "Low intake of absorbable zinc in low-income countries"
+    ],
+    "special_cases": [
+      "Pregnancy",
+      "Lactation",
+      "Older infants who are exclusively breastfed",
+      "Children with sickle cell disease",
+      "People with gastrointestinal disorders or bariatric surgery"
+    ],
+    "cases_when_not_recommended": [
+      "Excessive use of denture adhesive creams containing zinc",
+      "Taking zinc supplements with quinolone or tetracycline antibiotics without proper timing",
+      "Taking zinc supplements with penicillamine without proper timing"
+    ],
+    "key_actions": [
+      "Supports immune function",
+      "Aids in DNA and protein synthesis",
+      "Promotes wound healing",
+      "Enhances growth and development",
+      "Maintains mucosal integrity of the gastrointestinal system"
+    ],
+    "relevant_conditions": [
+      "Common cold",
+      "Pneumonia",
+      "HIV",
+      "Diarrhea",
+      "Age-related macular degeneration",
+      "Type 2 diabetes",
+      "Gestational diabetes",
+      "Diabetic foot ulcers"
+    ],
+    "biomarkers_mentioned": [
+      "HDL Cholesterol",
+      "LDL Cholesterol",
+      "Triglycerides",
+      "Total Cholesterol",
+      "Hemoglobin A1C",
+      "C-Reactive Protein"
+    ],
+    "biomarker_recommendations": [
+      {
+        "HDL Cholesterol": "low"
+      },
+      {
+        "LDL Cholesterol": "high"
+      },
+      {
+        "Triglycerides": "high"
+      },
+      {
+        "Total Cholesterol": "high"
+      },
+      {
+        "Hemoglobin A1C": "high"
+      },
+      {
+        "C-Reactive Protein": "high"
+      }
+    ],
+    "chunk_text": "Zinc is an essential mineral that supports immune function, DNA and protein synthesis, wound healing, and growth. It is beneficial for conditions such as diarrhea in children, age-related macular degeneration, and pneumonia. Zinc supplementation may also help manage secondary issues like the common cold, type 2 diabetes, and HIV-related complications, though excessive intake or improper use with certain medications can lead to adverse effects."
+  }
+}
