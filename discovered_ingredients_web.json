@@ -1,0 +1,203 @@
+```json
+{
+  "ingredient_list": [
+    {
+      "rank": 1,
+      "ingredient_name": "Vitamin D",
+      "relevance_score": "High",
+      "source": "PubMed"
+    },
+    {
+      "rank": 2,
+      "ingredient_name": "Magnesium",
+      "relevance_score": "High",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 3,
+      "ingredient_name": "Zinc",
+      "relevance_score": "Medium",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 4,
+      "ingredient_name": "Omega-3 fatty acids",
+      "relevance_score": "Medium",
+      "source": "NIH"
+    },
+    {
+      "rank": 5,
+      "ingredient_name": "Tryptophan",
+      "relevance_score": "Medium",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 6,
+      "ingredient_name": "Probiotics",
+      "relevance_score": "Medium",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 7,
+      "ingredient_name": "Vitamin C",
+      "relevance_score": "Medium",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 8,
+      "ingredient_name": "Vitamin B12",
+      "relevance_score": "Low",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 9,
+      "ingredient_name": "Ashwagandha",
+      "relevance_score": "Medium",
+      "source": "NIH"
+    },
+    {
+      "rank": 10,
+      "ingredient_name": "Fenugreek",
+      "relevance_score": "Low",
+      "source": "NIH"
+    },
+    {
+      "rank": 11,
+      "ingredient_name": "Astragalus membranaceus",
+      "relevance_score": "Medium",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 12,
+      "ingredient_name": "Palmitoylethanolamide",
+      "relevance_score": "High",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 13,
+      "ingredient_name": "Shoseiryuto",
+      "relevance_score": "High",
+      "source": "Examine.com"
+    },
+    {
+      "rank": 14,
+      "ingredient_name": "Grape seed extract",
+      "relevance_score": "Medium",
+      "source": "NIH"
+    },
+    {
+      "rank": 15,
+      "ingredient_name": "Pycnogenol",
+      "relevance_score": "Medium",
+      "source": "NIH"
+    }
+  ],
+  "detailed_ingredients": [
+    {
+      "ingredient_name": "Vitamin D",
+      "description": "Associated with improving bone mineral density, preventing nutritional rickets, and reducing risk of autoimmune diseases, hypertension, and infectious diseases. Highly relevant given the user's previous vitamin D deficiency diagnosis and existing supplementation.",
+      "biomarker_relevance": "Directly impacts Calcium (low), potentially influencing Total Protein (low), Albumin (high) through broader metabolic effects. Crucial for bone health and immune function.",
+      "condition_relevance": "Directly addresses existing Vitamin D deficiency, may help with seasonal allergies and overall immune response.",
+      "discovery_query": "Vitamin D deficiency treatment immunity"
+    },
+    {
+      "ingredient_name": "Magnesium",
+      "description": "Supports healthy testosterone levels and may assist in cognitive functioning. Involved in over 300 enzymatic reactions, including energy production, muscle and nerve function, and blood glucose control. User is already taking Magnesium Glycinate for sleep.",
+      "biomarker_relevance": "Can influence Calcium (low) absorption and metabolism. May indirectly affect HbA1c (low) and EAG (Calc.) (low) through glucose regulation.",
+      "condition_relevance": "Supports sleep quality (user's current use), headaches (shift-related), muscle function, and overall metabolic health. Could aid irregular bowel habits.",
+      "discovery_query": "Magnesium benefits sleep headaches metabolism"
+    },
+    {
+      "ingredient_name": "Zinc",
+      "description": "Provides immune support and may help against colds and flu. Crucial for immune function, wound healing, protein synthesis, and DNA synthesis. Deficiency can impair immune response.",
+      "biomarker_relevance": "May indirectly support immune markers like High-Sensitivity CRP (low), though direct correlation needs more study. Important for overall metabolic health.",
+      "condition_relevance": "Supports immune system, relevant for a healthcare worker (night shift RN) with chemical exposures and seasonal allergies.",
+      "discovery_query": "Zinc immune support allergies"
+    },
+    {
+      "ingredient_name": "Omega-3 fatty acids",
+      "description": "May reduce inflammation, support cardiovascular health, and are linked with improved outcomes in coronary events. EPA and DHA are key components.",
+      "biomarker_relevance": "Can significantly impact LDL Cholesterol (high), Triglycerides (low), and Triglyceride:HDL Ratio (high) by improving lipid profiles. Also has anti-inflammatory effects that could influence High-Sensitivity CRP (low).",
+      "condition_relevance": "Reduces systemic inflammation, supports cardiovascular health, and may alleviate symptoms of seasonal allergies due to anti-inflammatory properties. Could help with general wellness for a stressful job.",
+      "discovery_query": "Omega-3 inflammation cardiovascular health allergies"
+    },
+    {
+      "ingredient_name": "Tryptophan",
+      "description": "Discussed as one of the key nutrients for general health and mood support, as it is a precursor to serotonin and melatonin. Important for sleep regulation and mood.",
+      "biomarker_relevance": "Indirectly related to sleep patterns and mood, which can influence hormonal balance. No direct biomarker listed, but impacts overall well-being.",
+      "condition_relevance": "Addresses trouble falling/staying asleep and frequent night waking (user's sleep patterns), potentially aiding with shift-related irregular menstrual cycles and work stress.",
+      "discovery_query": "Tryptophan sleep mood stress"
+    },
+    {
+      "ingredient_name": "Probiotics",
+      "description": "Associated with less cognitive decline and suggested for immune support. Essential for gut health, which impacts immunity, mood, and nutrient absorption.",
+      "biomarker_relevance": "Can improve digestive health, potentially influencing nutrient absorption for biomarkers like Total Protein (low) and Calcium (low). May indirectly affect immune markers.",
+      "condition_relevance": "Addresses irregular bowel habits and supports immune function, important for a healthcare worker. May also aid with mask-related acne.",
+      "discovery_query": "Probiotics gut health irregular bowel immunity"
+    },
+    {
+      "ingredient_name": "Vitamin C",
+      "description": "May provide additional edge in immune defense, particularly against colds and flu. A powerful antioxidant, essential for collagen synthesis and immune function.",
+      "biomarker_relevance": "Contributes to overall antioxidant status and immune function. Indirectly supports immune markers like High-Sensitivity CRP (low).",
+      "condition_relevance": "Boosts immune system, helpful for seasonal allergies and general health, especially for someone in a hospital environment with chemical exposures.",
+      "discovery_query": "Vitamin C immune allergies antioxidant"
+    },
+    {
+      "ingredient_name": "Vitamin B12",
+      "description": "Helpful for maintaining B12 status in populations with low intake, such as vegans. Essential for nerve tissue health, brain function, and the production of red blood cells.",
+      "biomarker_relevance": "No direct flagged biomarker, but important for overall energy and neurological function. Can influence red blood cell parameters.",
+      "condition_relevance": "Supports energy levels, which can be impacted by night shift work. Important for overall neurological health and potentially managing headaches.",
+      "discovery_query": "Vitamin B12 energy night shift headaches"
+    },
+    {
+      "ingredient_name": "Ashwagandha",
+      "description": "Promoted for anti-inflammatory, immune-supportive, and stress-reducing properties. An adaptogen, helps the body manage stress.",
+      "biomarker_relevance": "May help modulate stress response, potentially influencing DHEA-S (high) and indirectly inflammation markers like High-Sensitivity CRP (low).",
+      "condition_relevance": "Highly relevant for high work stress (RN, night shift), trouble sleeping, and irregular menstrual cycles. May also help with skin issues.",
+      "discovery_query": "Ashwagandha stress sleep adaptogen menstrual cycle"
+    },
+    {
+      "ingredient_name": "Fenugreek",
+      "description": "Has anti-inflammatory properties and supports overall health and wellness. May also have benefits for blood sugar control and hormonal balance.",
+      "biomarker_relevance": "May help with blood sugar regulation, potentially influencing HbA1c (low) and EAG (Calc.) (low). Could also have effects on hormonal balance.",
+      "condition_relevance": "Anti-inflammatory benefits for seasonal allergies and general well-being. May support hormonal balance related to irregular cycles.",
+      "discovery_query": "Fenugreek inflammation blood sugar hormonal balance"
+    },
+    {
+      "ingredient_name": "Astragalus membranaceus",
+      "description": "Used in Traditional Chinese Medicine for its anti-inflammatory and immune-modulating effects. Considered an adaptogen that supports vitality and stress response.",
+      "biomarker_relevance": "Supports immune function, potentially impacting High-Sensitivity CRP (low). May also contribute to overall vitality and stress management.",
+      "condition_relevance": "Boosts immunity, relevant for a healthcare professional. Anti-inflammatory effects may help with seasonal allergies and general stress.",
+      "discovery_query": "Astragalus immunity inflammation TCM"
+    },
+    {
+      "ingredient_name": "Palmitoylethanolamide",
+      "description": "Reported to reduce symptom severity in mild-to-moderate seasonal allergies. An endocannabinoid-like lipid mediator with anti-inflammatory and analgesic properties.",
+      "biomarker_relevance": "Directly impacts inflammation and pain pathways. Could help normalize High-Sensitivity CRP (low) if underlying inflammation is present.",
+      "condition_relevance": "Highly relevant for seasonal allergies and chronic pain (headaches, skin issues). Anti-inflammatory actions could help with mask-related acne.",
+      "discovery_query": "Palmitoylethanolamide seasonal allergies inflammation pain"
+    },
+    {
+      "ingredient_name": "Shoseiryuto",
+      "description": "A traditional Japanese herbal medicine that improved symptoms of allergic rhinitis. A multi-herbal formula known for its anti-allergic effects.",
+      "biomarker_relevance": "Addresses inflammatory and immune responses related to allergies, potentially impacting High-Sensitivity CRP (low).",
+      "condition_relevance": "Highly relevant for seasonal allergies. This Traditional Chinese Medicine approach aligns with the user's selected complementary approaches.",
+      "discovery_query": "Shoseiryuto allergic rhinitis seasonal allergies TCM"
+    },
+    {
+      "ingredient_name": "Grape seed extract",
+      "description": "Studied for potential benefits in managing allergic rhinitis and inflammation. Contains proanthocyanidins, potent antioxidants with anti-inflammatory properties.",
+      "biomarker_relevance": "Antioxidant and anti-inflammatory properties could indirectly affect High-Sensitivity CRP (low).",
+      "condition_relevance": "May help alleviate seasonal allergy symptoms and provides general antioxidant support for overall health. Could also benefit skin health.",
+      "discovery_query": "Grape seed extract allergies inflammation antioxidant"
+    },
+    {
+      "ingredient_name": "Pycnogenol",
+      "description": "Considered for support in allergic conditions and general inflammation relief. A potent antioxidant, known to improve microcirculation and reduce oxidative stress.",
+      "biomarker_relevance": "Strong antioxidant and anti-inflammatory effects can influence High-Sensitivity CRP (low) and overall vascular health.",
+      "condition_relevance": "Supports management of seasonal allergies and overall inflammatory conditions. Could also aid with skin health and cardiovascular support.",
+      "discovery_query": "Pycnogenol allergies inflammation antioxidant"
+    }
+  ]
+}
+```

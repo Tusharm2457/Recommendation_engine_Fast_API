@@ -6,12 +6,16 @@ from crewai.tasks.task_output import TaskOutput
 #from crewai_tools import SerperDevTool
 from typing import List
 
-from aether_2.tools.biomarker_evaluation import BiomarkerEvaluationTool
-#from aether_2.tools.fuzzy_dsld_search_tool import FuzzyDSLDSearchTool
-from aether_2.tools.focus_areas_generator import EvaluateFocusAreasTool
-from aether_2.tools.user_profile_compiler import UserProfileCompilerTool
-from aether_2.tools.ingredient_ranker import IngredientRankerTool
-from aether_2.tools.supplement_recommender import SupplementRecommendationTool
+from src.aether_2.tools.biomarker_evaluation import BiomarkerEvaluationTool
+#from src.aether_2.tools.fuzzy_dsld_search_tool import FuzzyDSLDSearchTool
+from src.aether_2.tools.focus_areas_generator import EvaluateFocusAreasTool
+from src.aether_2.tools.user_profile_compiler import UserProfileCompilerTool
+from src.aether_2.tools.web_ingredient_discovery import WebIngredientDiscoveryTool
+from src.aether_2.tools.ingredient_ranker_rag import IngredientRankerRAGTool
+#from src.aether_2.tools.google_search_validator import GoogleSearchValidatorTool
+from src.aether_2.tools.ingredient_ranker import IngredientRankerTool
+from src.aether_2.tools.supplement_recommender import SupplementRecommendationTool
+from src.aether_2.tools.final_supplement_compiler import FinalSupplementCompilerTool
 
 
 # If you want to run a snippet of code before or after the crew starts,
@@ -48,6 +52,14 @@ class Aether2():
         )
     
     @agent
+    def user_profile_compiler(self) -> Agent:
+        return Agent(
+            config=self.agents_config['user_profile_compiler'],
+            verbose=True,
+            tools=[UserProfileCompilerTool()]
+        )
+    
+    @agent
     def focus_area_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['focus_area_agent'],  # <-- add config in agents.yaml
@@ -56,20 +68,37 @@ class Aether2():
         )
     
     @agent
-    def user_profile_compiler(self) -> Agent:
+    def web_ingredient_discovery(self) -> Agent:
         return Agent(
-            config=self.agents_config['user_profile_compiler'],
+            config=self.agents_config['web_ingredient_discovery'],
             verbose=True,
-            tools=[UserProfileCompilerTool()]
+            tools=[WebIngredientDiscoveryTool()]
+        )
+    
+    # Temporarily disabled for testing
+    @agent
+    def ingredient_ranker_rag(self) -> Agent:
+        return Agent(
+            config=self.agents_config['ingredient_ranker_rag'],
+            verbose=True,
+            tools=[IngredientRankerRAGTool()]
         )
 
-    @agent
-    def ingredient_ranker(self) -> Agent:
-        return Agent(
-            config=self.agents_config['ingredient_ranker'],
-            verbose=True,
-            tools=[IngredientRankerTool()]
-        )
+    # @agent
+    # def google_search_validator(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['google_search_validator'],
+    #         verbose=True,
+    #         tools=[GoogleSearchValidatorTool()]
+    #     )
+
+    # @agent
+    # def ingredient_ranker(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['ingredient_ranker'],
+    #         verbose=True,
+    #         tools=[IngredientRankerTool()]
+    #     )
     
     @agent
     def supplement_recommender(self) -> Agent:
@@ -79,41 +108,31 @@ class Aether2():
             tools=[SupplementRecommendationTool()]
         )
 
-    '''
     @agent
-    def ingredient_discovery_agent(self) -> Agent:
+    def final_supplement_compiler(self) -> Agent:
         return Agent(
-            config=self.agents_config['ingredient_discovery_agent'],  # type: ignore[index]
+            config=self.agents_config['final_supplement_compiler'],
             verbose=True,
-            tools=[SerperDevTool()]
+            tools=[FinalSupplementCompilerTool()]
         )
 
-    @agent
-    def supplement_search_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['supplement_search_agent'],  # type: ignore[index]
-            verbose=True,
-            tools=[FuzzyDSLDSearchTool()]
-        )
-    '''
-    #
-    # @task
-    # def summarize_data(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config['summarize_data'],  # type: ignore[index]
-    #     )
-    #
-    # @task
-    # def form_hypothesis(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config['form_hypothesis'],  # type: ignore[index]
-    #         human_input=True
-    #     )
+    
+   
 
     @task
     def evaluate_inputs(self) -> Task:
         return Task(
             config=self.tasks_config['evaluate_inputs'],  # type: ignore[index]
+            output_file="flagged_biomarkers.md"
+        )
+    
+    @task
+    def compile_user_profile(self) -> Task:
+        return Task(
+            config=self.tasks_config['compile_user_profile'],
+            output_file="user_profile.json",
+            context=[self.evaluate_inputs()],  # Pass flagged biomarkers from previous task
+            inputs={"patient_and_blood_data": "The original combined data"} 
         )
     
     @task
@@ -124,44 +143,55 @@ class Aether2():
         )
     
     @task
-    def compile_user_profile(self) -> Task:
+    def discover_ingredients_web(self) -> Task:
         return Task(
-            config=self.tasks_config['compile_user_profile'],
-            output_file="user_profile.json",
-            context=[self.evaluate_inputs()]  # Pass flagged biomarkers from previous task
+            config=self.tasks_config['discover_ingredients_web'],
+            output_file="discovered_ingredients_web.json",
+            context=[self.compile_user_profile()]  # Get user profile from Agent 2
+        )
+    
+    # Temporarily disabled for testing
+    @task
+    def rank_ingredients_rag(self) -> Task:
+        return Task(
+            config=self.tasks_config['rank_ingredients_rag'],
+            output_file="ranked_ingredients_rag.json",
+            context=[self.compile_user_profile()]  # Get user profile from Agent 2
         )
 
-    @task
-    def rank_ingredients(self) -> Task:
-        return Task(
-            config=self.tasks_config['rank_ingredients'],
-            output_file="ranked_ingredients.json",
-            context=[self.compile_user_profile()]
-        )
+    # @task
+    # def validate_ingredients_google(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['validate_ingredients_google'],
+    #         output_file="validated_ingredients_google.json",
+    #         context=[self.compile_user_profile(), self.rank_ingredients_rag()]  # Get user profile and ranked ingredients
+    #     )
+
+    # @task
+    # def rank_ingredients(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['rank_ingredients'],
+    #         output_file="ranked_ingredients.json",
+    #         context=[self.compile_user_profile()]
+    #     )
     
     @task
     def generate_supplement_recommendations(self) -> Task:
         return Task(
             config=self.tasks_config['generate_supplement_recommendations'],
             output_file="supplement_recommendations.json",
-            context=[self.compile_user_profile(), self.rank_ingredients(), self.evaluate_focus_areas()]
-        )
-
-    '''
-    @task
-    def ingredient_discovery_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['ingredient_discovery_task'],  # type: ignore[index]
-            output_file="ingredients.md"
+            context=[self.compile_user_profile(), self.rank_ingredients_rag(), self.discover_ingredients_web()]
         )
 
     @task
-    def search_supplements_for_ingredients(self) -> Task:
+    def compile_final_supplement_recommendations(self) -> Task:
         return Task(
-            config=self.tasks_config['search_supplements_for_ingredients'],  # type: ignore[index]
-            output_file="supplements.md"
+            config=self.tasks_config['compile_final_supplement_recommendations'],
+            output_file="final_supplement_recommendations.json",
+            context=[self.generate_supplement_recommendations(), self.evaluate_focus_areas()]
         )
-    '''
+
+   
     @crew
     def crew(self) -> Crew:
         """Creates the LatestAiDevelopment crew"""

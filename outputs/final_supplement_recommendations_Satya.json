@@ -1,0 +1,104 @@
+{
+  "supplement_recommendations": [
+    {
+      "ingredient_name": "Chromium",
+      "recommended_dosage": "200 mcg",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "CM",
+        "MITO"
+      ],
+      "why": "Chromium supports carbohydrate and lipid metabolism, which is crucial for managing the patient's high LDL cholesterol and Triglyceride:HDL Ratio."
+    },
+    {
+      "ingredient_name": "Niacin",
+      "recommended_dosage": "500 mg (extended-release)",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "CM",
+        "HRM"
+      ],
+      "why": "Niacin improves lipid profiles by lowering LDL cholesterol, raising HDL cholesterol, and reducing triglycerides, directly addressing the patient's elevated lipid biomarkers."
+    },
+    {
+      "ingredient_name": "Vitamin D",
+      "recommended_dosage": "2000 IU",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "CM",
+        "STR"
+      ],
+      "why": "Vitamin D may aid in lipid metabolism and supports bone and cardiovascular health, relevant to managing hypertension and low calcium levels."
+    },
+    {
+      "ingredient_name": "Magnesium",
+      "recommended_dosage": "200 mg",
+      "frequency": "Once daily at bedtime",
+      "focus_area": [
+        "CM",
+        "STR"
+      ],
+      "why": "Magnesium improves blood pressure regulation and may help with low calcium levels, aligned with the patient's hypertension and flagged biomarkers."
+    },
+    {
+      "ingredient_name": "Omega-3 Fatty Acids",
+      "recommended_dosage": "1000 mg EPA + DHA",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "CM",
+        "IMM"
+      ],
+      "why": "Omega-3s provide anti-inflammatory benefits, reduce triglycerides, and support cardiovascular health, which are essential for the patient's cardiometabolic concerns."
+    },
+    {
+      "ingredient_name": "Coenzyme Q10",
+      "recommended_dosage": "100 mg",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "CM",
+        "MITO"
+      ],
+      "why": "Coenzyme Q10 supports blood pressure regulation and cardiovascular function, particularly relevant for the patient's hypertension and statin use."
+    },
+    {
+      "ingredient_name": "Vitamin C",
+      "recommended_dosage": "500 mg",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "CM",
+        "IMM"
+      ],
+      "why": "Vitamin C supports blood pressure regulation and may improve the lipid profile, helping to manage hypertension and elevated lipids."
+    },
+    {
+      "ingredient_name": "Zinc",
+      "recommended_dosage": "15 mg",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "IMM",
+        "CM"
+      ],
+      "why": "Zinc supports immune function and may help with cardiovascular health, relevant to low markers of inflammation and lipid metabolism."
+    },
+    {
+      "ingredient_name": "Red Yeast Rice",
+      "recommended_dosage": "1200 mg",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "CM",
+        "DTX"
+      ],
+      "why": "Red yeast rice lowers cholesterol levels and supports cardiovascular health, addressing elevated LDL and total cholesterol biomarkers."
+    },
+    {
+      "ingredient_name": "Plant Sterols and Stanols",
+      "recommended_dosage": "2000 mg",
+      "frequency": "Once daily with a meal",
+      "focus_area": [
+        "CM",
+        "GA"
+      ],
+      "why": "Plant sterols and stanols help reduce cholesterol absorption in the intestine, complementing the patient's statin therapy for lipid control."
+    }
+  ]
+}

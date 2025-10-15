@@ -1,0 +1,104 @@
+{
+  "supplement_recommendations": [
+    {
+      "ingredient_name": "Magnesium",
+      "recommended_dosage": "400 mg",
+      "frequency": "Once daily, preferably in the evening or before bedtime with food",
+      "focus_area": [
+        "STR",
+        "MITO"
+      ],
+      "why": "Magnesium supports migraine prevention by stabilizing neuronal excitability according to strong evidence in migraine management."
+    },
+    {
+      "ingredient_name": "Riboflavin (Vitamin B2)",
+      "recommended_dosage": "400 mg",
+      "frequency": "Once daily with meals",
+      "focus_area": [
+        "CM",
+        "MITO"
+      ],
+      "why": "Riboflavin is clinically proven to reduce the frequency and severity of migraines by improving mitochondrial energy metabolism."
+    },
+    {
+      "ingredient_name": "CoQ10",
+      "recommended_dosage": "300 mg",
+      "frequency": "Once daily, preferably taken with a meal containing fat",
+      "focus_area": [
+        "MITO",
+        "CM"
+      ],
+      "why": "CoQ10 enhances mitochondrial function, which is associated with reduction in migraine frequency, backed by evidence."
+    },
+    {
+      "ingredient_name": "Omega-3 fatty acids",
+      "recommended_dosage": "2,000 mg EPA + DHA",
+      "frequency": "Once daily with meals",
+      "focus_area": [
+        "IMM",
+        "CM"
+      ],
+      "why": "Omega-3s provide anti-inflammatory benefits and may decrease the inflammatory cascade linked to migraines."
+    },
+    {
+      "ingredient_name": "Vitamin D",
+      "recommended_dosage": "2,000 IU",
+      "frequency": "Once daily with meals",
+      "focus_area": [
+        "IMM",
+        "CM"
+      ],
+      "why": "Vitamin D is implicated in modulating inflammation and preventing migraines, especially given its widespread deficiency in adults."
+    },
+    {
+      "ingredient_name": "Niacin (Vitamin B3)",
+      "recommended_dosage": "100 mg",
+      "frequency": "Once daily with meals",
+      "focus_area": [
+        "STR",
+        "COG"
+      ],
+      "why": "Niacin supports migraine prevention by promoting vasodilation and improved cerebral blood flow."
+    },
+    {
+      "ingredient_name": "Butterbur",
+      "recommended_dosage": "75 mg",
+      "frequency": "Twice daily with meals",
+      "focus_area": [
+        "STR",
+        "COG"
+      ],
+      "why": "Butterbur is an herbal remedy with strong evidence for reducing migraine frequency without significant side effects."
+    },
+    {
+      "ingredient_name": "Feverfew",
+      "recommended_dosage": "100-150 mg",
+      "frequency": "Once daily with meals",
+      "focus_area": [
+        "STR",
+        "IMM"
+      ],
+      "why": "Feverfew has evidence for preventing migraines by regulating serotonin release and reducing vascular spasms."
+    },
+    {
+      "ingredient_name": "Curcumin",
+      "recommended_dosage": "500-1,000 mg",
+      "frequency": "Once or twice daily with meals",
+      "focus_area": [
+        "IMM",
+        "DTX"
+      ],
+      "why": "Curcumin offers anti-inflammatory and antioxidant support, which may contribute to migraine prevention and general wellness."
+    },
+    {
+      "ingredient_name": "Chromium",
+      "recommended_dosage": "200 mcg",
+      "frequency": "Once daily with meals",
+      "focus_area": [
+        "CM",
+        "GA"
+      ],
+      "why": "Chromium contributes to blood sugar regulation, which may support migraine management by stabilizing glucose levels."
+    }
+  ]
+}

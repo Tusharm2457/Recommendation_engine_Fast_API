@@ -1,5 +1,5 @@
 from crewai.tools import BaseTool
-from typing import Type, Tuple, ClassVar, Dict, Any, Union
+from typing import Type, ClassVar, Dict, Any, Union
 from pydantic import BaseModel, Field
 import json
 import re
@@ -12,7 +12,7 @@ class BiomarkerEvaluationInput(BaseModel):
     }
     """
     patient_and_blood_data: Union[str, dict] = Field(
-        ..., 
+        ...,
         description="JSON string OR dict with keys: patient_form, blood_report"
     )
 class BiomarkerEvaluationTool(BaseTool):
@@ -22,57 +22,24 @@ class BiomarkerEvaluationTool(BaseTool):
     )
     args_schema: Type[BaseModel] = BiomarkerEvaluationInput
 
-    # Keep all your existing SEVERITY_ORDER, biomarker_ranges, and units dictionaries
+    # Simplified SEVERITY_ORDER with only three categories
     SEVERITY_ORDER: ClassVar[Dict[str, int]] = {
-        # ... (your entire existing SEVERITY_ORDER dictionary remains the same)
-         # ───────── 0  —  Ideal / very low-risk ───────── #
+        # ───────── 0  —  Optimal / Ideal ───────── #
         "optimal": 0,
-        "very_good": 0,  # TC:HDL ratio < 3.5
-        "desirable": 0,  # Trig:HDL ratio < 1
-        "insulin_sensitive": 0,  # HOMA-IR < 1
-        "hrt_optimal": 0,  # TRT / HRT targets
-        "excellent":0,
-
-        # ───────── 1  —  Normal / physiologic range ─── #
-        "normal": 1,
-        "functional": 1,
-        "lab": 1,
-        "lab_range": 1,
-        "healthy": 1,
-        "sufficient": 1,
-        "low_risk": 1,
-        # physiologic female hormone phases
-        "follicular": 1,
-        "mid_cycle": 1,
-        "luteal": 1,
-        "postmeno": 1,
+        
+        # physiologic female hormone phases - these will be handled specially
+        "follicular": 0,
+        "mid_cycle": 0,
+        "luteal": 0,
+        "postmeno": 0,
         # age brackets (handled internally but mapped here for completeness)
-        "age_20_49": 1,
-        "age_40_60": 1,
-        "age_60_plus": 1,
-        "borderline": 1,
+        "age_20_49": 0,
+        "age_40_60": 0,
+        "age_60_plus": 0,
 
-        # ───────── 2  —  Early deviation / mild concern ─ #
-        
-        
-        
-        "prediabetes": 2,
-        "low":2,
-        "high": 2,
-
-        # ───────── 3  —  Clinically high / clear risk ─── #
-        
-        
-        
-        "insulin_resistant": 3,
-        "very_low": 3,
-        "very_high": 3,
-        "diabetes": 3,
-
-        # ───────── 4  —  Critical / danger zone ───────── #
-        "critical": 4,  #high category
-        "severe": 4,    #low category
-        
+        # ───────── 1  —  Low / High (flagged) ─── #
+        "low": 1,
+        "high": 1,
         
     }
 
@@ -81,12 +48,10 @@ class BiomarkerEvaluationTool(BaseTool):
         "Apolipoprotein A1 (APOA1)": {
         "male": {
             "low": (None, 115),
-            "normal": (110, 180),
             "optimal": (115, None)
         },
         "female": {
             "low": (None, 125),
-            "normal": (110, 205),
             "optimal": (125, None)
         }
         },
@@ -95,31 +60,25 @@ class BiomarkerEvaluationTool(BaseTool):
             "male":{
             "low": (None, 66),
             "optimal": (66, 133),
-            "high": (100, 120),
-            "very_high": (120, None)
+            "high": (134, None)
             },
             "female": {
             "low": (None, 60),
             "optimal": (60, 117),
-            "high": (100, 120),
-            "very_high": (120, None)
+            "high": (134, None)
         }
         },
 
         "Alkaline Phosphatase (ALP)": {
             "male": {
-                "very_low": (None, 25),
-                "low": (25, 39),
+                "low": (None, 40),
                 "optimal": (40, 116),
-                "high": (117, 150),
-                "very_high": (151, None)
+                "high": (117, None)
             },
             "female": {
-                "very_low": (None, 20),
-                "low": (20, 34),
+                "low": (None, 35),
                 "optimal": (35, 104),
-                "high": (105, 140),
-                "very_high": (141, None)
+                "high": (105, None)
             }
         },
 
@@ -138,120 +97,130 @@ class BiomarkerEvaluationTool(BaseTool):
         "Cortisol (PM)": {"optimal": (4, 10)},  # ~4 p.m.
         '''
         "Cortisol": {
-            "very_low": (None, 8),
-            "low": (8, 13),
+            "low": (None, 14),
             "optimal": (14, 17),
-            "high": (18, 25),
-            "very_high": (26, None)
+            "high": (17, None)
         },
         "Dehydroepiandrosterone Sulfate (DHEA-S)": {
-            "male": {"severe":(None,100),"normal":(100, 150),
+            "male": {
+            "low": (None, 150),
             "optimal": (150, 250),
-            "functional": (250, 290),
-            "critical":(290,None)},  # adult functional
-            "female": {"severe":(None,100),
-            "normal":(100, 150),
+            "high": (250, None)
+            },
+            "female": {
+            "low": (None, 150),
             "optimal": (150, 200),
-            "critical":(290,None)}
-            # focus on functional ranges, so only those are kept.
+            "high": (200, None)
+            }
         },
         "EAG (Calc.)":{
+            "low": (None, 85),
             "optimal": (85, 107),
-            "prediabetes":(108,137),
-            "diabetes":(138,None)
-
+            "high": (107, None)
         },
         "C-peptide": {
         "male": {
-            "very_low": (None, 0.7),
-            "low": (0.7, 1.0),
+            "low": (None, 1.1),
             "optimal": (1.1, 4.4),
-            "high": (4.5, 6.0),
-            "very_high": (6.1, None)
+            "high": (4.4, None)
         },
         "female": {
-            "very_low": (None, 0.7),
-            "low": (0.7, 1.0),
+            "low": (None, 1.1),
             "optimal": (1.1, 4.4),
-            "high": (4.5, 6.0),
-            "very_high": (6.1, None)
+            "high": (4.4, None)
         }
         },
 
         "Estradiol": {
             "female": {
-                "follicular": (10, 180),
-                "mid_cycle": (100, 300),
-                "luteal": (40, 200),
-                "postmeno": (None, 10),
-                "critical":(400,None)
+                "low": (None, 10),
+                "optimal": (10, 400),
+                "high": (400, None)
             },
             "male": {
-                "severe":(None,10),
-                "very_low":(11,23),
+                "low": (None, 24),
                 "optimal": (24, 39),
-                "critical":(40,None)}
+                "high": (40, None)
+            }
         },
 
         # ---------------- Insulin / glucose control --------------------- #
         "Fasting Insulin": {
             "low": (None, 1.9),
             "optimal": (1.9, 8),
-            "functional": (3, 5),  # tighter preventive window
-            "high": (8, 23),
-            "very_high": (23, None)
+            "high": (8, None)
         },
 
         "HbA1c": {
+            "low": (None, 4),
             "optimal": (4, 5),
-            "normal": (5.1, 5.6),
-            "prediabetes": (5.7, 6.4),
-            "diabetes": (6.5, 8.9),
-            "critical": (9.0, None)
+            "high": (5, None)
         },
 
         "Fasting Glucose": {
-            "optimal": (None, 90),
-            "prediabetes": (90, 125),
-            "diabetes": (126, None)
+            
+            "optimal": (None, 120),
+            "high": (120, None)
         },
 
         "HOMA-IR": {
-            "insulin_sensitive": (None, 1.0),
-            "borderline": (1.5, 2.9),
-            "insulin_resistant": (2.9, None)
+            
+            "optimal": (None, 1.0),
+            "high": (1.0, None)
         },
 
         # ---------------- Iron & storage -------------------------------- #
         "Ferritin": {
-            "male": {"optimal": (12, 300), "functional": (40, 80)},
-            "female": {"normal": (12, 150), "functional": (40, 80)}
+            "male": {"low": (None, 12), "optimal": (12, 300), "high": (300, None)},
+            "female": { "low": (None, 12), "optimal": (12, 150), "high": (150, None)}
         },
 
         "Iron": {"male": {
+            "low": (None, 60),
             "optimal": (60, 120),
-            "very_high":(120, None)
+            "high": (120, None)
         },
         "female": {
-            "optimal": (45, 80)
+            "low": (None, 45),
+            "optimal": (45, 80),
+            "high": (80, None)
         }},
         "Iron Saturation": {
-            "very_low": (None, 15),
-            "low": (15, 21),
-            "normal": (22, 55),
-            "high": (56, 70),
-            "very_high": (71, None)
+            "low": (None, 22),
+            "optimal": (22, 56),
+            "high": (56, None)
+        },
+
+        "Unsaturated Iron Binding Capacity (UIBC)": {
+            "male": {
+                "low": (None, 100),
+                "optimal": (100, 300),
+                "high": (300, None)
+            },
+            "female": {
+                "low": (None, 100),
+                "optimal": (100, 300),
+                "high": (300, None)
+            }
         },
 
         # ---------------- Pituitary / reproductive ---------------------- #
         "FSH": {
             "female": {
-                "follicular": (2, 9),
-                "mid_cycle": (4, 22),
-                "luteal": (2, 9),
-                "postmeno": (30, None)
+                "low": (None, 2),
+                "optimal": (2, 22),
+                "high": (22, None)
             },
-            "male": {"normal": (1, 7)}
+            "male": {"low": (None, 1), "optimal": (1, 7), "high": (7, None)}
+        },
+
+        "LH": {
+            "female": {
+                "low": (None, 1.0),
+                "optimal": (1.0, 11.4),
+                "high": (11.4, None)
+            },
+            "male": {"low": (None, 1.7), "optimal": (1.7, 8.6), "high": (8.6, None)}
         },
 
         "Testosterone, Total (Males)": {
@@ -262,217 +231,175 @@ class BiomarkerEvaluationTool(BaseTool):
         },
 
         "Testosterone, Total (Females)": {
-            "hrt_optimal": (35, 45)  # ng/dL equivalent
+            "low": (None, 35),
+            "optimal": (35, 45),
+            "high": (45, None)
         },
 
         "Free Testosterone": {
-            "male": {"normal": (0.047, 0.244)}  # ng/mL
+            "male": {"low": (None, 0.047), "optimal": (0.047, 0.244), "high": (0.244, None)}  # ng/mL
         },
 
         # ---------------- Thyroid --------------------------------------- #
         "TSH": {
-            "very_low": (None, 0.5),
-            "low": (0.5, 1),
+            "low": (None, 1),
             "optimal": (1, 2.5),
-            "high": (2.5, 5),
-            "very_high": (5, None)
+            "high": (2.5, None)
         },
 
         # ---------------- Lipid profile -------------------------------- #
         "HDL Cholesterol": {
             "male":{
-            "very_low": (None, 23),
-            "low": (24, 40),
-            "excellent": (41, 80),
-            "high": (81, 100),
-            "very_high": (101, None)},
+            "low": (None, 40),
+            "optimal": (40, 80),
+            "high": (80, None)},
             "female":{
-            "very_low": (None, 23),
-            "low": (24, 49),
-            "excellent": (50, 80),
-            "high": (81, 100),
-            "very_high": (101, None)}
+            "low": (None, 49),
+            "optimal": (50, 80),
+            "high": (80, None)}
         },
 
         "LDL Cholesterol": {
+            "low": (None, 39),
             "optimal": (40, 100),
-            "borderline": (101, 130),
-            "high": (131, 160),
-            "very_high": (161, 190),
-            "critical": (191, None)
+            "high": (100, None)
         },
 
         "Calculated Total Cholesterol": {
-            "very_low": (None, 125),
-            "low": (125, 160),
+            "low": (None, 160),
             "optimal": (160, 200),
-            "high": (200, 240),
-            "critical": (240, None)
+            "high": (200, None)
         },
         "LDL:HDL Ratio (Calc.)":{
+            
             "optimal": (None, 2),
-            "very_high": (2, None)
+            "high": (2, None)
         },
 
         "Total Cholesterol:HDL Ratio": {
-            "optimal": (None, 3.5),
-            "low_risk": (3.6, 4.5),
-            "high": (4.5, 6),
-            "very_high": (6, None)
+            
+            "optimal": (None,3.5),
+            "high": (3.5, None)
         },
 
         "Triglycerides": {
-            "low": (None, 69),
+            "low": (None, 70),
             "optimal": (70, 100),
-            "normal": (100, 150),
-            "borderline_high": (150, 199),
-            "high": (200, 499),
-            "very_high": (500, None)
+            "high": (100, None)
         },
 
         "Triglyceride:HDL Ratio": {
-            "desirable": (None, 1.0),
-            "high": (1.0, 3.5),
-            "very_high": (3.5, None)
+            
+            "optimal": (None, 1.0),
+            "high": (1.0, None)
         },
 
         "Lp(a)": {
-            "optimal": (None, 14),
-            "borderline": (14, 30),
-            "very_high": (31, 50),
-            "critical": (50, None)
+            
+            "optimal": (None,14),
+            "high": (15, None)
         },
 
         # --------- Inflammation & cardiovascular risk markers ---------- #
         "High-Sensitivity CRP": {
-            "optimal": (None, 1.0),
-            "borderline": (1.0, 1.5),
-            "high": (1.5, 10),
-            "very_high": (10, 50),
-            "critical": (50, None)
+            "low": (None, 1.0),
+            "optimal": (1.0, 1.5),
+            "high": (1.5, None)
         },
 
         "Homocysteine": {
-            "low": (None, 3),
-            "optimal": (4, 8),
-            "normal": (9, 15),
-            "high": (16, 30),
-            "very_high": (31, 100),
-            "critical": (100, None)
+            "low": (None, 4),
+            "optimal": (4, 9),
+            "high": (9, None)
         },
 
         # ---------------- Vitamin / mineral status --------------------- #
         "25-(OH) Vitamin D": {
-            "very_low": (None, 25),
-            "low": (25, 40),
-            "sufficient": (40, 70),
-            "optimal": (80,None)
+            "low": (None, 40),
+            "optimal": ( 80,None),
+            
         },
 
         "Vitamin B12": {
-            "very_low": (None, 200),
-            "low": (200, 400),
-            "normal": (400, 749),
-            "optimal": (750, 1000),
-            "high": (1001, 1500),
-            "very_high": (1501, None)
+            "low": (None, 400),
+            "optimal": (400, 1000),
+            "high": (1000, None)
         },
         "Folate": {
-            "very_low": (None, 5),
-            "low": (5, 10),
-            "normal": (10, 19),
-            "optimal": (20, None)
+            "low": (None, 10),
+            "optimal": (10, 20),
+            "high": (20, None)
         },
         "Magnesium RBC": {
-            "very_low": (None, 4.0),
-            "low": (4.0, 5.4),
-            "optimal": (5.5, 6.5),
-            "high": (6.6, 7.5),
-            "very_high": (7.6, None)
+            "low": (None, 5.5),
+            "optimal": (5.5, 6.6),
+            "high": (6.6, None)
         },
 
         # ---------------- Basic metabolic panel ------------------------ #
         "Albumin": {
-            "very_low": (None, 3.0),
-            "low": (3.0, 3.8),
-            "optimal": (3.9, 4.9),
-            "high": (5.0, 5.5),
-            "very_high": (5.6, None)
+            "low": (None, 3.9),
+            "optimal": (3.9, 5.0),
+            "high": (5.0, None)
         },
-        "Blood Urea Nitrogen": {"optimal": (8, 20), "lab_range": (21, 25)},
+        "Blood Urea Nitrogen": {"low": (None, 8), "optimal": (8, 21), "high": (21, None)},
         "Creatinine": {
-            "male": {"normal": (None, 0.69), "optimal": (0.70, 1.30)},
-            "female": {"optimal": (None, 0.49), "optimal": (0.50, 1.10)}
+            "male": {"low": (None, 0.70), "optimal": (0.70, 1.30), "high": (1.30, None)},
+            "female": {"low": (None, 0.50), "optimal": (0.50, 1.10), "high": (1.10, None)}
         },
         "eGFR": {
-            "severe": (None, 15),
-            "very_low": (15, 29),
-            "low": (30, 44),
-            "normal": (45, 59),
+            "low": (None, 60),
             "optimal": (60, 120),
-            "high": (121, None)
+            "high": (120, None)
         },
         "Total Protein": {
-            "very_low": (None, 5.5),
-            "low": (5.5, 6.8),
+            "low": (None, 6.9),
             "optimal": (6.9, 7.4),
-            "high": (7.5, 8.5),
-            "very_high": (8.6, None)
+            "high": (7.4, None)
         },
         "Sodium": {
-            "very_low": (None, 130),
-            "low": (130, 139),
-            "optimal": (140, 145),
-            "high": (146, 150),
-            "very_high": (151, None)
+            "low": (None, 140),
+            "optimal": (140, 146),
+            "high": (146, None)
         },
         "Potassium": {
-            "very_low": (None, 3.0),
-            "low": (3.0, 3.9),
-            "optimal": (4.0, 5.0),
-            "high": (5.1, 6.0),
-            "very_high": (6.1, None)
+            "low": (None, 4.0),
+            "optimal": (4.0, 5.1),
+            "high": (5.1, None)
         },
         "CO2": {
-            "very_low": (None, 18),
-            "low": (18, 24),
-            "optimal": (25, 25),
-            "high": (26, 32),
-            "very_high": (33, None)
+            "low": (None, 25),
+            "optimal": (25, 26),
+            "high": (26, None)
         },
         "Calcium": {
-            "very_low": (None, 7.5),
-            "low": (7.5, 8.7),
-            "optimal": (8.8, 9.5),
-            "high": (9.6, 10.5),
-            "very_high": (10.6, None)
+            "low": (None, 8.8),
+            "optimal": (8.8, 9.6),
+            "high": (9.6, None)
         },
-        "Alanine Aminotransferase": {"optimal": (None, 30), "lab": (31, 39), "critical":(40,None)},  # ALT
-        "Aspartate Aminotransferase": {"optimal": (None, 30), "lab": (31, 39), "critical":(40,None)},  # AST
-        "GGT": {"optimal": (None, 15)},
+        "Alanine Aminotransferase": { "optimal": (None, 40), "high": (40, None)},  # ALT
+        "Aspartate Aminotransferase": { "optimal": (None, 40), "high": (40, None)},  # AST
+        "GGT": { "optimal": (None, 15), "high": (15, None)},
         "SBHG": {
             "male":{
-                "very_low": (None, 10),
-                "low": (10, 19),
+                "low": (None, 20),
                 "optimal": (20, 30),
-                "high": (31, 50),
-                "very_high": (51, None)
+                "high": (30, None)
             },
             "female":{
-                "very_low": (None, 10),
-                "low": (10, 19),
-                "optimal": (20, 30),
-                "high": (31, 50),
-                "very_high": (51, None)
+                "low": (None, 40),
+                "optimal": (40, 90),
+                "high": (90, None)
             }
         },
         "Bilirubin": {
-            "normal": (0.3, 1.0),
-            "critical": (2.5, None)
+            "low": (None, 0.3),
+            "optimal": (0.3, 2.5),
+            "high": (2.5, None)
         },
         "Testosterone:Cortisol Ratio": {
         "male": {
-            "optimal": (0.05, 30)
+            "optimal": (0.05, None)
         },
         "female": {
             "optimal": (0.015, 0.03)
@@ -481,89 +408,89 @@ class BiomarkerEvaluationTool(BaseTool):
 
         # ---------------- Complete blood count ------------------------- #
         "WBC": {
-            "very_low": (None, 3.0),
-            "low": (3.0, 4.9),
-            "optimal": (5, 7),
-            "high": (7.1, 10),
-            "very_high": (10.1, None)
+            "low": (None, 5),
+            "optimal": (5, 7.1),
+            "high": (7.1, None)
         },
         "RBC": {
-            "very_low": (None, 3.0),
-            "low": (3.0, 3.9),
-            "optimal": (4, 5),
-            "high": (5.1, 6.0),
-            "very_high": (6.1, None)
+            "low": (None, 4),
+            "optimal": (4, 5.1),
+            "high": (5.1, None)
         },
         "Hemoglobin": {
-            "very_low": (None, 10),
-            "low": (10, 12),
-            "optimal": (13, 15),
-            "high": (16, 18),
-            "very_high": (19, None)
+            "low": (None, 13),
+            "optimal": (13, 16),
+            "high": (16, None)
         },
         "Hematocrit": {
-            "very_low": (None, 30),
-            "low": (30, 39),
-            "optimal": (40, 45),
-            "high": (46, 55),
-            "very_high": (56, None)
+            "low": (None, 40),
+            "optimal": (40, 46),
+            "high": (46, None)
         },
         "MCV": {
-            "very_low": (None, 75),
-            "low": (75, 89),
-            "optimal": (90, 90),
-            "high": (91, 105),
-            "very_high": (106, None)
+            "low": (None, 90),
+            "optimal": (90, 91),
+            "high": (91, None)
         },
         "MCH": {
-            "very_low": (None, 25),
-            "low": (25, 29),
-            "optimal": (30, 30),
-            "high": (31, 35),
-            "very_high": (36, None)
+            "low": (None, 30),
+            "optimal": (30, 31),
+            "high": (31, None)
         },
         "MCHC": {
-            "very_low": (None, 28),
-            "low": (28, 31),
-            "optimal": (32, 32),
-            "high": (33, 36),
-            "very_high": (37, None)
+            "low": (None, 32),
+            "optimal": (32, 33),
+            "high": (33, None)
         },
         "RDW": {
-            "very_low": (None, 10),
-            "low": (10, 12.2),
-            "optimal": (12.3, 14.5),
-            "high": (14.6, 17),
-            "very_high": (17.1, None)
+            "low": (None, 12.3),
+            "optimal": (12.3, 14.6),
+            "high": (14.6, None)
         },
         "Platelets": {
-            "very_low": (None, 50),
-            "low": (50, 74),
-            "optimal": (75, 250),
-            "high": (251, 400),
-            "very_high": (401, None)
+            "low": (None, 75),
+            "optimal": (75, 251),
+            "high": (251, None)
         },
         "Neutro:Lymph Ratio": {
-            "very_low": (None, 1.0),
-            "low": (1.0, 1.9),
-            "optimal": (2, 2),
-            "high": (2.1, 4.0),
-            "very_high": (4.1, None)
+            "low": (None, 2),
+            "optimal": (2, 2.1),
+            "high": (2.1, None)
         },
-        "Monocytes %": {"optimal": (None, 7)},
-        "Eosinophils %": {"optimal": (None, 2)},
-        "Basophils %": {"optimal": (0, 0)},
+        "Monocytes %": { "optimal": (None, 7), "high": (7, None)},
+        "Eosinophils %": { "optimal": (None, 2), "high": (2, None)},
+        "Basophils %": {  "optimal": (0, 0), "high": (0, None)},
         "VLDL (Calculated)": {
         "male": {
+            "low": (None, 0),
             "optimal": (0, 15),
-            "high": (16, 25),
-            "very_high": (26, None)
+            "high": (15, None)
         },
         "female": {
+            "low": (None, 0),
             "optimal": (0, 15),
-            "high": (16, 25),
-            "very_high": (26, None)
-        }}
+            "high": (15, None)
+        }},
+
+        
+        "BUN:Creatinine Ratio": {
+            "low": (None, 10),
+            "optimal": (10, 20),
+            "high": (20, None)
+        },
+
+        "AST:ALT Ratio": {
+            "low": (None, 1.0),
+            "optimal": (1.0, 2.0),
+            "high": (2.0, None)
+            
+        },
+
+        "LDL-C:ApoB Ratio": {
+            "low": (None, 10),
+            "optimal": (10, 20),
+            "high": (20, None)
+        }
 
     }
 
@@ -672,33 +599,35 @@ class BiomarkerEvaluationTool(BaseTool):
         """
         Categorize biomarker as healthy, low, or high based on category name and severity
         """
-        # Severity 0-1 are always healthy
-        if severity <= 1:
+        # Severity 0 is optimal/healthy
+        if severity == 0:
             return "healthy"
         
-        # Define keyword mappings for low and high categories
-        low_keywords = {"low", "very_low", "severe", "deficiency", "insufficient"}
-        high_keywords = {"high", "very_high", "critical", "excess", "elevated"}
-        
-        # Special cases that imply direction
-        special_cases = {
-            "prediabetes": "high",
-            "diabetes": "high", 
-            "insulin_resistant": "high",
-            "insulin_sensitive": "healthy"  # This is actually good
-        }
-        
-        # Check special cases first
-        if category in special_cases:
-            return special_cases[category]
-        
-        # Check for low keywords
-        if any(keyword in category.lower() for keyword in low_keywords):
-            return "low"
-        
-        # Check for high keywords
-        if any(keyword in category.lower() for keyword in high_keywords):
-            return "high"
+        # Severity 1 is flagged (low or high)
+        if severity == 1:
+            # Define keyword mappings for low and high categories
+            low_keywords = {"low", "very_low", "severe", "deficiency", "insufficient"}
+            high_keywords = {"high", "very_high", "critical", "excess", "elevated"}
+            
+            # Special cases that imply direction
+            special_cases = {
+                "prediabetes": "high",
+                "diabetes": "high", 
+                "insulin_resistant": "high",
+                "insulin_sensitive": "healthy"  # This is actually good
+            }
+            
+            # Check special cases first
+            if category in special_cases:
+                return special_cases[category]
+            
+            # Check for low keywords
+            if any(keyword in category.lower() for keyword in low_keywords):
+                return "low"
+            
+            # Check for high keywords
+            if any(keyword in category.lower() for keyword in high_keywords):
+                return "high"
         
         # Default to healthy for anything else
         return "healthy"
@@ -861,7 +790,6 @@ class BiomarkerEvaluationTool(BaseTool):
                     "unit": self.units.get(name, "unknown"),
                     "status": "no_reference_data",
                     "category": "unknown",
-                    "severity": 1,
                     "flagged": False
                 }
                 continue
@@ -871,14 +799,12 @@ class BiomarkerEvaluationTool(BaseTool):
                 use_ranges = self._select_age_bracket(name, age, use_ranges)
 
             category, sev, rng = self._classify_value(value, use_ranges)
-            flagged = sev >= 2
+            flagged = sev >= 1
 
             biomarkers_out[name] = {
                 "value": value,
                 "unit": self.units.get(name, "unknown"),
                 "category": category,
-                "range_used": list(rng),
-                "severity": sev,
                 "flagged": flagged
             }
 
@@ -887,9 +813,7 @@ class BiomarkerEvaluationTool(BaseTool):
                     "name": name,
                     "value": value,
                     "unit": self.units.get(name, "unknown"),
-                    "category": category,
-                    "range_used": list(rng),
-                    "severity": sev
+                    "category": category
                 })
 
         # Calculate category counts
@@ -898,7 +822,7 @@ class BiomarkerEvaluationTool(BaseTool):
         for biomarker_data in biomarkers_out.values():
             direction = self._categorize_marker_direction(
                 biomarker_data["category"], 
-                biomarker_data["severity"]
+                0 if biomarker_data["category"] in ["optimal", "normal", "healthy", "sufficient", "excellent", "very_good", "desirable", "insulin_sensitive", "hrt_optimal", "functional", "lab", "lab_range", "low_risk", "borderline", "follicular", "mid_cycle", "luteal", "postmeno", "age_20_49", "age_40_60", "age_60_plus"] else 1
             )
             category_counts[f"{direction}_markers"] += 1
 
@@ -908,7 +832,7 @@ class BiomarkerEvaluationTool(BaseTool):
             "summary": {
                 "total_biomarkers_evaluated": len(biomarkers_dict),
                 "total_flagged": len(flagged_summary),
-                "high_priority_issues": len([b for b in flagged_summary if b["severity"] >= 3]),
+                "high_priority_issues": len(flagged_summary),
                 "category_summary": category_counts  # NEW: Add the category counts
             }
         }

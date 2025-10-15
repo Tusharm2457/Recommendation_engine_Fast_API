@@ -1,0 +1,106 @@
+```json
+{
+  "supplement_recommendations": [
+    {
+      "ingredient_name": "Omega-3 Fatty Acids (EPA/DHA)",
+      "recommended_dosage": "2000 mg total EPA/DHA",
+      "frequency": "Daily, with meals (preferably with a meal containing fat for better absorption)",
+      "focus_area": [
+        "CM",
+        "IMM"
+      ],
+      "why": "Addresses cardiovascular risk (high LDL, total cholesterol, Triglyceride:HDL ratio) and provides anti-inflammatory support for seasonal allergies and headaches."
+    },
+    {
+      "ingredient_name": "Niacin (Vitamin B3)",
+      "recommended_dosage": "500 mg (extended-release)",
+      "frequency": "Once daily, with food",
+      "focus_area": [
+        "CM",
+        "HRM"
+      ],
+      "why": "Targets dyslipidemia, specifically high LDL and total cholesterol, and improves the unfavorable Triglyceride:HDL ratio. Note: Counsel on potential flushing."
+    },
+    {
+      "ingredient_name": "Probiotics",
+      "recommended_dosage": "10 billion CFU, including Lactobacillus and Bifidobacterium strains",
+      "frequency": "Daily, on an empty stomach or 30 minutes before meals",
+      "focus_area": [
+        "GA",
+        "IMM"
+      ],
+      "why": "Crucial for improving irregular bowel habits, supports immune function (seasonal allergies), and positively impacts skin health (acne) and stress management."
+    },
+    {
+      "ingredient_name": "Ashwagandha",
+      "recommended_dosage": "600 mg (standardized to \u22655% withanolides)",
+      "frequency": "Twice daily, 300 mg with breakfast and 300 mg before bedtime",
+      "focus_area": [
+        "STR",
+        "HRM"
+      ],
+      "why": "An adaptogen to combat high work-related stress, improve sleep quality disrupted by night shifts, and potentially balance hormones (high DHEA-S, irregular cycles)."
+    },
+    {
+      "ingredient_name": "Zinc",
+      "recommended_dosage": "30 mg (as zinc picolinate or zinc citrate)",
+      "frequency": "Daily, with meals to prevent nausea",
+      "focus_area": [
+        "IMM",
+        "SKN"
+      ],
+      "why": "Boosts immune function against pathogens (RN, hospital exposure) and seasonal allergies, while also aiding in the reduction of mask-related acne."
+    },
+    {
+      "ingredient_name": "Vitamin C",
+      "recommended_dosage": "1000 mg (as ascorbic acid)",
+      "frequency": "Twice daily, 500 mg in the morning and 500 mg in the evening, with meals",
+      "focus_area": [
+        "IMM",
+        "STR"
+      ],
+      "why": "Acts as a potent antioxidant and immune system supporter, vital for stress resilience (night shifts) and managing seasonal allergy symptoms."
+    },
+    {
+      "ingredient_name": "Feverfew",
+      "recommended_dosage": "150 mg (standardized to contain \u22650.2% parthenolide)",
+      "frequency": "Once daily, with meals",
+      "focus_area": [
+        "STR",
+        "COG"
+      ],
+      "why": "Specifically recommended for its efficacy in reducing the frequency and severity of the patient's shift-related headaches."
+    },
+    {
+      "ingredient_name": "Coenzyme Q10",
+      "recommended_dosage": "200 mg (as ubiquinol)",
+      "frequency": "Daily, with meals, preferably in the morning",
+      "focus_area": [
+        "MITO",
+        "CM"
+      ],
+      "why": "Supports cellular energy production, combating fatigue from night shift work and high stress, and offers antioxidant benefits for cardiovascular health."
+    },
+    {
+      "ingredient_name": "Vitamin K2",
+      "recommended_dosage": "120 mcg (as MK-7 form)",
+      "frequency": "Daily, with meals containing dietary fats",
+      "focus_area": [
+        "CM",
+        "HRM"
+      ],
+      "why": "Essential cofactor for proper calcium utilization and bone mineralization, working synergistically with existing Vitamin D to address low Calcium."
+    },
+    {
+      "ingredient_name": "Calcium Citrate",
+      "recommended_dosage": "500 mg elemental calcium",
+      "frequency": "Twice daily, with meals for better absorption",
+      "focus_area": [
+        "CM",
+        "HRM"
+      ],
+      "why": "Directly addresses the identified low calcium biomarker, critical for bone health, nerve function, and other physiological processes when combined with cofactors."
+    }
+  ]
+}
+```

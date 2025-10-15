@@ -1,0 +1,157 @@
+[
+  {
+    "user_full_data": {
+      "metadata": {
+        "email": "test@example.com",
+        "phase_status": {
+          "id": "test-id",
+          "user_id": "test-user-id",
+          "created_at": "2025-09-30T08:44:25.45717+00:00",
+          "updated_at": "2025-10-10T12:09:44.590617+00:00",
+          "phase1_status": "completed",
+          "phase2_status": "completed",
+          "phase3_status": "pending"
+        }
+      },
+      "patient_data": {
+        "phase1_basic_intake": {
+          "demographics": {
+            "age": 34,
+            "biological_sex": "female",
+            "biological_sex_other": null,
+            "height_feet": 5,
+            "height_inches": 4,
+            "weight_lbs": 135,
+            "ancestry": ["African American"],
+            "ancestry_other": null
+          },
+          "medical_history": {
+            "diagnoses": ["vitamin_d_deficiency", "seasonal_allergies"],
+            "diagnoses_years": { "vitamin_d_deficiency": "2023", "seasonal_allergies": "2012" },
+            "diagnoses_other": null,
+            "surgeries": null
+          },
+          "medications": {
+            "current_medications": [
+              { "name": "Cetirizine", "dose": "10 mg", "frequency": "Daily", "purpose": "Allergies" }
+            ],
+            "has_medications": true
+          },
+          "supplements": {
+            "current_supplements": [
+              { "name": "Vitamin D3", "dose": "4000 IU", "frequency": "Daily", "purpose": "Correct deficiency" },
+              { "name": "Melatonin (low dose)", "dose": "0.5 mg", "frequency": "Night shift days", "purpose": "Sleep onset" },
+              { "name": "Magnesium glycinate", "dose": "300 mg", "frequency": "Nightly", "purpose": "Sleep quality" }
+            ],
+            "has_supplements": true
+          },
+          "allergies": { "known_allergies": [], "has_allergies": false },
+          "complementary_approaches": {
+            "selected_approaches": ["functional", "tcm"],
+            "functional_medicine": true,
+            "ayurveda": false,
+            "traditional_chinese_medicine": true,
+            "homeopathy": false,
+            "korean_medicine": false
+          },
+          "wearable_devices": {
+            "fitbit": false,
+            "apple_watch": true,
+            "google_pixel_watch": false,
+            "oura_ring": true,
+            "samsung_galaxy_watch": false,
+            "other_device": null,
+            "has_any_wearables": true
+          }
+        },
+        "phase2_detailed_intake": {
+          "family_medical_history": { "has_family_history": true, "conditions_detail": { "asthma": ["mother"] }, "other_conditions_text": null },
+          "medication_side_effects": { "has_adverse_reactions": false, "reaction_details": null },
+          "childhood_antibiotics": { "took_antibiotics_as_child": true },
+          "lifestyle_factors": {
+            "tobacco": { "use_status": "never", "quit_year": null, "duration_category": null },
+            "alcohol": { "frequency": "rarely", "typical_amount": "special_occasions" },
+            "recreational_drugs": { "uses_substances": false, "substance_details": null }
+          },
+          "occupation_wellness": { "job_title": "Registered Nurse (Night Shift)", "work_stress_level": 8 },
+          "physical_activity": { "exercise_days_per_week": 3 },
+          "sunlight_exposure": { "days_per_week": 4, "average_minutes_per_day": 15 },
+          "sleep_patterns": {
+            "hours_category": "6_to_8",
+            "trouble_falling_asleep": true,
+            "trouble_staying_asleep": true,
+            "night_wake_frequency": 2,
+            "night_urination_frequency": 1,
+            "wake_feeling_refreshed": false,
+            "snoring_sleep_apnea": "no"
+          },
+          "dietary_habits": { "diet_style": ["balanced"], "diet_style_other": null, "eating_out_frequency": "2_3_per_week" },
+          "childhood_development": { "born_via_c_section": "no", "high_sugar_childhood_diet": "yes" },
+          "dental_health": {
+            "mercury_fillings_removed": false,
+            "removal_timeframe": null,
+            "daily_brush_floss": "both_daily",
+            "dental_work": { "silver_mercury_fillings": 1, "gold_fillings": 0, "root_canals": 0, "implants": 0, "caps_crowns": 0, "other_dental_work": 0 }
+          },
+          "environmental_exposures": { "chemical_exposures": ["hospital_disinfectants"], "chemical_exposure_other": null, "mold_exposure": false },
+          "pets_animals": { "has_pets": true },
+          "systems_review": { "digestive_symptoms": "irregular_bowel_habits" },
+          "reproductive_hormonal_health": { "female_specific": { "menstrual_concerns": "yes", "concern_details": "Cycle irregular with shift work" }, "male_specific": null },
+          "pain_and_skin_health": {
+            "headaches": { "frequent_headaches_migraines": true, "headache_details": "Shift-related; dehydration triggers" },
+            "chronic_pain": { "has_chronic_pain": false, "pain_details": null },
+            "skin_health": { "has_skin_issues": true, "skin_condition_details": "Mask-related acne, dry skin" }
+          }
+        }
+      },
+      "latest_biomarker_results": {
+        "Kit Type": "METABOLIC_EASY_DRAW",
+        "Total Biomarkers": 40,
+        "Order ID": 34,
+        "Test Date": "2025-09-18T01:54:59.221Z",
+        "Gender": "Male",
+        "Apolipoprotein A1 (APOA1)": "190.98 mg/dL",
+        "Apolipoprotein B (APOB)": "77.41 mg/dL",
+        "Dehydroepiandrosterone Sulfate (DHEA-S)": "317.86 ug/dL",
+        "HDL Cholesterol": "66.12 mg/dL",
+        "% Hemoglobin A1C": "3.3 %",
+        "High-Sensitivity CRP": "0.22 mg/L",
+        "Iron": "100.42 ug/dL",
+        "Calcium": "8.16 mg/dL",
+        "C-Peptide": "2.6 ng/mL",
+        "LDL Cholesterol": "127.53 mg/dL",
+        "Testosterone, Total (Males)": "365.98 ng/dL",
+        "Testosterone, Free (calc)": "11.31 ng/dL",
+        "Ferritin": "113.35 ng/mL",
+        "Triglycerides": "40.63 mg/dL",
+        "Triglycerides:HDL Ratio": "1.29 ",
+        "Total Cholesterol": "181.65 mg/dL",
+        "25-(OH) Vitamin D": "97.88 ng/mL",
+        "Total Cholesterol:HDL Ratio": "1.75 ",
+        "Thyroid Stimulating Hormone (TSH)": "1.41 uIU/mL",
+        "Total Protein": "5.2 g/dL",
+        "Unsaturated iron-binding capacity test (UIBC)": "166.57 ug/dL",
+        "Sex Hormone-Binding Globulin (SHBG)": "71.72 nmol/L",
+        "Albumin": "6.58 g/dL",
+        "Alanine Aminotransferase (ALT)": "30.87 U/L",
+        "Aspartate Aminotransferase (AST)": "28.35 U/L",
+        "eGFR": "86.9 mL/min/1.73 m2",
+        "Creatinine": "1.19 mg/dL",
+        "Lipoprotein (a)": "12.38 mg/dL",
+        "Blood Urea Nitrogen (BUN)": "22.28 mg/dL",
+        "Total Bilirubin": "0.97 mg/dL",
+        "Direct Bilirubin": "0.19 mg/dL",
+        "BUN:Creatinine Ratio": "18.72 ",
+        "% Free Testosterone": "3.09 %",
+        "Estim. Avg Glu (eAG)": "48 mg/dL",
+        "LDL-C:HDL-C Ratio": "1.92 ",
+        "Calculated Cholesterol, Total": "201.77 mg/dL",
+        "ApoB:ApoA1 Ratio": "0.4 ",
+        "VLDL Cholesterol (Calc)": "8.12 mg/dL",
+        "AST:ALT Ratio": "0.91 N/A",
+        "LDL-C:ApoB Ratio": "1.64 N/A"
+      }
+    }
+  }
+]
+

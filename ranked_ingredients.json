@@ -1,169 +1,169 @@
 {
   "ranked_ingredients": [
     {
-      "name": "Vitamin C",
-      "score": 0.02,
+      "name": "Vitamin D",
+      "score": 2.6619,
       "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
+        "semantic": 0.0483,
+        "rule": 7.5,
         "evidence": 0.2,
         "safety_penalty": 0.0
       },
-      "why": "Vitamin C is recommended because it supported by evidence."
-    },
-    {
-      "name": "Vitamin E",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Vitamin E is recommended because it supported by evidence."
-    },
-    {
-      "name": "Ashwagandha",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Ashwagandha is recommended because it supported by evidence."
-    },
-    {
-      "name": "Vitamin A",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Vitamin A is recommended because it supported by evidence."
-    },
-    {
-      "name": "Biotin",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Biotin is recommended because it supported by evidence."
-    },
-    {
-      "name": "Black Cohosh",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Black Cohosh is recommended because it supported by evidence."
-    },
-    {
-      "name": "Boron",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Boron is recommended because it supported by evidence."
-    },
-    {
-      "name": "Thiamin",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Thiamin is recommended because it supported by evidence."
-    },
-    {
-      "name": "Vitamin B12",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Vitamin B12 is recommended because it supported by evidence."
-    },
-    {
-      "name": "Vitamin B6",
-      "score": 0.02,
-      "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
-        "evidence": 0.2,
-        "safety_penalty": 0.0
-      },
-      "why": "Vitamin B6 is recommended because it supported by evidence."
+      "why": "Vitamin D is recommended because it matches user biomarkers/goals, supported by evidence."
     },
     {
       "name": "Calcium",
-      "score": 0.02,
+      "score": 2.4973,
       "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
+        "semantic": 0.0781,
+        "rule": 7.0,
         "evidence": 0.2,
         "safety_penalty": 0.0
       },
-      "why": "Calcium is recommended because it supported by evidence."
+      "why": "Calcium is recommended because it matches user biomarkers/goals, semantic fit to user needs, supported by evidence."
     },
     {
-      "name": "Carnitine",
-      "score": 0.02,
+      "name": "Zinc",
+      "score": 2.4863,
       "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
+        "semantic": 0.0467,
+        "rule": 7.0,
         "evidence": 0.2,
         "safety_penalty": 0.0
       },
-      "why": "Carnitine is recommended because it supported by evidence."
+      "why": "Zinc is recommended because it matches user biomarkers/goals, supported by evidence."
     },
     {
-      "name": "Choline",
-      "score": 0.02,
+      "name": "Pantothenic Acid",
+      "score": 2.4832,
       "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
+        "semantic": 0.0377,
+        "rule": 7.0,
         "evidence": 0.2,
         "safety_penalty": 0.0
       },
-      "why": "Choline is recommended because it supported by evidence."
+      "why": "Pantothenic Acid is recommended because it matches user biomarkers/goals, supported by evidence."
     },
     {
       "name": "Chromium",
-      "score": 0.02,
+      "score": 2.3276,
       "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
+        "semantic": 0.093,
+        "rule": 6.5,
         "evidence": 0.2,
         "safety_penalty": 0.0
       },
-      "why": "Chromium is recommended because it supported by evidence."
+      "why": "Chromium is recommended because it matches user biomarkers/goals, semantic fit to user needs, supported by evidence."
+    },
+    {
+      "name": "Carnitine",
+      "score": 2.3178,
+      "components": {
+        "semantic": 0.0651,
+        "rule": 6.5,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Carnitine is recommended because it matches user biomarkers/goals, semantic fit to user needs, supported by evidence."
+    },
+    {
+      "name": "Niacin",
+      "score": 2.3048,
+      "components": {
+        "semantic": 0.0279,
+        "rule": 6.5,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Niacin is recommended because it matches user biomarkers/goals, supported by evidence."
+    },
+    {
+      "name": "Vitamin E",
+      "score": 2.1324,
+      "components": {
+        "semantic": 0.0355,
+        "rule": 6.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Vitamin E is recommended because it matches user biomarkers/goals, supported by evidence."
+    },
+    {
+      "name": "Ashwagandha",
+      "score": 2.1312,
+      "components": {
+        "semantic": 0.032,
+        "rule": 6.0,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Ashwagandha is recommended because it matches user biomarkers/goals, supported by evidence."
+    },
+    {
+      "name": "Choline",
+      "score": 1.9763,
+      "components": {
+        "semantic": 0.0894,
+        "rule": 5.5,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Choline is recommended because it matches user biomarkers/goals, semantic fit to user needs, supported by evidence."
     },
     {
       "name": "Copper",
-      "score": 0.02,
+      "score": 1.9689,
       "components": {
-        "semantic": 0.0,
-        "rule": 0.0,
+        "semantic": 0.0684,
+        "rule": 5.5,
         "evidence": 0.2,
         "safety_penalty": 0.0
       },
-      "why": "Copper is recommended because it supported by evidence."
+      "why": "Copper is recommended because it matches user biomarkers/goals, semantic fit to user needs, supported by evidence."
+    },
+    {
+      "name": "Magnesium",
+      "score": 1.968,
+      "components": {
+        "semantic": 0.0656,
+        "rule": 5.5,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Magnesium is recommended because it matches user biomarkers/goals, semantic fit to user needs, supported by evidence."
+    },
+    {
+      "name": "Omega-3 Fatty Acids",
+      "score": 1.9613,
+      "components": {
+        "semantic": 0.0465,
+        "rule": 5.5,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Omega-3 Fatty Acids is recommended because it matches user biomarkers/goals, supported by evidence."
+    },
+    {
+      "name": "Selenium",
+      "score": 1.9587,
+      "components": {
+        "semantic": 0.0392,
+        "rule": 5.5,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Selenium is recommended because it matches user biomarkers/goals, supported by evidence."
+    },
+    {
+      "name": "Phosphorus",
+      "score": 1.9564,
+      "components": {
+        "semantic": 0.0325,
+        "rule": 5.5,
+        "evidence": 0.2,
+        "safety_penalty": 0.0
+      },
+      "why": "Phosphorus is recommended because it matches user biomarkers/goals, supported by evidence."
     }
   ]
 }

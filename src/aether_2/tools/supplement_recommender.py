@@ -1,65 +1,28 @@
 from crewai.tools import BaseTool
-from typing import Type, Dict, Any, List, Union, Optional, ClassVar
+from typing import Type, Union, List, Dict, Any
 from pydantic import BaseModel, Field
 import json
-import os
-
 
 class SupplementRecommendationInput(BaseModel):
     user_profile: Union[str, dict] = Field(
-        ..., description="User profile JSON (string or dict) from profile compiler"
+        ..., description="User profile JSON from user_profile_compiler agent"
     )
-    ranked_ingredients: Union[str, dict] = Field(
-        ..., description="Ranked ingredients JSON (string or dict) from ingredient ranker"
+    rag_ingredients: Union[str, dict] = Field(
+        ..., description="RAG-ranked ingredients JSON from ingredient_ranker_rag agent"
     )
-    focus_areas: Union[str, dict] = Field(
-        ..., description="Focus areas JSON (string or dict) from focus area agent"
+    web_ingredients: Union[str, dict] = Field(
+        ..., description="Web-discovered ingredients JSON from web_ingredient_discovery agent"
     )
-
 
 class SupplementRecommendationTool(BaseTool):
     name: str = "generate_supplement_recommendations"
     description: str = (
-        "Generates personalized supplement recommendations with specific dosages, "
-        "frequencies, and evidence-based rationales based on user profile, ranked ingredients, and focus areas."
+        "Final collaborative agent that analyzes user profile, RAG-ranked ingredients, and web-discovered ingredients "
+        "to create the ultimate personalized supplement recommendations using medical reasoning."
     )
     args_schema: Type[BaseModel] = SupplementRecommendationInput
 
-    # Focus area mappings for CFA codes
-    FOCUS_AREA_MAPPINGS: ClassVar[Dict[str, str]] = {
-        "CM": "Cardiometabolic & Metabolic Health",
-        "COG": "Cognitive & Mental Health", 
-        "DTX": "Detoxification & Biotransformation",
-        "IMM": "Immune Function & Inflammation",
-        "MITO": "Mitochondrial & Energy Metabolism",
-        "SKN": "Skin & Barrier Function",
-        "STR": "Stress-Axis & Nervous System Resilience",
-        "HRM": "Hormonal Health (Transport)",
-        "GA": "Gut Health and assimilation"
-    }
-
-    # Ingredient-specific dosage and frequency recommendations
-    INGREDIENT_DOSAGES: ClassVar[Dict[str, Dict[str, str]]] = {
-        "vitamin d": {"maintenance": "1000 IU", "therapeutic": "2000-4000 IU", "frequency": "Daily"},
-        "vitamin c": {"maintenance": "500-1000 mg", "therapeutic": "1000-2000 mg", "frequency": "Daily"},
-        "vitamin e": {"maintenance": "400 IU", "therapeutic": "800 IU", "frequency": "Daily"},
-        "calcium": {"maintenance": "600-800 mg", "therapeutic": "1000-1200 mg", "frequency": "Daily with meals"},
-        "magnesium": {"maintenance": "200-300 mg", "therapeutic": "300-400 mg", "frequency": "Nightly"},
-        "zinc": {"maintenance": "15 mg", "therapeutic": "30-50 mg", "frequency": "Daily with meals"},
-        "omega-3": {"maintenance": "1000 mg", "therapeutic": "2000-3000 mg", "frequency": "Daily with meals"},
-        "probiotic": {"maintenance": "10-20 Billion CFU", "therapeutic": "20-50 Billion CFU", "frequency": "Daily (empty stomach)"},
-        "ashwagandha": {"maintenance": "300 mg", "therapeutic": "600 mg", "frequency": "Daily"},
-        "niacin": {"maintenance": "50 mg", "therapeutic": "100-500 mg", "frequency": "Daily with meals"},
-        "chromium": {"maintenance": "200 mcg", "therapeutic": "400-600 mcg", "frequency": "Daily"},
-        "carnitine": {"maintenance": "500 mg", "therapeutic": "1000-2000 mg", "frequency": "Daily"},
-        "choline": {"maintenance": "250 mg", "therapeutic": "500-1000 mg", "frequency": "Daily"},
-        "selenium": {"maintenance": "100 mcg", "therapeutic": "200 mcg", "frequency": "Daily"},
-        "copper": {"maintenance": "1 mg", "therapeutic": "2 mg", "frequency": "Daily"},
-        "phosphorus": {"maintenance": "700 mg", "therapeutic": "1000 mg", "frequency": "Daily with meals"},
-        "pantothenic acid": {"maintenance": "10 mg", "therapeutic": "50-100 mg", "frequency": "Daily"}
-    }
-
-    def _parse_inputs(self, user_profile: Union[str, dict], ranked_ingredients: Union[str, dict], focus_areas: Union[str, dict]) -> tuple:
+    def _parse_inputs(self, user_profile: Union[str, dict], rag_ingredients: Union[str, dict], web_ingredients: Union[str, dict]) -> tuple:
         """Parse and validate all input data."""
         # Parse user profile
         if isinstance(user_profile, str):
@@ -67,261 +30,191 @@ class SupplementRecommendationTool(BaseTool):
         else:
             profile = user_profile
 
-        # Parse ranked ingredients
-        if isinstance(ranked_ingredients, str):
-            ingredients = json.loads(ranked_ingredients)
+        # Parse RAG ingredients
+        if isinstance(rag_ingredients, str):
+            rag_data = json.loads(rag_ingredients)
         else:
-            ingredients = ranked_ingredients
+            rag_data = rag_ingredients
 
-        # Parse focus areas
-        if isinstance(focus_areas, str):
-            focus = json.loads(focus_areas)
+        # Parse web ingredients
+        if isinstance(web_ingredients, str):
+            web_data = json.loads(web_ingredients)
         else:
-            focus = focus_areas
+            web_data = web_ingredients
 
-        return profile, ingredients, focus
+        return profile, rag_data, web_data
 
-    def _get_current_supplements(self, profile: Dict[str, Any]) -> Dict[str, str]:
-        """Extract current supplements from user profile."""
-        current_supps = {}
-        supplements = profile.get("patient_summary", {}).get("basic_profile", {}).get("supplements", [])
+    def _create_medical_analysis_prompt(self, user_profile: Dict[str, Any], rag_ingredients: List[Dict], web_ingredients: List[Dict]) -> str:
+        """Create comprehensive medical analysis prompt for LLM"""
         
-        for supp in supplements:
-            supp_str = supp.lower()
-            # Extract supplement name and dosage
-            if "vitamin d" in supp_str or "d3" in supp_str:
-                current_supps["vitamin d"] = supp
-            elif "omega-3" in supp_str or "fish oil" in supp_str:
-                current_supps["omega-3"] = supp
-            elif "ashwagandha" in supp_str:
-                current_supps["ashwagandha"] = supp
-            # Add more mappings as needed
+        # Extract key patient information
+        demographics = user_profile.get("patient_data", {}).get("phase1_basic_intake", {}).get("demographics", {})
+        medical_history = user_profile.get("patient_data", {}).get("phase1_basic_intake", {}).get("medical_history", {})
+        flagged_biomarkers = user_profile.get("flagged_biomarkers", [])
         
-        return current_supps
+        # Extract pain and skin health
+        pain_skin_health = user_profile.get("patient_data", {}).get("phase1_basic_intake", {}).get("pain_and_skin_health", {})
+        headaches = pain_skin_health.get("headaches", [])
+        chronic_pain = pain_skin_health.get("chronic_pain", [])
+        skin_health = pain_skin_health.get("skin_health", [])
+        
+        # Create biomarker context with status
+        biomarker_context = []
+        for biomarker in flagged_biomarkers:
+            name = biomarker.get("name", "")
+            status = biomarker.get("status", "")
+            if name and status:
+                biomarker_context.append(f"{status} {name}")
+        
+        biomarker_text = ", ".join(biomarker_context) if biomarker_context else "no flagged biomarkers"
+        
+        # Format RAG ingredients
+        rag_ingredient_list = []
+        for i, ingredient in enumerate(rag_ingredients[:10]):  # Top 10 RAG ingredients
+            rag_ingredient_list.append(f"{i+1}. {ingredient.get('ingredient_name', '')} (Score: {ingredient.get('final_score', 0):.3f})")
+        
+        # Format web ingredients
+        web_ingredient_list = []
+        for i, ingredient in enumerate(web_ingredients[:10]):  # Top 10 web ingredients
+            web_ingredient_list.append(f"{i+1}. {ingredient.get('ingredient_name', '')} (Source: {ingredient.get('source', 'Unknown')})")
+        
+        prompt = f"""
+        You are a board-certified physician and clinical nutritionist with 20+ years of experience in personalized medicine and supplement protocols. 
 
-    def _get_biomarker_values(self, profile: Dict[str, Any]) -> Dict[str, str]:
-        """Extract specific biomarker values for evidence."""
-        # This would ideally come from the original blood report
-        # For now, we'll use the flagged biomarkers as reference
-        biomarker_values = {}
-        findings = profile.get("patient_summary", {}).get("biomarker_findings", {})
-        
-        # Map common biomarkers to typical values (this should be enhanced with actual values)
-        high_markers = findings.get("high", [])
-        low_markers = findings.get("low", [])
-        
-        for marker in high_markers + low_markers:
-            marker_lower = marker.lower()
-            if "vitamin d" in marker_lower or "25-oh" in marker_lower:
-                biomarker_values["vitamin_d"] = "77.87 ng/mL (high-normal)"
-            elif "triglyceride" in marker_lower:
-                biomarker_values["triglycerides"] = "116 mg/dL"
-            elif "crp" in marker_lower:
-                biomarker_values["crp"] = "1.55 mg/L"
-            elif "calcium" in marker_lower:
-                biomarker_values["calcium"] = "8.16 mg/dL (low)"
-        
-        return biomarker_values
+        PATIENT CASE PRESENTATION:
+        - Demographics: {demographics.get('age', 'Unknown')} year old {demographics.get('biological_sex', 'Unknown')}
+        - Medical Conditions: {', '.join(medical_history.get('diagnoses', []))}
+        - Flagged Biomarkers: {biomarker_text}
+        - Headaches: {', '.join(headaches) if headaches else 'None reported'}
+        - Chronic Pain: {', '.join(chronic_pain) if chronic_pain else 'None reported'}
+        - Skin Health Issues: {', '.join(skin_health) if skin_health else 'None reported'}
 
-    def _get_symptoms_and_conditions(self, profile: Dict[str, Any]) -> List[str]:
-        """Extract symptoms and conditions for evidence."""
-        symptoms = []
-        lifestyle = profile.get("patient_summary", {}).get("lifestyle_and_context", {})
-        
-        # Sleep issues
-        sleep_pattern = lifestyle.get("sleep_pattern", "")
-        if "trouble" in sleep_pattern.lower() or "non-restorative" in sleep_pattern.lower():
-            symptoms.append("trouble staying asleep")
-        
-        # Pain conditions
-        chronic_pain = lifestyle.get("chronic_pain", [])
-        if chronic_pain:
-            symptoms.extend([pain.lower() for pain in chronic_pain])
-        
-        # Digestive issues
-        patterns = profile.get("patient_summary", {}).get("key_health_patterns", [])
-        for pattern in patterns:
-            if "bloating" in pattern.lower():
-                symptoms.append("bloating")
-            if "constipation" in pattern.lower():
-                symptoms.append("constipation")
-        
-        return symptoms
+        EVIDENCE-BASED INGREDIENT RECOMMENDATIONS FROM TWO SOURCES:
 
-    def _determine_dosage_and_frequency(self, ingredient_name: str, profile: Dict[str, Any], current_supps: Dict[str, str]) -> tuple:
-        """Determine appropriate dosage and frequency for an ingredient."""
-        ingredient_lower = ingredient_name.lower()
-        
-        # Check if user already takes this supplement
-        current_dosage = None
-        for key, supp in current_supps.items():
-            if key in ingredient_lower or ingredient_lower in key:
-                current_dosage = supp
-                break
-        
-        # Get base dosage from our mapping
-        base_dosage = None
-        for key, dosage_info in self.INGREDIENT_DOSAGES.items():
-            if key in ingredient_lower or ingredient_lower in key:
-                base_dosage = dosage_info
-                break
-        
-        if not base_dosage:
-            # Default fallback
-            base_dosage = {"maintenance": "500 mg", "therapeutic": "1000 mg", "frequency": "Daily"}
-        
-        # Determine if therapeutic or maintenance dose needed
-        findings = profile.get("patient_summary", {}).get("biomarker_findings", {})
-        high_markers = [m.lower() for m in findings.get("high", [])]
-        low_markers = [m.lower() for m in findings.get("low", [])]
-        
-        # Check if ingredient addresses flagged biomarkers
-        therapeutic_needed = False
-        for marker in high_markers + low_markers:
-            if any(keyword in marker for keyword in ["cholesterol", "triglyceride", "glucose", "insulin", "crp", "inflammation"]):
-                if any(keyword in ingredient_lower for keyword in ["omega-3", "niacin", "vitamin e"]):
-                    therapeutic_needed = True
-            elif any(keyword in marker for keyword in ["calcium", "vitamin d", "magnesium"]):
-                if any(keyword in ingredient_lower for keyword in ["calcium", "vitamin d", "magnesium"]):
-                    therapeutic_needed = True
-        
-        # Adjust dosage based on current intake
-        if current_dosage and "vitamin d" in ingredient_lower:
-            # Reduce if already taking high dose
-            dosage = "1000 IU (maintenance)"
-            frequency = base_dosage["frequency"]
-        elif therapeutic_needed:
-            dosage = base_dosage["therapeutic"]
-            frequency = base_dosage["frequency"]
-        else:
-            dosage = base_dosage["maintenance"]
-            frequency = base_dosage["frequency"]
-        
-        return dosage, frequency
+        SOURCE 1 - RAG-BASED RECOMMENDATIONS (from clinical database with hybrid scoring):
+        {chr(10).join(rag_ingredient_list) if rag_ingredient_list else 'No RAG recommendations available'}
 
-    def _generate_evidence_rationale(self, ingredient_name: str, profile: Dict[str, Any], biomarker_values: Dict[str, str], symptoms: List[str]) -> str:
-        """Generate evidence-based rationale for the recommendation."""
-        ingredient_lower = ingredient_name.lower()
-        rationale_parts = []
-        
-        # Add biomarker evidence
-        if "vitamin d" in ingredient_lower and "vitamin_d" in biomarker_values:
-            rationale_parts.append(f"Serum 25-OH Vitamin D at {biomarker_values['vitamin_d']} → reduce from 2000 IU to maintain without excess")
-        elif "omega-3" in ingredient_lower:
-            if "triglycerides" in biomarker_values and "crp" in biomarker_values:
-                rationale_parts.append(f"Triglycerides {biomarker_values['triglycerides']}, CRP {biomarker_values['crp']} suggest borderline inflammation")
-            rationale_parts.append("Omega-3 lowers inflammation, supports cardiovascular + skin health")
-        elif "magnesium" in ingredient_lower:
-            if "trouble staying asleep" in symptoms:
-                rationale_parts.append("Reports trouble staying asleep + frequent headaches/migraines")
-            rationale_parts.append("magnesium supports sleep quality, relaxes muscles, lowers headache frequency")
-        elif "probiotic" in ingredient_lower:
-            if "bloating" in symptoms:
-                rationale_parts.append("Reports bloating, constipation, abdominal pain")
-            rationale_parts.append("childhood antibiotics history; probiotics restore microbiome balance")
-        elif "calcium" in ingredient_lower and "calcium" in biomarker_values:
-            rationale_parts.append(f"Calcium {biomarker_values['calcium']} indicates deficiency")
-            rationale_parts.append("calcium supports bone health and muscle function")
-        
-        # Generic rationale if no specific evidence
-        if not rationale_parts:
-            patterns = profile.get("patient_summary", {}).get("key_health_patterns", [])
-            if patterns:
-                rationale_parts.append(f"Addresses {patterns[0].lower()}")
-            else:
-                rationale_parts.append("supports overall health and wellness")
-        
-        return ". ".join(rationale_parts) + "."
+        SOURCE 2 - WEB-DISCOVERED RECOMMENDATIONS (from current scientific literature):
+        {chr(10).join(web_ingredient_list) if web_ingredient_list else 'No web recommendations available'}
 
-    def _assign_cfa_codes(self, ingredient_name: str, profile: Dict[str, Any]) -> List[str]:
-        """Assign relevant focus area codes to the ingredient."""
-        ingredient_lower = ingredient_name.lower()
-        cfa_codes = []
-        
-        # Map ingredients to focus areas based on their benefits
-        if any(keyword in ingredient_lower for keyword in ["omega-3", "niacin", "vitamin e", "chromium"]):
-            cfa_codes.append("CM")  # Cardiometabolic
-        if any(keyword in ingredient_lower for keyword in ["magnesium", "ashwagandha", "l-theanine"]):
-            cfa_codes.append("STR")  # Stress-Axis
-        if any(keyword in ingredient_lower for keyword in ["vitamin d", "zinc", "selenium"]):
-            cfa_codes.append("IMM")  # Immune
-        if any(keyword in ingredient_lower for keyword in ["carnitine", "coenzyme", "b-complex"]):
-            cfa_codes.append("MITO")  # Mitochondrial
-        if any(keyword in ingredient_lower for keyword in ["probiotic", "fiber", "digestive"]):
-            cfa_codes.append("GA")  # Gut Health
-        if any(keyword in ingredient_lower for keyword in ["vitamin d", "testosterone", "hormone"]):
-            cfa_codes.append("HRM")  # Hormonal
-        if any(keyword in ingredient_lower for keyword in ["omega-3", "vitamin e", "zinc"]):
-            cfa_codes.append("SKN")  # Skin
-        
-        # If no specific mapping, assign based on user's top focus areas
-        if not cfa_codes:
-            # This would ideally come from focus areas output, but we'll use patterns as fallback
-            patterns = profile.get("patient_summary", {}).get("key_health_patterns", [])
-            if "cardiovascular" in str(patterns).lower():
-                cfa_codes.append("CM")
-            elif "stress" in str(patterns).lower():
-                cfa_codes.append("STR")
-            else:
-                cfa_codes.append("IMM")  # Default
-        
-        return cfa_codes[:2]  # Limit to 2 codes
+        CLINICAL TASK:
+        As a physician, analyze this patient's complete health profile and both recommendation sources to create a final, evidence-based supplement protocol. 
 
-    def _run(self, user_profile: Union[str, dict], ranked_ingredients: Union[str, dict], focus_areas: Union[str, dict]) -> str:
-        """Main execution method."""
+        MEDICAL REASONING PROCESS:
+        1. Review the patient's specific biomarkers and their clinical significance (high/low values)
+        2. Consider their medical conditions and symptom burden
+        3. Evaluate pain and skin health issues that need addressing
+        4. Assess the quality and relevance of both recommendation sources
+        5. Consider potential interactions and contraindications
+        6. Prioritize ingredients with the strongest evidence for this specific patient profile
+        7. Ensure the protocol addresses the most critical health needs first
+
+        CLINICAL DECISION MAKING:
+        - Prioritize ingredients that directly address flagged biomarkers
+        - Consider ingredients that support the patient's specific medical conditions
+        - Include ingredients that address pain and skin health issues
+        - Balance evidence quality from both RAG database and current literature
+        - Ensure safety and avoid potential interactions
+        - Limit to the most clinically relevant recommendations
+
+        Return ONLY a JSON response in this exact format:
+        {{
+            "final_recommendations": [
+                {{
+                    "ingredient_name": "Exact ingredient name",
+                    "rank": 1,
+                    "why": "Concise 1-2 line explanation of why this ingredient is necessary for this specific patient"
+                }},
+                {{
+                    "ingredient_name": "Exact ingredient name",
+                    "rank": 2,
+                    "why": "Concise 1-2 line explanation of why this ingredient is necessary for this specific patient"
+                }}
+            ]
+        }}
+
+        For each ingredient, provide a concise "why" explanation (1-2 lines maximum) that:
+        - References the patient's specific flagged biomarkers and their status (high/low)
+        - Connects to their medical conditions and symptoms
+        - Addresses their pain and skin health issues
+        - Explains the clinical benefit for this particular patient
+        - Shows evidence from either RAG database or web literature sources
+
+        Provide 8-10 final recommendations ranked by clinical priority for this specific patient.
+        Focus on ingredients that will have the greatest positive impact on their health outcomes.
+        """
+        
+        return prompt
+
+    def _run(self, user_profile: Union[str, dict], rag_ingredients: Union[str, dict], web_ingredients: Union[str, dict]) -> str:
+        """Main execution method using medical LLM analysis."""
         try:
             # Parse inputs
-            profile, ingredients, focus = self._parse_inputs(user_profile, ranked_ingredients, focus_areas)
+            profile, rag_data, web_data = self._parse_inputs(user_profile, rag_ingredients, web_ingredients)
             
-            # Extract data for recommendations
-            current_supps = self._get_current_supplements(profile)
-            biomarker_values = self._get_biomarker_values(profile)
-            symptoms = self._get_symptoms_and_conditions(profile)
+            # Extract ingredient lists
+            rag_ingredient_list = rag_data if isinstance(rag_data, list) else rag_data.get("rag_ingredients", [])
+            web_ingredient_list = web_data.get("detailed_ingredients", []) if isinstance(web_data, dict) else web_data
             
-            # Get top ingredients (limit to top 8 for practical recommendations)
-            ranked_list = ingredients.get("ranked_ingredients", [])[:8]
+            print(f"🔍 DEBUG: RAG data type: {type(rag_data)}, RAG ingredients count: {len(rag_ingredient_list)}")
+            print(f"🔍 DEBUG: Web data type: {type(web_data)}, Web ingredients count: {len(web_ingredient_list)}")
             
-            recommendations = []
+            if len(rag_ingredient_list) == 0 and len(web_ingredient_list) == 0:
+                print(f"❌ No ingredients found in either RAG or web data")
+                return json.dumps({
+                    "error": "No ingredients found in input data",
+                    "final_recommendations": []
+                }, indent=2)
             
-            for ingredient_data in ranked_list:
-                ingredient_name = ingredient_data.get("name", "")
-                if not ingredient_name:
-                    continue
-                
-                # Determine dosage and frequency
-                dosage, frequency = self._determine_dosage_and_frequency(ingredient_name, profile, current_supps)
-                
-                # Generate evidence rationale
-                rationale = self._generate_evidence_rationale(ingredient_name, profile, biomarker_values, symptoms)
-                
-                # Assign CFA codes
-                cfa_codes = self._assign_cfa_codes(ingredient_name, profile)
-                
-                # Format supplement name with additional context
-                supplement_name = ingredient_name
-                if "vitamin d" in ingredient_name.lower():
-                    supplement_name = "Vitamin D3 (maintenance)"
-                elif "omega-3" in ingredient_name.lower():
-                    supplement_name = "Omega-3 (Fish Oil, EPA:DHA 2:1)"
-                elif "magnesium" in ingredient_name.lower():
-                    supplement_name = "Magnesium Glycinate"
-                elif "probiotic" in ingredient_name.lower():
-                    supplement_name = "Probiotic (multi-strain, dairy-free)"
-                
-                recommendation = {
-                    "supplement": supplement_name,
-                    "dosage": dosage,
-                    "frequency": frequency,
-                    "why": rationale,
-                    "cfa": cfa_codes
-                }
-                
-                recommendations.append(recommendation)
+            # Create medical analysis prompt
+            prompt = self._create_medical_analysis_prompt(profile, rag_ingredient_list, web_ingredient_list)
             
-            return json.dumps({"supplement_recommendations": recommendations}, indent=2)
+            # Use CrewAI's LLM for medical analysis
+            from crewai import LLM
+            llm = LLM(model="azure/gpt-4o")
+            
+            print(f"🔍 Final Medical Analysis - Analyzing {len(rag_ingredient_list)} RAG ingredients and {len(web_ingredient_list)} web ingredients")
+            
+            llm_output = llm.call(prompt)
+            print(f"🔍 DEBUG: LLM response length: {len(llm_output)}")
+            print(f"🔍 DEBUG: LLM response preview: {llm_output[:500]}...")
+            
+            # Parse LLM response
+            try:
+                # Find JSON in the response
+                start_idx = llm_output.find('{')
+                end_idx = llm_output.rfind('}') + 1
+                
+                print(f"🔍 DEBUG: JSON start index: {start_idx}, end index: {end_idx}")
+                
+                if start_idx != -1 and end_idx != -1:
+                    json_str = llm_output[start_idx:end_idx]
+                    print(f"🔍 DEBUG: Extracted JSON string: {json_str[:200]}...")
+                    
+                    final_recommendations = json.loads(json_str)
+                    
+                    print(f"✅ Final medical analysis completed with {len(final_recommendations.get('final_recommendations', []))} recommendations")
+                    return json.dumps(final_recommendations, indent=2)
+                else:
+                    print(f"❌ No JSON structure found in LLM response")
+                    print(f"🔍 DEBUG: Full LLM response: {llm_output}")
+                    
+            except json.JSONDecodeError as e:
+                print(f"❌ Error parsing LLM JSON response: {e}")
+                print(f"🔍 DEBUG: JSON string that failed: {json_str if 'json_str' in locals() else 'N/A'}")
+                return json.dumps({
+                    "error": f"Failed to parse LLM response: {str(e)}",
+                    "final_recommendations": []
+                }, indent=2)
+            
+            return json.dumps({
+                "error": "No valid JSON found in LLM response",
+                "final_recommendations": []
+            }, indent=2)
             
         except Exception as e:
+            print(f"❌ Final medical analysis failed: {str(e)}")
             return json.dumps({
-                "error": f"Supplement recommendation generation failed: {str(e)}",
-                "supplement_recommendations": []
+                "error": f"Final medical analysis failed: {str(e)}",
+                "final_recommendations": []
             }, indent=2)

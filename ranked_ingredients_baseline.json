@@ -1,0 +1,320 @@
+{
+  "status": "success",
+  "message": "Agent 4 baseline tool received user profile successfully",
+  "input_verification": {
+    "patient_data_received": true,
+    "flagged_biomarkers_count": 16,
+    "summary_received": true,
+    "demographics_available": true
+  },
+  "full_user_profile_structure": {
+    "patient_data": {
+      "phase1_basic_intake": {
+        "demographics": {
+          "age": 42,
+          "biological_sex": "male",
+          "biological_sex_other": null,
+          "height_feet": 5,
+          "height_inches": 10,
+          "weight_lbs": 185,
+          "ancestry": [
+            "Caucasian"
+          ],
+          "ancestry_other": null
+        },
+        "medical_history": {
+          "diagnoses": [
+            "hypertension",
+            "elevated_lipids"
+          ],
+          "diagnoses_years": {
+            "hypertension": "2021",
+            "elevated_lipids": "2023"
+          },
+          "diagnoses_other": null,
+          "surgeries": null
+        },
+        "medications": {
+          "current_medications": [
+            {
+              "name": "Atorvastatin",
+              "dose": "10 mg",
+              "frequency": "Daily",
+              "purpose": "Cholesterol"
+            }
+          ],
+          "has_medications": true
+        },
+        "supplements": {
+          "current_supplements": [
+            {
+              "name": "Ashwagandha",
+              "dose": "600 mg",
+              "frequency": "Daily",
+              "purpose": "Stress resilience"
+            },
+            {
+              "name": "L-theanine",
+              "dose": "200 mg",
+              "frequency": "As needed",
+              "purpose": "Focus, calm"
+            },
+            {
+              "name": "Omega-3",
+              "dose": "1500 mg",
+              "frequency": "Daily",
+              "purpose": "Cardiometabolic support"
+            }
+          ],
+          "has_supplements": true
+        },
+        "allergies": {
+          "known_allergies": [],
+          "has_allergies": false
+        },
+        "complementary_approaches": {
+          "selected_approaches": [
+            "functional"
+          ],
+          "functional_medicine": true,
+          "ayurveda": false,
+          "traditional_chinese_medicine": false,
+          "homeopathy": false,
+          "korean_medicine": false
+        },
+        "wearable_devices": {
+          "fitbit": false,
+          "apple_watch": true,
+          "google_pixel_watch": false,
+          "oura_ring": true,
+          "samsung_galaxy_watch": false,
+          "other_device": null,
+          "has_any_wearables": true
+        }
+      },
+      "phase2_detailed_intake": {
+        "family_medical_history": {
+          "has_family_history": true,
+          "conditions_detail": {
+            "heart_attack": [
+              "grandfather_paternal"
+            ],
+            "high_blood_pressure": [
+              "father"
+            ]
+          },
+          "other_conditions_text": null
+        },
+        "medication_side_effects": {
+          "has_adverse_reactions": false,
+          "reaction_details": null
+        },
+        "childhood_antibiotics": {
+          "took_antibiotics_as_child": true
+        },
+        "lifestyle_factors": {
+          "tobacco": {
+            "use_status": "never",
+            "quit_year": null,
+            "duration_category": null
+          },
+          "alcohol": {
+            "frequency": "sometimes",
+            "typical_amount": "2_4_per_month"
+          },
+          "recreational_drugs": {
+            "uses_substances": false,
+            "substance_details": null
+          }
+        },
+        "occupation_wellness": {
+          "job_title": "Founder/CEO",
+          "work_stress_level": 9
+        },
+        "physical_activity": {
+          "exercise_days_per_week": 3
+        },
+        "sunlight_exposure": {
+          "days_per_week": 4,
+          "average_minutes_per_day": 20
+        },
+        "sleep_patterns": {
+          "hours_category": "6_to_8",
+          "trouble_falling_asleep": true,
+          "trouble_staying_asleep": true,
+          "night_wake_frequency": 2,
+          "night_urination_frequency": 0,
+          "wake_feeling_refreshed": false,
+          "snoring_sleep_apnea": "no"
+        },
+        "dietary_habits": {
+          "diet_style": [
+            "low_carb",
+            "intermittent_fasting"
+          ],
+          "diet_style_other": null,
+          "eating_out_frequency": "3_4_per_week"
+        },
+        "childhood_development": {
+          "born_via_c_section": "no",
+          "high_sugar_childhood_diet": "yes"
+        },
+        "dental_health": {
+          "mercury_fillings_removed": false,
+          "removal_timeframe": null,
+          "daily_brush_floss": "both_daily",
+          "dental_work": {
+            "silver_mercury_fillings": 1,
+            "gold_fillings": 0,
+            "root_canals": 0,
+            "implants": 0,
+            "caps_crowns": 1,
+            "other_dental_work": 0
+          }
+        },
+        "environmental_exposures": {
+          "chemical_exposures": [
+            "air_travel_fatigue"
+          ],
+          "chemical_exposure_other": null,
+          "mold_exposure": false
+        },
+        "pets_animals": {
+          "has_pets": false
+        },
+        "systems_review": {
+          "digestive_symptoms": "bloating"
+        },
+        "reproductive_hormonal_health": {
+          "male_specific": {
+            "testosterone_therapy": "no"
+          },
+          "female_specific": null
+        },
+        "pain_and_skin_health": {
+          "headaches": {
+            "frequent_headaches_migraines": true,
+            "headache_details": "Stress-triggered tension headaches weekly"
+          },
+          "chronic_pain": {
+            "has_chronic_pain": false,
+            "pain_details": null
+          },
+          "skin_health": {
+            "has_skin_issues": false,
+            "skin_condition_details": null
+          }
+        }
+      }
+    },
+    "flagged_biomarkers": [
+      {
+        "name": "Dehydroepiandrosterone Sulfate (DHEA-S)",
+        "value": 317.86,
+        "unit": "mcg/dL",
+        "category": "high"
+      },
+      {
+        "name": "HbA1c",
+        "value": 3.3,
+        "unit": "%",
+        "category": "low"
+      },
+      {
+        "name": "High-Sensitivity CRP",
+        "value": 0.22,
+        "unit": "mg/L",
+        "category": "low"
+      },
+      {
+        "name": "Calcium",
+        "value": 8.16,
+        "unit": "mg/dL",
+        "category": "low"
+      },
+      {
+        "name": "LDL Cholesterol",
+        "value": 127.53,
+        "unit": "mg/dL",
+        "category": "high"
+      },
+      {
+        "name": "Testosterone, Total (Males)",
+        "value": 365.98,
+        "unit": "ng/mL",
+        "category": "unclassified"
+      },
+      {
+        "name": "Free Testosterone",
+        "value": 3.09,
+        "unit": "ng/mL",
+        "category": "high"
+      },
+      {
+        "name": "Triglycerides",
+        "value": 40.63,
+        "unit": "mg/dL",
+        "category": "low"
+      },
+      {
+        "name": "Triglyceride:HDL Ratio",
+        "value": 1.29,
+        "unit": "ratio",
+        "category": "high"
+      },
+      {
+        "name": "Calculated Total Cholesterol",
+        "value": 201.77,
+        "unit": "mg/dL",
+        "category": "high"
+      },
+      {
+        "name": "Total Protein",
+        "value": 5.2,
+        "unit": "g/dL",
+        "category": "low"
+      },
+      {
+        "name": "SBHG",
+        "value": 71.72,
+        "unit": "nmol/L",
+        "category": "high"
+      },
+      {
+        "name": "Albumin",
+        "value": 6.58,
+        "unit": "g/dL",
+        "category": "high"
+      },
+      {
+        "name": "Blood Urea Nitrogen",
+        "value": 22.28,
+        "unit": "mg/dL",
+        "category": "high"
+      },
+      {
+        "name": "Bilirubin",
+        "value": 0.19,
+        "unit": "mg/dL",
+        "category": "low"
+      },
+      {
+        "name": "EAG (Calc.)",
+        "value": 48.0,
+        "unit": "mg/dL",
+        "category": "low"
+      }
+    ],
+    "summary": {
+      "total_biomarkers_evaluated": 37,
+      "total_flagged": 16,
+      "high_priority_issues": 16,
+      "category_summary": {
+        "healthy_markers": 22,
+        "low_markers": 7,
+        "high_markers": 8
+      }
+    }
+  },
+  "next_steps": "Ready to implement full RAG functionality"
+}

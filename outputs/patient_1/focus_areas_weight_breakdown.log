@@ -1,0 +1,106 @@
+================================================================================
+FOCUS AREA EVALUATION WEIGHT BREAKDOWN - 2025-10-15 14:03:48
+================================================================================
+
+PATIENT INPUT DATA:
+  Age: 34
+  Sex: female
+  Ancestry: ['African American']
+  BMI: 23.17
+  Height: 64 inches
+  Medical Conditions: ['vitamin_d_deficiency', 'seasonal_allergies']
+  Medications: ['Cetirizine']
+  Allergies: []
+  Supplements: [{'name': 'Vitamin D3', 'dose': '4000 IU', 'frequency': 'Daily', 'purpose': 'Correct deficiency'}, {'name': 'Melatonin (low dose)', 'dose': '0.5 mg', 'frequency': 'Night shift days', 'purpose': 'Sleep onset'}, {'name': 'Magnesium glycinate', 'dose': '300 mg', 'frequency': 'Nightly', 'purpose': 'Sleep quality'}]
+  Family History: {'has_family_history': True, 'conditions_detail': {'asthma': ['mother']}, 'other_conditions_text': None}
+
+RULESET WEIGHT CONTRIBUTIONS:
+
+1. AGE RULESET:
+     Cardiometabolic & Metabolic Health (CM): 0.400
+     Cognitive & Mental Health (COG): 0.300
+     Detoxification & Biotransformation (DTX): 0.300
+     Immune Function & Inflammation (IMM): 0.200
+     Mitochondrial & Energy Metabolism (MITO): 0.300
+     Skin & Barrier Function (SKN): 0.200
+     Stress-Axis & Nervous System Resilience (STR): 0.500
+     Hormonal Health (Transport) (HRM): 0.400
+     Gut Health and assimilation (GA): 0.300
+
+2. SEX RULESET:
+     Cardiometabolic & Metabolic Health (CM): 0.200
+     Cognitive & Mental Health (COG): 0.200
+     Detoxification & Biotransformation (DTX): 0.200
+     Immune Function & Inflammation (IMM): 0.250
+     Mitochondrial & Energy Metabolism (MITO): 0.200
+     Skin & Barrier Function (SKN): 0.200
+     Stress-Axis & Nervous System Resilience (STR): 0.250
+     Hormonal Health (Transport) (HRM): 0.350
+     Gut Health and assimilation (GA): 0.250
+
+3. ANCESTRY RULESET:
+     Cardiometabolic & Metabolic Health (CM): 0.200
+
+4. BMI RULESET:
+     Cardiometabolic & Metabolic Health (CM): 0.200
+     Cognitive & Mental Health (COG): 0.200
+     Detoxification & Biotransformation (DTX): 0.200
+     Immune Function & Inflammation (IMM): 0.200
+     Mitochondrial & Energy Metabolism (MITO): 0.200
+     Skin & Barrier Function (SKN): 0.200
+     Stress-Axis & Nervous System Resilience (STR): 0.250
+     Hormonal Health (Transport) (HRM): 0.200
+     Gut Health and assimilation (GA): 0.200
+
+5. HEIGHT RULESET:
+     Cardiometabolic & Metabolic Health (CM): 0.250
+     Cognitive & Mental Health (COG): 0.150
+     Detoxification & Biotransformation (DTX): 0.150
+     Immune Function & Inflammation (IMM): 0.150
+     Mitochondrial & Energy Metabolism (MITO): 0.150
+     Skin & Barrier Function (SKN): 0.100
+     Stress-Axis & Nervous System Resilience (STR): 0.150
+     Hormonal Health (Transport) (HRM): 0.150
+     Gut Health and assimilation (GA): 0.100
+
+6. MEDICAL CONDITIONS RULESET:
+   Base Condition Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.850
+     Cognitive & Mental Health (COG): 0.200
+     Mitochondrial & Energy Metabolism (MITO): 0.300
+   Recency Modifier:
+     (No weights applied)
+   Therapy/Toxicity Modifier:
+     (No weights applied)
+
+7. ALLERGIES RULESET:
+   Base Allergy Weights:
+     (No weights applied)
+   Integrative Add-ons:
+     (No weights applied)
+
+8. SUPPLEMENTS RULESET:
+   Medication/Supplement Weights:
+     (No weights applied)
+
+9. FAMILY HISTORY RULESET:
+   Family Condition Weights:
+     Immune Function & Inflammation (IMM): 0.200
+
+FINAL COMBINED SCORES:
+     Cardiometabolic & Metabolic Health (CM): 1.350
+     Cognitive & Mental Health (COG): 0.950
+     Detoxification & Biotransformation (DTX): 0.850
+     Immune Function & Inflammation (IMM): 1.000
+     Mitochondrial & Energy Metabolism (MITO): 0.950
+     Skin & Barrier Function (SKN): 0.700
+     Stress-Axis & Nervous System Resilience (STR): 1.150
+     Hormonal Health (Transport) (HRM): 1.100
+     Gut Health and assimilation (GA): 0.850
+
+TOP 3 FOCUS AREAS:
+  1. Cardiometabolic & Metabolic Health (CM): 1.350
+  2. Stress-Axis & Nervous System Resilience (STR): 1.150
+  3. Hormonal Health (Transport) (HRM): 1.100
+
+================================================================================

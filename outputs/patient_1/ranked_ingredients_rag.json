@@ -1,0 +1,231 @@
+[
+  {
+    "ingredient_name": "Chromium",
+    "description": "Ingredient: Chromium\nMedicine Category: Functional\nCore Health Problems: Type 2 diabetes, Metabolic syndrome, Polycystic ovary syndrome (PCOS)\nSecondary Health Problems: Dyslipidemia, Weight management\nKey Actions: Potentiates insulin action, Might help carbohydrate, lipid, and protein metabolism, Might have antioxidant effects\nRelevant Conditions: Impaired glucose tolerance, High fasting blood glucose, Elevated LDL cholesterol, Low HDL cholesterol, Elevated triglycerides, Obesity\nBiomarkers Mentioned: Hemoglobin A1C, HDL Cholesterol, LDL Cholesterol, Triglycerides, Total Cholesterol, Testosterone, Free (calc), Testosterone, Total (Males)\nBiomarker Recommendations: Hemoglobin A1C: recommended when high, HDL Cholesterol: recommended when low, LDL Cholesterol: recommended when high, Triglycerides: recommended when high, Total Cholesterol: recommended when high, Testosterone, Free (calc): recommended when high, Testosterone, Total (Males): recommended when high\nSpecial Cases: People with kidney disease or liver disease should be cautious about taking high amounts of chromium\nCases When Not Recommended: Chromium supplements might interact with insulin, metformin, other antidiabetes medications, and levothyroxine\nLifestyle Factors: Dietary intake of high-sugar foods, Use of stainless steel cookware\nDescription: Chromium is a mineral that might help with carbohydrate, lipid, and protein metabolism by potentiating insulin action. It has been studied for its potential benefits in managing type 2 diabetes, metabolic syndrome, PCOS, dyslipidemia, and weight management, though results are mixed. People with kidney or liver disease should be cautious about high chromium intake, and it may interact with medications like insulin, metformin, and levothyroxine.",
+    "metadata": {
+      "biomarkers_mentioned": "Hemoglobin A1C, HDL Cholesterol, LDL Cholesterol, Triglycerides, Total Cholesterol, Testosterone, Free (calc), Testosterone, Total (Males)",
+      "cases_when_not_recommended": "Chromium supplements might interact with insulin, metformin, other antidiabetes medications, and levothyroxine",
+      "core_health_problems": "Type 2 diabetes, Metabolic syndrome, Polycystic ovary syndrome (PCOS)",
+      "ingredient_name": "Chromium",
+      "medicine_category": "Functional",
+      "special_cases": "People with kidney disease or liver disease should be cautious about taking high amounts of chromium"
+    },
+    "semantic_score": 0.060064010272493085,
+    "bm25_score": 0.3871264601983544,
+    "biomarker_boost": 0.44999999999999996,
+    "final_score": 0.2751635421685035,
+    "rank": 1
+  },
+  {
+    "ingredient_name": "Niacin",
+    "description": "Ingredient: Niacin\nMedicine Category: Functional\nCore Health Problems: Pellagra, Hyperlipidemia\nSecondary Health Problems: Cardiovascular disease, Liver problems, Diabetes\nKey Actions: Helps turn food into energy, Supports cell development and function, Lowers LDL cholesterol, Raises HDL cholesterol, Lowers triglycerides, Supports antioxidant function, Maintains genome integrity, Controls gene expression, Facilitates cellular communication\nRelevant Conditions: Atherosclerosis, High blood cholesterol, Low HDL cholesterol, High LDL cholesterol, High triglycerides, Diabetes, Skin flushing, Hepatitis, Liver failure\nBiomarkers Mentioned: HDL Cholesterol, LDL Cholesterol, Triglycerides, Hemoglobin A1C, Alanine Aminotransferase (ALT), Aspartate Aminotransferase (AST), Lipoprotein (a)\nBiomarker Recommendations: {'HDL Cholesterol': 'high'}, {'LDL Cholesterol': 'low'}, {'Triglycerides': 'low'}, {'Hemoglobin A1C': 'unclear'}, {'Alanine Aminotransferase (ALT)': 'unclear'}, {'Aspartate Aminotransferase (AST)': 'unclear'}, {'Lipoprotein (a)': 'low'}\nSpecial Cases: Hartnup disease, Carcinoid syndrome\nCases When Not Recommended: Persistent hyperglycemia, Acute gout, Unexplained abdominal pain, New-onset atrial fibrillation, Severe skin reactions, Weight loss, Hepatic transaminase levels more than two or three times the upper limits of normal\nLifestyle Factors: Undernutrition, Alcohol use disorder, Anorexia, Inflammatory bowel disease, Liver cirrhosis, Low iron intake, Low riboflavin intake, Low vitamin B6 intake\nDescription: Niacin, also known as vitamin B3, plays a critical role in energy production, cell function, and maintaining genome integrity. It is effective in lowering LDL cholesterol, raising HDL cholesterol, and reducing triglycerides, though high doses can lead to side effects such as skin flushing, liver problems, and increased blood sugar levels. Niacin is particularly beneficial for conditions like pellagra, hyperlipidemia, and atherosclerosis but should be used cautiously in individuals with liver issues, diabetes, or severe skin reactions.",
+    "metadata": {
+      "biomarkers_mentioned": "HDL Cholesterol, LDL Cholesterol, Triglycerides, Hemoglobin A1C, Alanine Aminotransferase (ALT), Aspartate Aminotransferase (AST), Lipoprotein (a)",
+      "cases_when_not_recommended": "Persistent hyperglycemia, Acute gout, Unexplained abdominal pain, New-onset atrial fibrillation, Severe skin reactions, Weight loss, Hepatic transaminase levels more than two or three times the upper limits of normal",
+      "core_health_problems": "Pellagra, Hyperlipidemia",
+      "ingredient_name": "Niacin",
+      "medicine_category": "Functional",
+      "special_cases": "Hartnup disease, Carcinoid syndrome"
+    },
+    "semantic_score": 0.056340286876819134,
+    "bm25_score": 0.30027452915277864,
+    "biomarker_boost": 0.44999999999999996,
+    "final_score": 0.24761847349656124,
+    "rank": 2
+  },
+  {
+    "ingredient_name": "Carnitine",
+    "description": "Ingredient: Carnitine\nMedicine Category: Functional\nCore Health Problems: Cardiovascular disease, Peripheral artery disease, Insulin resistance, Type 2 diabetes, Infertility, Osteoarthritis, Alzheimer's disease, Dementia\nSecondary Health Problems: Athletic performance issues, Weight loss challenges\nKey Actions: Helps transport long-chain fatty acids into mitochondria for energy production, Supports fatty acid oxidation, Reduces oxidative stress, Improves sperm motility and morphology, May reduce inflammation and pain in osteoarthritis, May improve insulin sensitivity and glucose metabolism\nRelevant Conditions: Alzheimer's disease, Dementia, Cardiovascular disease, Peripheral artery disease, Insulin resistance, Type 2 diabetes, Male infertility, Female infertility (PCOS), Osteoarthritis, Athletic performance, Weight loss\nBiomarkers Mentioned: Apolipoprotein A1 (APOA1), Apolipoprotein B (APOB), LDL Cholesterol, Total Cholesterol, Lipoprotein (a), Triglycerides, % Hemoglobin A1C\nBiomarker Recommendations: {'Apolipoprotein A1 (APOA1)': 'unclear'}, {'Apolipoprotein B (APOB)': 'recommended when high'}, {'LDL Cholesterol': 'recommended when high'}, {'Total Cholesterol': 'recommended when high'}, {'Lipoprotein (a)': 'unclear'}, {'Triglycerides': 'unclear'}, {'% Hemoglobin A1C': 'recommended when high'}\nSpecial Cases: Premature infants, Individuals with end-stage renal disease, People on hemodialysis, People with primary carnitine deficiency\nCases When Not Recommended: People with seizure disorders (risk of increased seizures), People with chronic kidney disease (risk of muscle weakness), High doses (3 grams or more per day) causing nausea, vomiting, stomach cramps, diarrhea, and fishy body odor\nLifestyle Factors: Vegan diet, Vegetarian diet, Low intake of animal products\nDescription: Carnitine is a nutrient that supports energy production by transporting fatty acids into mitochondria and reducing oxidative stress. It may benefit conditions such as cardiovascular disease, peripheral artery disease, insulin resistance, type 2 diabetes, infertility, osteoarthritis, and cognitive decline. However, high doses can cause gastrointestinal issues, muscle weakness in chronic kidney disease, and increased seizure risk in those with seizure disorders.",
+    "metadata": {
+      "biomarkers_mentioned": "Apolipoprotein A1 (APOA1), Apolipoprotein B (APOB), LDL Cholesterol, Total Cholesterol, Lipoprotein (a), Triglycerides, % Hemoglobin A1C",
+      "cases_when_not_recommended": "People with seizure disorders (risk of increased seizures), People with chronic kidney disease (risk of muscle weakness), High doses (3 grams or more per day) causing nausea, vomiting, stomach cramps, diarrhea, and fishy body odor",
+      "core_health_problems": "Cardiovascular disease, Peripheral artery disease, Insulin resistance, Type 2 diabetes, Infertility, Osteoarthritis, Alzheimer's disease, Dementia",
+      "ingredient_name": "Carnitine",
+      "medicine_category": "Functional",
+      "special_cases": "Premature infants, Individuals with end-stage renal disease, People on hemodialysis, People with primary carnitine deficiency"
+    },
+    "semantic_score": 0.052794996746146516,
+    "bm25_score": 0.1191621089961605,
+    "biomarker_boost": 0.3,
+    "final_score": 0.14686663139730677,
+    "rank": 3
+  },
+  {
+    "ingredient_name": "Pantothenic Acid",
+    "description": "Ingredient: Pantothenic Acid\nMedicine Category: Functional\nCore Health Problems: Hyperlipidemia, Neurodegeneration associated with brain iron accumulation (PKAN)\nSecondary Health Problems: High cholesterol, High triglyceride levels\nKey Actions: Synthesis of coenzyme A (CoA), Fatty acid synthesis and degradation, Lipoprotein metabolism\nRelevant Conditions: Hyperlipidemia, High cholesterol, High triglyceride levels, Neurodegeneration associated with brain iron accumulation (PKAN)\nBiomarkers Mentioned: HDL Cholesterol, LDL Cholesterol, Triglycerides, Total Cholesterol\nBiomarker Recommendations: HDL Cholesterol: recommended when high, LDL Cholesterol: recommended when low, Triglycerides: recommended when low, Total Cholesterol: recommended when low\nSpecial Cases: People with pantothenate kinase-associated neurodegeneration (PKAN)\nCases When Not Recommended: \nLifestyle Factors: Severe malnutrition\nDescription: Pantothenic acid, also known as vitamin B5, plays a key role in the synthesis of coenzyme A (CoA) and fatty acid metabolism. It is being studied for its potential benefits in managing hyperlipidemia, including lowering LDL cholesterol, triglycerides, and total cholesterol while increasing HDL cholesterol. Additionally, it may have relevance in addressing neurodegeneration associated with brain iron accumulation (PKAN).",
+    "metadata": {
+      "biomarkers_mentioned": "HDL Cholesterol, LDL Cholesterol, Triglycerides, Total Cholesterol",
+      "cases_when_not_recommended": "",
+      "core_health_problems": "Hyperlipidemia, Neurodegeneration associated with brain iron accumulation (PKAN)",
+      "ingredient_name": "Pantothenic Acid",
+      "medicine_category": "Functional",
+      "special_cases": "People with pantothenate kinase-associated neurodegeneration (PKAN)"
+    },
+    "semantic_score": -0.2399184869476081,
+    "bm25_score": 0.25325250198172666,
+    "biomarker_boost": 0.44999999999999996,
+    "final_score": 0.11500835581547474,
+    "rank": 4
+  },
+  {
+    "ingredient_name": "Vitamin D",
+    "description": "Ingredient: Vitamin D\nMedicine Category: Functional\nCore Health Problems: Osteoporosis, Rickets, Osteomalacia\nSecondary Health Problems: Cancer mortality reduction, Cardiovascular disease risk reduction, Muscle weakness, Depression, Multiple sclerosis, Type 2 diabetes\nKey Actions: Promotes calcium absorption, Maintains serum calcium and phosphate levels, Supports bone mineralization, Reduces inflammation, Modulates cell growth and immune function\nRelevant Conditions: Osteoporosis, Rickets, Osteomalacia, Cancer mortality, Cardiovascular disease, Depression, Multiple sclerosis, Type 2 diabetes\nBiomarkers Mentioned: Calcium, Hemoglobin A1C, Triglycerides, LDL Cholesterol, HDL Cholesterol, 25-(OH) Vitamin D, Total Cholesterol\nBiomarker Recommendations: Calcium: recommended when low, Hemoglobin A1C: unclear, Triglycerides: unclear, LDL Cholesterol: unclear, HDL Cholesterol: unclear, 25-(OH) Vitamin D: recommended when low, Total Cholesterol: unclear\nSpecial Cases: Breastfed infants require supplementation, Older adults have reduced skin synthesis of vitamin D, People with dark skin produce less vitamin D from sunlight, Individuals with obesity may need higher doses, People with gastric bypass surgery may require supplementation\nCases When Not Recommended: Excessive vitamin D intake can cause hypercalcemia, kidney stones, and toxicity, Combination of vitamin D and thiazide diuretics may lead to hypercalcemia, High doses of vitamin D may reduce the potency of certain statins, Vitamin D supplementation does not reduce fractures or falls in community-dwelling older adults\nLifestyle Factors: Limited sun exposure, Dark skin, Older age, Breastfeeding without supplementation, Obesity, Gastric bypass surgery, Fat malabsorption conditions (e.g., Crohn\u2019s disease, celiac disease, ulcerative colitis)\nDescription: Vitamin D is essential for calcium absorption and bone health, preventing conditions like osteoporosis, rickets, and osteomalacia. It also plays roles in reducing inflammation, supporting immune function, and modulating cell growth. While supplementation is beneficial for certain groups, excessive intake can lead to toxicity, hypercalcemia, and kidney stones.",
+    "metadata": {
+      "biomarkers_mentioned": "Calcium, Hemoglobin A1C, Triglycerides, LDL Cholesterol, HDL Cholesterol, 25-(OH) Vitamin D, Total Cholesterol",
+      "cases_when_not_recommended": "Excessive vitamin D intake can cause hypercalcemia, kidney stones, and toxicity, Combination of vitamin D and thiazide diuretics may lead to hypercalcemia, High doses of vitamin D may reduce the potency of certain statins, Vitamin D supplementation does not reduce fractures or falls in community-dwelling older adults",
+      "core_health_problems": "Osteoporosis, Rickets, Osteomalacia",
+      "ingredient_name": "Vitamin D",
+      "medicine_category": "Functional",
+      "special_cases": "Breastfed infants require supplementation, Older adults have reduced skin synthesis of vitamin D, People with dark skin produce less vitamin D from sunlight, Individuals with obesity may need higher doses, People with gastric bypass surgery may require supplementation"
+    },
+    "semantic_score": -0.1522942468374937,
+    "bm25_score": 0.11654244610881859,
+    "biomarker_boost": 0.44999999999999996,
+    "final_score": 0.10904503509764807,
+    "rank": 5
+  },
+  {
+    "ingredient_name": "Zinc",
+    "description": "Ingredient: Zinc\nMedicine Category: Functional\nCore Health Problems: Diarrhea in children, Age-related macular degeneration (AMD), Acute childhood diarrhea, Pneumonia in children\nSecondary Health Problems: Common cold, Type 2 diabetes, HIV-related complications, Gestational diabetes, Diabetic foot ulcers\nKey Actions: Supports immune function, Aids in DNA and protein synthesis, Promotes wound healing, Enhances growth and development, Maintains mucosal integrity of the gastrointestinal system\nRelevant Conditions: Common cold, Pneumonia, HIV, Diarrhea, Age-related macular degeneration, Type 2 diabetes, Gestational diabetes, Diabetic foot ulcers\nBiomarkers Mentioned: HDL Cholesterol, LDL Cholesterol, Triglycerides, Total Cholesterol, Hemoglobin A1C, C-Reactive Protein\nBiomarker Recommendations: {'HDL Cholesterol': 'low'}, {'LDL Cholesterol': 'high'}, {'Triglycerides': 'high'}, {'Total Cholesterol': 'high'}, {'Hemoglobin A1C': 'high'}, {'C-Reactive Protein': 'high'}\nSpecial Cases: Pregnancy, Lactation, Older infants who are exclusively breastfed, Children with sickle cell disease, People with gastrointestinal disorders or bariatric surgery\nCases When Not Recommended: Excessive use of denture adhesive creams containing zinc, Taking zinc supplements with quinolone or tetracycline antibiotics without proper timing, Taking zinc supplements with penicillamine without proper timing\nLifestyle Factors: Vegetarian or vegan diets, Alcohol use disorder, Low intake of absorbable zinc in low-income countries\nDescription: Zinc is an essential mineral that supports immune function, DNA and protein synthesis, wound healing, and growth. It is beneficial for conditions such as diarrhea in children, age-related macular degeneration, and pneumonia. Zinc supplementation may also help manage secondary issues like the common cold, type 2 diabetes, and HIV-related complications, though excessive intake or improper use with certain medications can lead to adverse effects.",
+    "metadata": {
+      "biomarkers_mentioned": "HDL Cholesterol, LDL Cholesterol, Triglycerides, Total Cholesterol, Hemoglobin A1C, C-Reactive Protein",
+      "cases_when_not_recommended": "Excessive use of denture adhesive creams containing zinc, Taking zinc supplements with quinolone or tetracycline antibiotics without proper timing, Taking zinc supplements with penicillamine without proper timing",
+      "core_health_problems": "Diarrhea in children, Age-related macular degeneration (AMD), Acute childhood diarrhea, Pneumonia in children",
+      "ingredient_name": "Zinc",
+      "medicine_category": "Functional",
+      "special_cases": "Pregnancy, Lactation, Older infants who are exclusively breastfed, Children with sickle cell disease, People with gastrointestinal disorders or bariatric surgery"
+    },
+    "semantic_score": -0.11469366940586623,
+    "bm25_score": 0.18444263716472734,
+    "biomarker_boost": 0.3,
+    "final_score": 0.09945532338707169,
+    "rank": 6
+  },
+  {
+    "ingredient_name": "Phosphorus",
+    "description": "Ingredient: Phosphorus\nMedicine Category: Functional\nCore Health Problems: Chronic kidney disease (CKD), Cardiovascular disease (CVD)\nSecondary Health Problems: Bone mineralization issues, Refeeding syndrome\nKey Actions: Regulation of gene transcription, Activation of enzymes, Maintenance of normal pH in extracellular fluid, Intracellular energy storage\nRelevant Conditions: Osteopenia of prematurity, X-linked hypophosphatemic rickets, Refeeding hypophosphatemia\nBiomarkers Mentioned: Calcium, Creatinine, Blood Urea Nitrogen (BUN), eGFR\nBiomarker Recommendations: {'Calcium': 'unclear'}, {'Creatinine': 'unclear'}, {'Blood Urea Nitrogen (BUN)': 'unclear'}, {'eGFR': 'unclear'}\nSpecial Cases: Preterm newborns, People with genetic phosphate regulation disorders, Patients with severe malnutrition\nCases When Not Recommended: People with kidney disease, People with heart disease, People with dehydration\nLifestyle Factors: Excessive alcohol intake, Chewing or swallowing problems\nDescription: Phosphorus is an essential mineral involved in energy production, gene transcription, and enzyme activation. It plays a critical role in bone health and is linked to conditions such as chronic kidney disease and cardiovascular disease. Special considerations include preterm newborns, genetic phosphate regulation disorders, and malnutrition-related refeeding syndrome.",
+    "metadata": {
+      "biomarkers_mentioned": "Calcium, Creatinine, Blood Urea Nitrogen (BUN), eGFR",
+      "cases_when_not_recommended": "People with kidney disease, People with heart disease, People with dehydration",
+      "core_health_problems": "Chronic kidney disease (CKD), Cardiovascular disease (CVD)",
+      "ingredient_name": "Phosphorus",
+      "medicine_category": "Functional",
+      "special_cases": "Preterm newborns, People with genetic phosphate regulation disorders, Patients with severe malnutrition"
+    },
+    "semantic_score": -0.28933739145796333,
+    "bm25_score": 0.12084216451536443,
+    "biomarker_boost": 0.44999999999999996,
+    "final_score": 0.055517692771423974,
+    "rank": 7
+  },
+  {
+    "ingredient_name": "Calcium",
+    "description": "Ingredient: Calcium\nMedicine Category: Functional\nCore Health Problems: Osteoporosis, Preeclampsia, Metabolic syndrome\nSecondary Health Problems: Rickets, Osteomalacia, Cancer, Cardiovascular disease, Weight management\nKey Actions: Builds and maintains strong bones, Supports muscle movement, Facilitates nerve signaling, Helps blood vessels transport blood, Assists in hormone release\nRelevant Conditions: Fragile bones, Bone fractures, Hypertension, Colorectal cancer, Prostate cancer, Obesity, Diabetes\nBiomarkers Mentioned: Calcium, 25-(OH) Vitamin D, Triglycerides, HDL Cholesterol\nBiomarker Recommendations: Calcium: unclear, 25-(OH) Vitamin D: unclear, Triglycerides: unclear, HDL Cholesterol: unclear\nSpecial Cases: Postmenopausal women, Pregnant women with low calcium intake\nCases When Not Recommended: Risk of kidney stones, Risk of cardiovascular disease, Risk of prostate cancer\nLifestyle Factors: Low dietary calcium intake, Avoidance of dairy products, Lactose intolerance, Milk allergy, Vegan diet, Living in poverty\nDescription: Calcium is a vital mineral that supports bone health, muscle function, nerve signaling, and blood vessel activity. It is particularly important for postmenopausal women and pregnant women with low calcium intake, but excessive supplementation may increase risks of kidney stones, cardiovascular disease, and prostate cancer. Calcium is found in dairy products, fortified foods, and supplements, with absorption influenced by dietary factors and vitamin D levels.",
+    "metadata": {
+      "biomarkers_mentioned": "Calcium, 25-(OH) Vitamin D, Triglycerides, HDL Cholesterol",
+      "cases_when_not_recommended": "Risk of kidney stones, Risk of cardiovascular disease, Risk of prostate cancer",
+      "core_health_problems": "Osteoporosis, Preeclampsia, Metabolic syndrome",
+      "ingredient_name": "Calcium",
+      "medicine_category": "Functional",
+      "special_cases": "Postmenopausal women, Pregnant women with low calcium intake"
+    },
+    "semantic_score": -0.184723475684756,
+    "bm25_score": 0.10896245318240053,
+    "biomarker_boost": 0.3,
+    "final_score": 0.04879934568081775,
+    "rank": 8
+  },
+  {
+    "ingredient_name": "Potassium",
+    "description": "Ingredient: Potassium\nMedicine Category: Functional\nCore Health Problems: Hypertension, Stroke, Kidney stones, Bone health issues, Type 2 diabetes\nSecondary Health Problems: Hyperkalemia, Hypokalemia, Cardiac arrhythmias, Glucose intolerance\nKey Actions: Regulates blood pressure, Supports nerve transmission, Aids muscle contraction, Maintains kidney function, Reduces calcium loss in urine, Improves bone mineral density, Supports insulin secretion\nRelevant Conditions: Hypertension, Stroke, Kidney stones, Bone mineral density loss, Type 2 diabetes, Hypokalemia, Hyperkalemia, Cardiac arrhythmias\nBiomarkers Mentioned: Calcium, Creatinine\nBiomarker Recommendations: Calcium: unclear, Creatinine: unclear\nSpecial Cases: People with inflammatory bowel disease, People with chronic kidney disease, People with adrenal insufficiency, People with congestive heart failure, People with type 1 diabetes, People with liver disease\nCases When Not Recommended: People with impaired potassium excretion, People taking ACE inhibitors, People taking potassium-sparing diuretics, People at risk of hyperkalemia\nLifestyle Factors: High sodium intake, Low intake of fruits and vegetables, Use of diuretics, Laxative abuse, Heavy sweating, Eating clay (pica), Prolonged diarrhea or vomiting\nDescription: Potassium is an essential mineral that supports blood pressure regulation, nerve transmission, muscle contraction, and kidney function. It is beneficial for conditions such as hypertension, stroke, kidney stones, and type 2 diabetes, and it may improve bone mineral density. However, it should be used cautiously in individuals with impaired potassium excretion or those taking certain medications like ACE inhibitors or potassium-sparing diuretics.",
+    "metadata": {
+      "biomarkers_mentioned": "Calcium, Creatinine",
+      "cases_when_not_recommended": "People with impaired potassium excretion, People taking ACE inhibitors, People taking potassium-sparing diuretics, People at risk of hyperkalemia",
+      "core_health_problems": "Hypertension, Stroke, Kidney stones, Bone health issues, Type 2 diabetes",
+      "ingredient_name": "Potassium",
+      "medicine_category": "Functional",
+      "special_cases": "People with inflammatory bowel disease, People with chronic kidney disease, People with adrenal insufficiency, People with congestive heart failure, People with type 1 diabetes, People with liver disease"
+    },
+    "semantic_score": -0.19459756741935896,
+    "bm25_score": 0.04561499987873195,
+    "biomarker_boost": 0.3,
+    "final_score": 0.025845472995876,
+    "rank": 9
+  },
+  {
+    "ingredient_name": "Vitamin E",
+    "description": "Ingredient: Vitamin E\nMedicine Category: Functional\nCore Health Problems: Heart disease, Cancer, Eye disorders, Cognitive decline\nSecondary Health Problems: Immune system dysfunction, Oxidative stress-related conditions\nKey Actions: Acts as an antioxidant, Protects cells from free radical damage, Boosts immune system, Inhibits platelet aggregation, Regulates gene expression, Dilates blood vessels, Inhibits blood clotting\nRelevant Conditions: Coronary heart disease, Prostate cancer, Bladder cancer, Age-related macular degeneration (AMD), Cataracts, Alzheimer's disease, Mild cognitive impairment\nBiomarkers Mentioned: LDL Cholesterol, HDL Cholesterol\nBiomarker Recommendations: LDL Cholesterol: unclear, HDL Cholesterol: unclear\nSpecial Cases: Premature babies of very low birth weight, People with fat-malabsorption disorders, People with abetalipoproteinemia, People with ataxia and vitamin E deficiency (AVED)\nCases When Not Recommended: People undergoing chemotherapy or radiation therapy, People taking anticoagulant or antiplatelet medications, People with low vitamin K intake, Men at risk of prostate cancer\nLifestyle Factors: Exposure to cigarette smoke, Air pollution, Ultraviolet light from the sun\nDescription: Vitamin E is a fat-soluble antioxidant that protects cells from free radical damage and supports immune function. It has been studied for its potential benefits in heart disease, cancer, eye disorders, and cognitive decline, though results are inconsistent. High doses of vitamin E supplements may pose risks, including increased bleeding and prostate cancer in men.",
+    "metadata": {
+      "biomarkers_mentioned": "LDL Cholesterol, HDL Cholesterol",
+      "cases_when_not_recommended": "People undergoing chemotherapy or radiation therapy, People taking anticoagulant or antiplatelet medications, People with low vitamin K intake, Men at risk of prostate cancer",
+      "core_health_problems": "Heart disease, Cancer, Eye disorders, Cognitive decline",
+      "ingredient_name": "Vitamin E",
+      "medicine_category": "Functional",
+      "special_cases": "Premature babies of very low birth weight, People with fat-malabsorption disorders, People with abetalipoproteinemia, People with ataxia and vitamin E deficiency (AVED)"
+    },
+    "semantic_score": -0.1628952419146954,
+    "bm25_score": 0.1067705317408366,
+    "biomarker_boost": 0.15,
+    "final_score": 0.011873062756372815,
+    "rank": 10
+  },
+  {
+    "ingredient_name": "Copper",
+    "description": "Ingredient: Copper\nMedicine Category: Functional\nCore Health Problems: Cardiovascular disease, Alzheimer's disease\nSecondary Health Problems: Connective tissue disorders, Osteoporosis, Anemia, Hypercholesterolemia, Increased risk of infection\nKey Actions: Supports energy production, Aids in connective tissue synthesis, Supports blood vessel formation, Maintains nervous and immune systems, Activates genes, Supports brain development, Defense against oxidative damage\nRelevant Conditions: Copper deficiency, Cardiovascular disease, Alzheimer's disease, Celiac disease, Menkes disease, Wilson's disease\nBiomarkers Mentioned: LDL Cholesterol, Total Cholesterol, High-Sensitivity CRP\nBiomarker Recommendations: LDL Cholesterol: unclear, Total Cholesterol: unclear, High-Sensitivity CRP: unclear\nSpecial Cases: Menkes disease, Wilson's disease\nCases When Not Recommended: Excessive intake of copper from water pipes or supplements, Patients with Wilson's disease\nLifestyle Factors: High dietary intake of zinc, Celiac disease\nDescription: Copper is an essential mineral involved in energy production, connective tissue synthesis, and brain development. It supports the nervous and immune systems, activates genes, and defends against oxidative damage. Copper may play a role in cardiovascular disease and Alzheimer's disease, though evidence is mixed, and excessive intake can lead to toxicity or liver damage.",
+    "metadata": {
+      "biomarkers_mentioned": "LDL Cholesterol, Total Cholesterol, High-Sensitivity CRP",
+      "cases_when_not_recommended": "Excessive intake of copper from water pipes or supplements, Patients with Wilson's disease",
+      "core_health_problems": "Cardiovascular disease, Alzheimer's disease",
+      "ingredient_name": "Copper",
+      "medicine_category": "Functional",
+      "special_cases": "Menkes disease, Wilson's disease"
+    },
+    "semantic_score": -0.3286369288876587,
+    "bm25_score": 0.16421527950817205,
+    "biomarker_boost": 0.3,
+    "final_score": 0.0078098122973881134,
+    "rank": 11
+  },
+  {
+    "ingredient_name": "Ashwagandha",
+    "description": "Ingredient: Ashwagandha\nMedicine Category: Ayurvedic\nCore Health Problems: Stress, Anxiety, Sleep problems\nSecondary Health Problems: Fatigue, Insomnia\nKey Actions: Reduces stress and anxiety, Improves sleep quality and duration, Lowers cortisol levels\nRelevant Conditions: Generalized anxiety disorder, Insomnia\nBiomarkers Mentioned: Thyroid Stimulating Hormone (TSH), Triiodothyronine (T3), Thyroxine (T4), Cortisol, Total Bilirubin\nBiomarker Recommendations: TSH: recommended when low, T3: recommended when low, T4: recommended when low, Cortisol: recommended when high, Total Bilirubin: unclear\nSpecial Cases: May affect thyroid function, May interact with medications (e.g., thyroid medications, antidiabetes medications, antihypertensives, immunosuppressants, sedatives), May increase testosterone levels\nCases When Not Recommended: Pregnant women, Breastfeeding women, Men with hormone-sensitive prostate cancer, People with pre-existing liver disease\nLifestyle Factors: \nDescription: Ashwagandha, commonly used in Ayurvedic medicine, may help reduce stress and anxiety, improve sleep quality, and lower cortisol levels. It has shown benefits for generalized anxiety disorder and insomnia, particularly at doses of 500-600 mg/day for 6-8 weeks. However, it may affect thyroid function, interact with certain medications, and is not recommended for pregnant or breastfeeding women or men with hormone-sensitive prostate cancer.",
+    "metadata": {
+      "biomarkers_mentioned": "Thyroid Stimulating Hormone (TSH), Triiodothyronine (T3), Thyroxine (T4), Cortisol, Total Bilirubin",
+      "cases_when_not_recommended": "Pregnant women, Breastfeeding women, Men with hormone-sensitive prostate cancer, People with pre-existing liver disease",
+      "core_health_problems": "Stress, Anxiety, Sleep problems",
+      "ingredient_name": "Ashwagandha",
+      "medicine_category": "Ayurvedic",
+      "special_cases": "May affect thyroid function, May interact with medications (e.g., thyroid medications, antidiabetes medications, antihypertensives, immunosuppressants, sedatives), May increase testosterone levels"
+    },
+    "semantic_score": -0.21977302433817747,
+    "bm25_score": 0.10315625991233118,
+    "biomarker_boost": 0.15,
+    "final_score": -0.011962331761571646,
+    "rank": 12
+  },
+  {
+    "ingredient_name": "Omega-3 Fatty Acids",
+    "description": "Ingredient: Omega-3 Fatty Acids\nMedicine Category: Functional\nCore Health Problems: Cardiovascular disease, Infant health and neurodevelopment, Age-related macular degeneration (AMD)\nSecondary Health Problems: Dry eye disease, Rheumatoid arthritis, Cancer prevention, Alzheimer\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\u200b\nDescription: Licorice (Glycyrrhiza glabra) is a perennial shrub native to southern Europe and parts of Asia. Its root has been used in traditional medicine, including Traditional Chinese Medicine (TCM) and Ayurvedic systems, for centuries. Modern research indicates that licorice possesses anti-inflammatory, antiviral, antimicrobial, and adaptogenic properties. The main active compound, glycyrrhizin, is responsible for many of its therapeutic effects, including modulating adrenal function and exhibiting mineralocorticoid-like activity. It can influence various bodily systems, including the endocrine system, immune system, and gastrointestinal tract. Glycyrrhizin also has anti-allergy effects, which might be beneficial for seasonal allergies.
+
+Special Cases: Individuals with hypertension, kidney disease, or liver disease should use licorice cautiously due to its potential to cause mineralocorticoid excess and associated side effects like hypokalemia and fluid retention. It can also interact with several medications including diuretics, corticosteroids, oral contraceptives, and blood pressure medications. Pregnant or breastfeeding women should avoid high doses.
+
+Cases When Not Recommended: Pregnancy, breastfeeding, hypertension, hypokalemia, kidney disease, liver disease, congestive heart failure, severe hormone-sensitive cancers, and concurrent use of certain medications (e.g., diuretics, corticosteroids, oral contraceptives, blood pressure medications, digoxin, insulin, laxatives). Discontinue use two weeks prior to any planned surgery.
+
+Lifestyle Factors: Chronic stress, hormonal imbalances, poor diet, certain medication use (e.g., NSAIDs, oral contraceptives), and exposure to environmental toxins.
+
+Biomarkers Mentioned: Cortisol, Aldosterone, Potassium, Renin, Dehydroepiandrosterone Sulfate (DHEA-S), Testosterone, Total (Males), Testosterone, Free (calc), Estradiol, Progesterone, Prolactin, Follicle-Stimulating Hormone (FSH), Luteinizing Hormone (LH), Sex Hormone Binding Globulin (SHBG), Alanine Aminotransferase (ALT), Aspartate Aminotransferase (AST), Bilirubin, Direct Bilirubin, Indirect Bilirubin, Total\nBiomarker Recommendations: Cortisol: recommended when high, Aldosterone: recommended when high, Potassium: recommended when low, Renin: recommended when low, Dehydroepiandrosterone Sulfate (DHEA-S): recommended when high, Testosterone, Total (Males): unclear, Testosterone, Free (calc): unclear, Estradiol: unclear, Progesterone: unclear, Prolactin: unclear, Follicle-Stimulating Hormone (FSH): unclear, Luteinizing Hormone (LH): unclear, Sex Hormone Binding Globulin (SHBG): unclear, Alanine Aminotransferase (ALT): unclear, Aspartate Aminotransferase (AST): unclear, Bilirubin, Direct: unclear, Bilirubin, Indirect: unclear, Bilirubin, Total: unclear",
+    "metadata": {
+      "biomarkers_mentioned": "Cortisol, Aldosterone, Potassium, Renin, Dehydroepiandrosterone Sulfate (DHEA-S), Testosterone, Total (Males), Testosterone, Free (calc), Estradiol, Progesterone, Prolactin, Follicle-Stimulating Hormone (FSH), Luteinizing Hormone (LH), Sex Hormone Binding Globulin (SHBG), Alanine Aminotransferase (ALT), Aspartate Aminotransferase (AST), Bilirubin, Direct Bilirubin, Indirect Bilirubin, Total",
+      "cases_when_not_recommended": "Pregnancy, breastfeeding, hypertension, hypokalemia, kidney disease, liver disease, congestive heart failure, severe hormone-sensitive cancers, and concurrent use of certain medications (e.g., diuretics, corticosteroids, oral contraceptives, blood pressure medications, digoxin, insulin, laxatives). Discontinue use two weeks prior to any planned surgery.",
+      "core_health_problems": "Stress, adrenal insufficiency, inflammation, viral infections, gastrointestinal issues, allergic reactions",
+      "ingredient_name": "Licorice Root",
+      "medicine_category": "TCM, Ayurvedic",
+      "special_cases": "Individuals with hypertension, kidney disease, or liver disease should use licorice cautiously due to its potential to cause mineralocorticoid excess and associated side effects like hypokalemia and fluid retention. It can also interact with several medications including diuretics, corticosteroids, oral contraceptives, and blood pressure medications. Pregnant or breastfeeding women should avoid high doses."
+    },
+    "semantic_score": 0.05282713824040954,
+    "bm25_score": 0.3871264601983544,
+    "biomarker_boost": 0.45,
+    "final_score": 0.297491197712952,
+    "rank": 1
+  }
+]

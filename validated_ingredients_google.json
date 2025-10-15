@@ -1,0 +1,64 @@
+```json
+{
+  "validated_ingredients": [
+    {
+      "ingredient_name": "Chromium",
+      "description": "Chromium supports metabolic functions and is relevant for elevated lipids and potential insulin support.",
+      "semantic_score": 0.8,
+      "validation_score": null,
+      "validation_notes": "Validation could not be performed due to errors in query generation.",
+      "search_results_count": null,
+      "validated": false
+    },
+    {
+      "ingredient_name": "Niacin",
+      "description": "Niacin helps improve cholesterol profiles and supports cardiovascular health. It has benefits for LDL cholesterol and triglycerides.",
+      "semantic_score": 0.75,
+      "validation_score": null,
+      "validation_notes": "Validation could not be performed due to errors in query generation.",
+      "search_results_count": null,
+      "validated": false
+    },
+    {
+      "ingredient_name": "Carnitine",
+      "description": "Carnitine is beneficial in fat metabolism, may improve energy levels, and supports cardiovascular functionality.",
+      "semantic_score": 0.7,
+      "validation_score": null,
+      "validation_notes": "Validation could not be performed due to errors in query generation.",
+      "search_results_count": null,
+      "validated": false
+    },
+    {
+      "ingredient_name": "Vitamin D",
+      "description": "Vitamin D is critical for low calcium and supports overall cardiovascular and bone health.",
+      "semantic_score": 0.67,
+      "validation_score": null,
+      "validation_notes": "Validation could not be performed due to errors in query generation.",
+      "search_results_count": null,
+      "validated": false
+    },
+    {
+      "ingredient_name": "Zinc",
+      "description": "Zinc plays a role in immune function, supports metabolic health, and may have modest effects on lipid metabolism.",
+      "semantic_score": 0.6,
+      "validation_score": null,
+      "validation_notes": "Validation could not be performed due to errors in query generation.",
+      "search_results_count": null,
+      "validated": false
+    },
+    {
+      "ingredient_name": "Pantothenic Acid",
+      "description": "Pantothenic acid is involved in triglycerides, total lipid support, and fatty acid metabolism.",
+      "semantic_score": 0.55,
+      "validation_score": null,
+      "validation_notes": "Validation could not be performed due to errors in query generation.",
+      "search_results_count": null,
+      "validated": false
+    }
+  ],
+  "summary": {
+    "search_queries_performed": 0,
+    "validation_results": "All ingredients could not be explicitly validated due to query error."
+  }
+}
+```
