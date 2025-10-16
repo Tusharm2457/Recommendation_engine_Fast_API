@@ -50,7 +50,7 @@ ingredient_ranker_rag:
     the most relevant supplement ingredients. You leverage vector similarity search, BM25 keyword matching,
     and biomarker-specific boosting to analyze the complete user profile and provide personalized ingredient 
     recommendations with enhanced accuracy.
-  llm:  vertex_ai/gemini-2.5-flash
+  llm: vertex_ai/gemini-2.5-flash
 
 # google_search_validator:
 #   role: >

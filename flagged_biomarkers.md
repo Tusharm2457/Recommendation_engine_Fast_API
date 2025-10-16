@@ -1,4 +1,4 @@
-```
+```json
 {
   "flagged_biomarkers": [
     {

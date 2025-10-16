@@ -1,34 +1,112 @@
 import json
 import os
 import sys
+import logging
 from dotenv import load_dotenv
 import pandas as pd
 from google.cloud import secretmanager
+
+import sys
+
+# Setup comprehensive logging for debugging CrewAI issues
+def setup_logging():
+    """Setup detailed logging to help debug LLM failures"""
+    # Create logs directory if it doesn't exist
+    log_dir = "logs"
+    os.makedirs(log_dir, exist_ok=True)
+    
+    # Configure logging with multiple levels
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            # File handler for detailed logs
+            logging.FileHandler(os.path.join(log_dir, 'crewai_debug.log')),
+            # Console handler for important messages
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+    
+    # Set specific loggers to DEBUG level
+    loggers_to_debug = [
+        'crewai',
+        'crewai.agent',
+        'crewai.task',
+        'crewai.crew',
+        'openai',
+        'anthropic',
+        'google.cloud',
+        'httpx',
+        'urllib3'
+    ]
+    
+    for logger_name in loggers_to_debug:
+        logging.getLogger(logger_name).setLevel(logging.DEBUG)
+    
+    # Create a custom logger for our application
+    app_logger = logging.getLogger('aether_2')
+    app_logger.setLevel(logging.INFO)
+    
+    return app_logger
+
+# Initialize logging
+logger = setup_logging()
+logger.info("🚀 Aether2 logging initialized - debugging enabled")
+
+# Set Vertex AI environment variables for project configuration
+os.environ["VERTEX_PROJECT"] = "singular-object-456719-i6"
+os.environ["VERTEX_LOCATION"] = "us-central1"
+os.environ["GOOGLE_CLOUD_PROJECT"] = "singular-object-456719-i6"
+logger.info("🔧 Vertex AI environment variables configured")
+
+if "google.colab" in sys.modules:
+    try:
+        from google.colab import auth
+        auth.authenticate_user(project_id='singular-object-456719-i6')
+        print("Authenticated")
+        logger.info("🔐 Google Colab authentication completed")
+    except ImportError:
+        logger.info("🔐 Not in Google Colab environment - skipping Colab auth")
+
 # Add the src directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 PROJECT_ID = "singular-object-456719-i6"
 SECRET_1 = "SERPER_API_KEY" 
 SECRET_2 = "Vertex_API_Key" 
- 
-client = secretmanager.SecretManagerServiceClient()
+
+try:
+    logger.info(" Initializing Google Cloud Secret Manager client...")
+    client = secretmanager.SecretManagerServiceClient()
+    logger.info(" Secret Manager client initialized successfully")
+except Exception as e:
+    logger.error(f"Failed to initialize Secret Manager client: {e}", exc_info=True)
+    raise
 
 from src.aether_2.crew import Aether2
 
 # Access the secret
-secret_path = f"projects/{PROJECT_ID}/secrets/{SECRET_1}/versions/latest"
-response = client.access_secret_version(request={"name": secret_path})
-secret_value = response.payload.data.decode("UTF-8")
-
-# Set the secret value as an environment variable
-os.environ["SERPER_API_KEY"] = secret_value
+try:
+    logger.info(f"🔐 Accessing secret: {SECRET_1}")
+    secret_path = f"projects/{PROJECT_ID}/secrets/{SECRET_1}/versions/latest"
+    response = client.access_secret_version(request={"name": secret_path})
+    secret_value = response.payload.data.decode("UTF-8")
+    os.environ["SERPER_API_KEY"] = secret_value
+    logger.info("✅ SERPER_API_KEY secret loaded successfully")
+except Exception as e:
+    logger.error(f"❌ Failed to access {SECRET_1}: {e}", exc_info=True)
+    # Don't raise here, let it fall back to environment variable
 
 # Access the secret
-secret_path = f"projects/{PROJECT_ID}/secrets/{SECRET_2}/versions/latest"
-response = client.access_secret_version(request={"name": secret_path})
-secret_value = response.payload.data.decode("UTF-8")
-
-# Set the secret value as an environment variable
-os.environ["GEMINI_API_KEY"] = secret_value
+try:
+    logger.info(f"🔐 Accessing secret: {SECRET_2}")
+    secret_path = f"projects/{PROJECT_ID}/secrets/{SECRET_2}/versions/latest"
+    response = client.access_secret_version(request={"name": secret_path})
+    secret_value = response.payload.data.decode("UTF-8")
+    os.environ["GEMINI_API_KEY"] = secret_value
+    logger.info("✅ GEMINI_API_KEY secret loaded successfully")
+except Exception as e:
+    logger.error(f"❌ Failed to access {SECRET_2}: {e}", exc_info=True)
+    # Don't raise here, let it fall back to environment variable
 
 load_dotenv()
 
@@ -165,23 +243,31 @@ def create_excel_report(original_data, output_dir, user_id):
 
 def run(input_path="inputs/combined_data.json"):
     """Run the crew on combined patient data (patient details + blood report)."""
+    logger.info(f"🎯 Starting Aether2 pipeline with input: {input_path}")
+    
     # Load the original input data for Excel export
     with open(input_path, "r") as f:
         original_input_data = json.load(f)
     
     patient_data = load_and_combine_inputs(input_path)
+    logger.info(f"📊 Loaded patient data with {len(patient_data)} main sections")
 
     print(f"\n=== Running pipeline for patient ===")
+    logger.info("🚀 Initializing Aether2 crew...")
 
     try:
         # 🔹 FIX: Serialize dict → JSON string and use correct arg name
+        logger.info("🔄 Starting crew kickoff...")
         result = Aether2().crew().kickoff(
             inputs={
                 "patient_and_blood_data": json.dumps(patient_data)  
             }
         )
+        logger.info("✅ Crew execution completed successfully")
     except Exception as e:
-        print(f"❌ Error: {e}")
+        logger.error(f" Crew execution failed: {str(e)}", exc_info=True)
+        print(f" Error: {e}")
+        print(f" Check logs/crewai_debug.log for detailed error information")
         return
 
     # Save results
