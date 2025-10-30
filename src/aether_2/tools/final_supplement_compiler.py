@@ -4,11 +4,13 @@ from pydantic import BaseModel, Field
 import json
 
 class FinalSupplementCompilerInput(BaseModel):
-    supplement_recommendations: Union[str, dict] = Field(
-        ..., description="Supplement recommendations JSON from supplement_recommender agent"
+    supplement_recommendations: Union[str, dict, list, None] = Field(
+        default=None,
+        description="Supplement recommendations JSON from supplement_recommender agent"
     )
-    focus_areas: Union[str, dict] = Field(
-        ..., description="Focus areas JSON from focus_areas_generator agent"
+    focus_areas: Union[str, dict, None] = Field(
+        default=None,
+        description="Focus areas JSON from focus_areas_generator agent. If not provided, will use kickoff inputs."
     )
 
 class FinalSupplementCompilerTool(BaseTool):
@@ -18,6 +20,7 @@ class FinalSupplementCompilerTool(BaseTool):
         "complete supplement recommendations with dosages, frequencies, and focus area associations."
     )
     args_schema: Type[BaseModel] = FinalSupplementCompilerInput
+    kickoff_inputs: dict = {}
 
     # Focus area mappings
     FOCUS_AREA_MAPPINGS: Dict[str, str] = {
@@ -33,11 +36,27 @@ class FinalSupplementCompilerTool(BaseTool):
     }
 
 
-    def _parse_inputs(self, supplement_recommendations: Union[str, dict], focus_areas: Union[str, dict]) -> tuple:
+    def _parse_inputs(self, supplement_recommendations: Union[str, dict, list], focus_areas: Union[str, dict]) -> tuple:
         """Parse and validate all input data."""
         # Parse supplement recommendations
         if isinstance(supplement_recommendations, str):
-            supp_data = json.loads(supplement_recommendations)
+            # Check if it's a placeholder string from CrewAI
+            if supplement_recommendations.startswith("<output from") or supplement_recommendations.strip() == "":
+                print(f"⚠️ WARNING: Received placeholder/empty string instead of actual task output")
+                print(f"🔍 DEBUG: supplement_recommendations = '{supplement_recommendations[:100]}'")
+                raise ValueError("Task context not properly configured - received placeholder instead of actual data")
+
+            try:
+                supp_data = json.loads(supplement_recommendations)
+            except json.JSONDecodeError as e:
+                print(f"❌ Failed to parse supplement_recommendations JSON: {e}")
+                print(f"🔍 DEBUG: Input string: {supplement_recommendations[:200]}")
+                raise ValueError(f"Invalid JSON in supplement_recommendations: {str(e)}")
+        elif isinstance(supplement_recommendations, list):
+            # If it's a list, wrap it in the expected structure
+            supp_data = {"final_recommendations": supplement_recommendations}
+        elif isinstance(supplement_recommendations, dict):
+            supp_data = supplement_recommendations
         else:
             supp_data = supplement_recommendations
 
@@ -153,11 +172,35 @@ class FinalSupplementCompilerTool(BaseTool):
         
         return prompt
 
-    def _run(self, supplement_recommendations: Union[str, dict], focus_areas: Union[str, dict]) -> str:
+    def _run(self, supplement_recommendations: Union[str, dict, list, None] = None, focus_areas: Union[str, dict, None] = None) -> str:
         """Main execution method using LLM for complete supplement protocol compilation"""
         try:
-            # Parse inputs
-            supp_data, focus_data = self._parse_inputs(supplement_recommendations, focus_areas)
+            # Validate supplement_recommendations input
+            if supplement_recommendations is None:
+                print(f"❌ ERROR: supplement_recommendations is None")
+                return json.dumps({
+                    "error": "supplement_recommendations not provided",
+                    "supplement_recommendations": []
+                }, indent=2)
+
+            # Get focus_areas from parameter or kickoff_inputs
+            if focus_areas is None or focus_areas == "":
+                focus_areas = self.kickoff_inputs.get("focus_areas")
+                if focus_areas:
+                    print("ℹ️ Using focus_areas from kickoff_inputs")
+
+            if not focus_areas:
+                return json.dumps({"error": "focus_areas not provided"}, indent=2)
+
+            # Parse inputs with better error handling
+            try:
+                supp_data, focus_data = self._parse_inputs(supplement_recommendations, focus_areas)
+            except ValueError as e:
+                print(f"❌ Input validation failed: {e}")
+                return json.dumps({
+                    "error": f"Input validation failed: {str(e)}",
+                    "supplement_recommendations": []
+                }, indent=2)
             
             # Extract supplement recommendations
             final_recommendations = supp_data.get("final_recommendations", [])
@@ -189,13 +232,25 @@ class FinalSupplementCompilerTool(BaseTool):
             
             # Use CrewAI's LLM for compilation
             from crewai import LLM
-            llm = LLM(model="azure/gpt-4o")
-            
+            llm = LLM(model="vertex_ai/gemini-2.5-flash")
+
             print(f"🔍 Final Compiler - Generating complete supplement protocols with LLM")
-            
-            llm_output = llm.call(prompt)
-            print(f"🔍 DEBUG: LLM response length: {len(llm_output)}")
-            
+
+            llm_response = llm.call(prompt)
+
+            # Extract text from LLM response (handle both list and string formats)
+            if isinstance(llm_response, list) and len(llm_response) > 0:
+                # CrewAI LLM returns list of message objects
+                llm_output = llm_response[0].content if hasattr(llm_response[0], 'content') else str(llm_response[0])
+            elif isinstance(llm_response, str):
+                llm_output = llm_response
+            else:
+                llm_output = str(llm_response)
+
+            print(f"🔍 DEBUG: LLM response type: {type(llm_response)}")
+            print(f"🔍 DEBUG: LLM output length: {len(llm_output)}")
+            print(f"🔍 DEBUG: LLM output preview: {llm_output[:200]}...")
+
             # Parse LLM response
             try:
                 # Find JSON in the response

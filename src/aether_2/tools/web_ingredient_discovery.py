@@ -11,8 +11,9 @@ import re
 load_dotenv()
 
 class WebIngredientDiscoveryInput(BaseModel):
-    user_profile: Union[str, dict] = Field(
-        ..., description="JSON string OR dict containing the user profile from Agent 2"
+    user_profile: Union[str, dict, None] = Field(
+        default=None,
+        description="JSON string OR dict containing the user profile from Agent 2. If not provided, will use kickoff inputs."
     )
 
 class WebIngredientDiscoveryTool(BaseTool):
@@ -24,6 +25,7 @@ class WebIngredientDiscoveryTool(BaseTool):
         "and flagged biomarkers."
     )
     args_schema: Type[BaseModel] = WebIngredientDiscoveryInput
+    kickoff_inputs: dict = {}
 
     def _get_search_wrapper(self):
         """Get Google Search wrapper instance"""
@@ -190,11 +192,23 @@ class WebIngredientDiscoveryTool(BaseTool):
             
             # Use CrewAI's LLM to extract ingredients
             from crewai import LLM
-            llm = LLM(model="azure/gpt-4o")
-            
-            llm_output = llm.call(prompt)
-            print(f"🔍 DEBUG: LLM response length: {len(llm_output)}")
-            
+            llm = LLM(model="vertex_ai/gemini-2.5-flash")
+
+            llm_response = llm.call(prompt)
+
+            # Extract text from LLM response (handle both list and string formats)
+            if isinstance(llm_response, list) and len(llm_response) > 0:
+                # CrewAI LLM returns list of message objects
+                llm_output = llm_response[0].content if hasattr(llm_response[0], 'content') else str(llm_response[0])
+            elif isinstance(llm_response, str):
+                llm_output = llm_response
+            else:
+                llm_output = str(llm_response)
+
+            print(f"🔍 DEBUG: LLM response type: {type(llm_response)}")
+            print(f"🔍 DEBUG: LLM output length: {len(llm_output)}")
+            print(f"🔍 DEBUG: LLM output preview: {llm_output[:200]}...")
+
             # Parse LLM response
             try:
                 # Find JSON array in the response
@@ -235,9 +249,18 @@ class WebIngredientDiscoveryTool(BaseTool):
 
 
 
-    def _run(self, user_profile: Union[str, dict]) -> str:
+    def _run(self, user_profile: Union[str, dict, None] = None) -> str:
         """Main discovery function using Google Search on credible sources"""
         try:
+            # Get user_profile from parameter or kickoff_inputs
+            if user_profile is None or user_profile == "":
+                user_profile = self.kickoff_inputs.get("user_profile")
+                if user_profile:
+                    print("ℹ️ Using user_profile from kickoff_inputs")
+
+            if not user_profile:
+                return json.dumps({"error": "user_profile not provided"}, indent=2)
+
             # Parse input
             if isinstance(user_profile, str):
                 user_profile_parsed = json.loads(user_profile)

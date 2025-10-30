@@ -1,7 +1,11 @@
 from crewai.tools import BaseTool
 from typing import Type, Union
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 import json
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from src.aether_2.models import UserProfile
 
 
 class UserProfileCompilerInput(BaseModel):
@@ -51,7 +55,12 @@ class UserProfileCompilerTool(BaseTool):
                 "summary": flagged_biomarkers_parsed.get("summary", {})
             }
             
-            return json.dumps(combined_profile, indent=2)
+            # Validate against Pydantic model
+            try:
+                validated_profile = UserProfile(**combined_profile)
+                return json.dumps(validated_profile.dict(), indent=2)
+            except ValidationError as e:
+                return json.dumps({"error": f"Validation failed: {e}"}, indent=2)
             
         except Exception as e:
             return json.dumps({

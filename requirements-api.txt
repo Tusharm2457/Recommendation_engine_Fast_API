@@ -1,0 +1,25 @@
+# FastAPI and API dependencies
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+pydantic>=2.10.0
+python-multipart>=0.0.20
+
+# Core dependencies (from pyproject.toml)
+crewai[tools]>=0.141.0,<1.0.0
+openai>=1.0.0
+scikit-learn>=1.0.0
+numpy>=1.20.0
+sentence-transformers>=2.2.0
+torch>=1.9.0
+requests>=2.25.0
+google-cloud-secret-manager>=2.16.0
+
+# Additional dependencies for the project
+python-dotenv>=1.0.0
+pandas>=2.0.0
+openpyxl>=3.0.0
+chromadb>=0.4.0
+langchain>=0.1.0
+langchain-community>=0.0.1
+google-cloud-aiplatform>=1.38.0
+

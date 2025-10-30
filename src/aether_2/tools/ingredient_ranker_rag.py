@@ -14,8 +14,9 @@ import numpy as np
 load_dotenv()
 
 class IngredientRankerRAGInput(BaseModel):
-    user_profile: Union[str, dict] = Field(
-        ..., description="JSON string OR dict containing the user profile from Agent 2"
+    user_profile: Union[str, dict, None] = Field(
+        default=None,
+        description="JSON string OR dict containing the user profile from Agent 2. If not provided, will use kickoff inputs."
     )
 
 class IngredientRankerRAGTool(BaseTool):
@@ -25,6 +26,7 @@ class IngredientRankerRAGTool(BaseTool):
         "based on the user profile (demographics, flagged biomarkers, medical history)."
     )
     args_schema: Type[BaseModel] = IngredientRankerRAGInput
+    kickoff_inputs: dict = {}
 
     def _get_vector_db_connection(self):
         """Get connection to the existing vector database"""
@@ -315,14 +317,29 @@ class IngredientRankerRAGTool(BaseTool):
             print(f"❌ Error ranking ingredients: {str(e)}")
             return ingredients
 
-    def _run(self, user_profile: Union[str, dict]) -> str:
+    def _run(self, user_profile: Union[str, dict, None] = None) -> str:
         """Main RAG search and ranking function"""
         try:
+            # Get user_profile from parameter or kickoff_inputs
+            if user_profile is None or user_profile == "":
+                user_profile = self.kickoff_inputs.get("user_profile")
+                if user_profile:
+                    print("ℹ️ Using user_profile from kickoff_inputs")
+
+            if not user_profile:
+                return json.dumps({"error": "user_profile not provided"}, indent=2)
+
             # Parse input
             if isinstance(user_profile, str):
                 user_profile_parsed = json.loads(user_profile)
             else:
                 user_profile_parsed = user_profile
+
+            # Validate required fields exist
+            required_fields = ["patient_data", "flagged_biomarkers"]
+            for field in required_fields:
+                if field not in user_profile_parsed:
+                    return json.dumps({"error": f"Missing required field: {field}"}, indent=2)
             
             print(f"🔍 RAG Agent - Processing user profile")
             print(f"  - Patient data present: {'patient_data' in user_profile_parsed}")

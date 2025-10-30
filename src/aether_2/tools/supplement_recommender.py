@@ -4,14 +4,17 @@ from pydantic import BaseModel, Field
 import json
 
 class SupplementRecommendationInput(BaseModel):
-    user_profile: Union[str, dict] = Field(
-        ..., description="User profile JSON from user_profile_compiler agent"
+    user_profile: Union[str, dict, None] = Field(
+        default=None,
+        description="User profile JSON from user_profile_compiler agent. If not provided, will use kickoff inputs."
     )
-    rag_ingredients: Union[str, dict] = Field(
-        ..., description="RAG-ranked ingredients JSON from ingredient_ranker_rag agent"
+    rag_ingredients: Union[str, dict, None] = Field(
+        default=None,
+        description="RAG-ranked ingredients JSON from ingredient_ranker_rag agent"
     )
-    web_ingredients: Union[str, dict] = Field(
-        ..., description="Web-discovered ingredients JSON from web_ingredient_discovery agent"
+    web_ingredients: Union[str, dict, None] = Field(
+        default=None,
+        description="Web-discovered ingredients JSON from web_ingredient_discovery agent"
     )
 
 class SupplementRecommendationTool(BaseTool):
@@ -21,6 +24,7 @@ class SupplementRecommendationTool(BaseTool):
         "to create the ultimate personalized supplement recommendations using medical reasoning."
     )
     args_schema: Type[BaseModel] = SupplementRecommendationInput
+    kickoff_inputs: dict = {}
 
     def _parse_inputs(self, user_profile: Union[str, dict], rag_ingredients: Union[str, dict], web_ingredients: Union[str, dict]) -> tuple:
         """Parse and validate all input data."""
@@ -146,14 +150,23 @@ class SupplementRecommendationTool(BaseTool):
         
         return prompt
 
-    def _run(self, user_profile: Union[str, dict], rag_ingredients: Union[str, dict], web_ingredients: Union[str, dict]) -> str:
+    def _run(self, user_profile: Union[str, dict, None] = None, rag_ingredients: Union[str, dict, None] = None, web_ingredients: Union[str, dict, None] = None) -> str:
         """Main execution method using medical LLM analysis."""
         try:
+            # Get user_profile from parameter or kickoff_inputs
+            if user_profile is None or user_profile == "":
+                user_profile = self.kickoff_inputs.get("user_profile")
+                if user_profile:
+                    print("ℹ️ Using user_profile from kickoff_inputs")
+
+            if not user_profile:
+                return json.dumps({"error": "user_profile not provided"}, indent=2)
+
             # Parse inputs
             profile, rag_data, web_data = self._parse_inputs(user_profile, rag_ingredients, web_ingredients)
-            
+
             # Extract ingredient lists
-            rag_ingredient_list = rag_data if isinstance(rag_data, list) else rag_data.get("rag_ingredients", [])
+            rag_ingredient_list = rag_data if isinstance(rag_data, list) else rag_data.get("ranked_ingredients", [])
             web_ingredient_list = web_data.get("detailed_ingredients", []) if isinstance(web_data, dict) else web_data
             
             print(f"🔍 DEBUG: RAG data type: {type(rag_data)}, RAG ingredients count: {len(rag_ingredient_list)}")
@@ -171,14 +184,25 @@ class SupplementRecommendationTool(BaseTool):
             
             # Use CrewAI's LLM for medical analysis
             from crewai import LLM
-            llm = LLM(model="azure/gpt-4o")
-            
+            llm = LLM(model="vertex_ai/gemini-2.5-flash")
+
             print(f"🔍 Final Medical Analysis - Analyzing {len(rag_ingredient_list)} RAG ingredients and {len(web_ingredient_list)} web ingredients")
-            
-            llm_output = llm.call(prompt)
-            print(f"🔍 DEBUG: LLM response length: {len(llm_output)}")
-            print(f"🔍 DEBUG: LLM response preview: {llm_output[:500]}...")
-            
+
+            llm_response = llm.call(prompt)
+
+            # Extract text from LLM response (handle both list and string formats)
+            if isinstance(llm_response, list) and len(llm_response) > 0:
+                # CrewAI LLM returns list of message objects
+                llm_output = llm_response[0].content if hasattr(llm_response[0], 'content') else str(llm_response[0])
+            elif isinstance(llm_response, str):
+                llm_output = llm_response
+            else:
+                llm_output = str(llm_response)
+
+            print(f"🔍 DEBUG: LLM response type: {type(llm_response)}")
+            print(f"🔍 DEBUG: LLM output length: {len(llm_output)}")
+            print(f"🔍 DEBUG: LLM output preview: {llm_output[:500]}...")
+
             # Parse LLM response
             try:
                 # Find JSON in the response

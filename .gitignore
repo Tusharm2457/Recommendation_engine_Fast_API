@@ -1,10 +1,89 @@
+# Environment variables and secrets
 .env
-__pycache__/
-.DS_Store
-.ideasrc/aether_2/tools/.env.save
-*.env.save
 .env*
+*.env
+*.env.save
 src/aether_2/tools/.env
 src/aether_2/tools/.env.save
-*.env
-.env*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+aether-2/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/*.csv
+logs/*.log
+*.log
+
+# Output files
+outputs/*/
+test_api_response.json
+discovered_ingredients_web.json
+flagged_biomarkers.md
+focus_areas.md
+user_profile.json
+*.xlsx
+
+# Vector database (can be regenerated)
+ingredients_vector_db/
+
+# GCP credentials (IMPORTANT - never commit!)
+singular-object-*.json
+*-credentials.json
+*-service-account.json
+
+# Test/output JSON files
+test_api_response.json
+crew_output.json
+ranked_ingredients*.json
+validated_ingredients*.json
+discovered_ingredients*.json
+
+# Keep these JSON files
+!inputs/combined_data.json
+!package.json
+!tsconfig.json
+
+# Backup files
+*.backup
+*_1.py
+*_2.py
+*_recent.py
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

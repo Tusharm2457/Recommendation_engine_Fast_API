@@ -1,80 +1,22 @@
-evaluate_inputs:
-  description: >
-    You are given the following structured medical data in a nested JSON format: {patient_and_blood_data}
-    Your job is to:
-    - Pass this input to the BiomarkerEvaluationInput tool, which returns analysis and threshold evaluations
-      for all relevant biomarkers.
-    - Identify and flag any biomarkers that are out of range, borderline, or clinically significant based
-      on the tool’s output.
-    The tool returns a list of flagged biomarkers (each categorized as either "high" or "low"),
-    and a summary report with counts.
-
-    Example format:
-    |
-      {
-        "flagged_biomarkers": [
-          {
-            "name": "Dehydroepiandrosterone Sulfate (DHEA-S)",
-            "value": 317.86,
-            "unit": "mcg/dL",
-            "category": "high"
-          },
-          {
-            "name": "Calcium",
-            "value": 8.16,
-            "unit": "mg/dL",
-            "category": "low"
-          }
-        ],
-        "summary": {
-          "total_biomarkers_evaluated": 37,
-          "healthy_markers": 29,
-          "low_markers": 3,
-          "high_markers": 5
-        }
-      }
-
-    Make sure the structure of the output is consistent in every run.
-    If the tool returns a status of "no_data", you can analyze it yourself.
-    Save the same text to Flagged_biomarkers.md file.
-  expected_output: >
-    A structured output that includes:
-
-    A list of flagged biomarkers, with the whole report from the tool.
-    
-  agent: biomarker_preprocessor
-
-evaluate_focus_areas:
-  description: >
-    Use the evaluate_user_focus_areas tool to process {patient_and_blood_data} and produce a ranked
-    list of Core Focus Areas. The output should reflect the *net weighted scores* assigned
-    to each focus area (not flags). Each line must include the full name of the focus area,
-    its code in parentheses, and the numeric score to two decimal places.
-
-    Example format:
-    "Cardiometabolic & Metabolic Health (CM): 0.50"
-    "Stress-Axis & Nervous System Resilience (STR): 0.50"
-    "Hormonal Health (Transport) (HRM): 0.50"
-
-    Save the same text to focus_areas.md via the task's output_file.
-  expected_output: >
-    A ranked list (highest score first) of focus areas in plain text with their codes and scores.
-  agent: focus_area_agent
+# Preprocessing tasks (evaluate_inputs, evaluate_focus_areas, compile_user_profile)
+# have been migrated to regular Python functions in utils/preprocessing.py
 
 rank_ingredients_rag:
   description: >
-    Use RAG-based search to find relevant ingredients based on the user profile.
-    Use the rank_ingredients_rag tool to perform hybrid search (semantic + keyword + biomarker boosting)
-    and find the most suitable supplement ingredients for the patient.
+    IMPORTANT: You have access to the user_profile data from kickoff inputs.
     
-    The tool will receive the user profile containing:
+    STEP 1: Call the rank_ingredients_rag tool with this EXACT parameter:
+    - user_profile: {user_profile}
+    Iw will contain these keys:
     - patient_data (demographics, medical history, lifestyle)
-    - flagged_biomarkers (from Agent 1)
+    - flagged_biomarkers (from preprocessing)
     - summary (biomarker analysis summary)
+    STEP 2: The tool will perform hybrid search (semantic + keyword + biomarker boosting)
+    and return the top 15 most relevant ingredients.
     
-    Create a comprehensive search query from the user profile and use the RAG system to search
-    the vector database for relevant ingredients. Apply biomarker-specific boosting to ingredients
-    that mention flagged biomarkers in their descriptions.
+    DO NOT modify or parse the user_profile. Pass it directly to the tool as-is.
+
+    
   expected_output: >
     A JSON response with ranked ingredients including:
     - ingredient_name
@@ -87,68 +29,22 @@ rank_ingredients_rag:
     Top 15 most relevant ingredients ranked by hybrid search and biomarker relevance.
   agent: ingredient_ranker_rag
 
-# validate_ingredients_google:
-#   description: >
-#     Validate the top ingredient recommendations using Google Search to find current research
-#     and scientific studies. Use the google_search_validator tool to research the effectiveness,
-#     safety, and appropriateness of recommended ingredients for the user's specific health
-#     conditions and flagged biomarkers.
-#     
-#     The tool will receive:
-#     - user_profile (from Agent 2)
-#     - ranked_ingredients (from Agent 4)
-#     
-#     Create targeted search queries for each top ingredient focusing on:
-#     1. General effectiveness research
-#     2. Biomarker-specific effectiveness
-#     3. Demographics-specific benefits
-#     4. Safety and side effects
-#     
-#     Validate ingredients based on search results and provide validation scores.
-#   expected_output: >
-#     A JSON response with validated ingredients including:
-#     - validation_score (0.0 to 1.0)
-#     - validation_notes
-#     - search_results_count
-#     - validated (boolean)
-#     - All original ingredient data from Agent 4
-#     Summary of search queries performed and validation results.
-#   agent: google_search_validator
-
-compile_user_profile:
-  description: >
-    Combine patient data from the original input with biomarker evaluation results from Agent 1.
-    Use the compile_user_profile tool to merge patient demographics, medical history, and lifestyle 
-    data with flagged biomarkers and their analysis results into a unified user profile.
-    
-    The tool will receive:
-    1. Patient data field from the original input {patient_and_blood_data}, exclude the blood report
-    2. Biomarker results from Agent 1 (flagged_biomarkers and summary)
-    
-    Create a comprehensive user profile that downstream agents can use.
-  expected_output: >
-    A JSON object with patient_data, flagged_biomarkers, and summary sections in the format:
-    {
-      "patient_data": { /* patient demographics, medical history, lifestyle data */ },
-      "flagged_biomarkers": [ /* list of flagged biomarkers from Agent 1 */ ],
-      "summary": { /* biomarker analysis summary from Agent 1 */ }
-    }
-  agent: user_profile_compiler
-
 discover_ingredients_web:
   description: >
+    IMPORTANT: You have access to the user_profile data from kickoff inputs.
+    
+    STEP 1: Call the web_ingredient_discovery tool with this EXACT parameter:
+    - user_profile: {user_profile}
+
+    STEP 2: The tool will receive the user profile from kickoff inputs containing these keys:
+    - patient_data (demographics, medical history, lifestyle)
+    - flagged_biomarkers (from preprocessing)
+    - summary (biomarker analysis summary)
+
     Discover new and trending supplement ingredients from credible scientific sources like PubMed,
     NIH, Examine.com, and other authoritative health databases. Use the web_ingredient_discovery tool
     to search for evidence-based ingredients that address the user's specific health conditions
     and flagged biomarkers.
-    
-    The tool will receive the user profile containing:
-    - patient_data (demographics, medical history, lifestyle)
-    - flagged_biomarkers (from Agent 1)
-    - summary (biomarker analysis summary)
-    
-    Create targeted search queries for credible sources and extract relevant ingredients
-    with their scientific backing and relevance scores.
   expected_output: >
     A JSON response with two sections:
     1. ingredient_list: Simple list with rank, ingredient_name, relevance_score, and source
@@ -158,38 +54,59 @@ discover_ingredients_web:
 
 
 
-# New task for ranking ingredients
-#rank_ingredients:
-#  description: >
-#    Using the compiled user profile from the previous step, rank ingredients from
-#    inputs/transformed_ingredients.json. Return a ranked list with a one-line rationale
-#    for each ingredient explaining why it suits the user's profile.
-#  expected_output: >
-#    JSON with key "ranked_ingredients": list of { name, score, components, why }.
-#  agent: ingredient_ranker
 
 # Final task for supplement recommendations
 generate_supplement_recommendations:
   description: >
-    Final medical analysis of RAG-ranked ingredients, web-discovered ingredients, and user profile 
-    to create the ultimate personalized supplement recommendations. Use the generate_supplement_recommendations tool 
-    to perform medical LLM analysis and determine the best ingredients for this specific patient.
+    You are a board-certified physician and clinical nutritionist with 20+ years of experience in personalized medicine and supplement protocols.
+    Call the generate_supplement_recommendations tool with these EXACT parameters:
+    - user_profile: {user_profile}
+    - rag_ingredients: <output from rank_ingredients_rag task>
+    - web_ingredients: <output from discover_ingredients_web task>
+    Use the generate_supplement_recommendations tool to get structured patient data, then perform final medical analysis to create the ultimate personalized supplement recommendations.
     
-    The tool will receive:
-    - user_profile (from Agent 2)
-    - rag_ingredients (from Agent 5 - RAG ingredient ranker)
-    - web_ingredients (from Agent 4 - Web ingredient discovery)
+    CRITICAL: Your output must be ONLY the JSON response. Do not include any reasoning, analysis, or explanatory text. Do not show your thought process. Output ONLY the final JSON structure.
     
-    As a physician, analyze the patient's complete health profile and both recommendation sources to create a final, evidence-based supplement protocol considering:
-    1. Patient's specific biomarkers and their clinical significance (high/low values)
-    2. Medical conditions and symptom burden
-    3. Pain and skin health issues that need addressing
-    4. Quality and relevance of both recommendation sources
-    5. Potential interactions and contraindications
-    6. Clinical priority and evidence strength
+    The tool will provide{user_profile}:
+    - patient_summary (demographics, medical conditions, flagged biomarkers, health issues)
+    - ingredient_data (RAG-ranked ingredients and web-discovered ingredients)
+    - analysis_instructions (detailed requirements for medical analysis)
     
-    CRITICAL: The output MUST follow this EXACT JSON structure:
+    MEDICAL ANALYSIS PROCESS:
+    1. Review the patient's specific biomarkers and their clinical significance (high/low values)
+    2. Consider their medical conditions and symptom burden
+    3. Evaluate pain and skin health issues that need addressing
+    4. Assess the quality and relevance of both RAG database and web literature recommendations
+    5. Consider potential interactions and contraindications
+    6. Prioritize ingredients with the strongest evidence for this specific patient profile
+    7. Ensure the protocol addresses the most critical health needs first
     
+    CLINICAL DECISION MAKING:
+    - Prioritize ingredients that directly address flagged biomarkers
+    - Consider ingredients that support the patient's specific medical conditions
+    - Include ingredients that address pain and skin health issues
+    - Balance evidence quality from both RAG database and current literature
+    - Ensure safety and avoid potential interactions
+    - Limit to the most clinically relevant recommendations
+    - If a patient is already taking a supplement, do not recommend it again or only recommend when you feel the dosage or frequency needs changes.
+    
+    For each ingredient, provide a concise "why" explanation (1-2 lines maximum) that:
+    - References the patient's specific flagged biomarkers and their status (high/low)
+    - Connects to their medical conditions and symptoms
+    - Addresses their pain and skin health issues
+    - Explains the clinical benefit for this particular patient
+    - Shows evidence from either RAG database or web literature sources
+    
+    Return 8-10 final recommendations ranked by clinical priority for this specific patient.
+    Focus on ingredients that will have the greatest positive impact on their health outcomes.
+    
+    
+  expected_output: >
+    ONLY the JSON response with final supplement recommendations. No explanatory text, reasoning, or analysis.
+     Just the pure JSON structure with proper Pydantic validation. Each recommendation must include:
+      ingredient_name, rank (1-10), and why (concise 1-2 line explanation).
+      Follow the exact Pydantic model structure for validation.
+      OUTPUT FORMAT - RETURN ONLY THIS JSON STRUCTURE:
     {
       "final_recommendations": [
         {
@@ -199,29 +116,60 @@ generate_supplement_recommendations:
         }
       ]
     }
-  expected_output: >
-    JSON with key "final_recommendations": list of { ingredient_name, rank, why } with 8-10 final recommendations ranked by clinical priority, each including concise 1-2 line reasoning for the patient.
   agent: supplement_recommender
 
 # Final task for complete supplement protocol compilation
 compile_final_supplement_recommendations:
   description: >
-    Take the supplement recommendations from the medical specialist and focus areas from the focus area generator 
-    to create complete supplement protocols with dosages, frequencies, and focus area associations. 
-    Use the compile_final_supplement_recommendations tool to create the final implementable supplement protocol.
+    You are a clinical pharmacist and supplement protocol specialist. Take the supplement recommendations 
+    from the medical specialist and focus areas from the focus area generator to create complete supplement 
+    protocols with dosages, frequencies, and focus area associations.
+    IMPORTANT: You have access to focus_areas from kickoff inputs AND supplement recommendations from previous task.
     
-    The tool will receive:
+    STEP 1: Call the compile_final_supplement_recommendations tool with these EXACT parameters:
+    - supplement_recommendations: <output from generate_supplement_recommendations task>
+    - focus_areas: {focus_areas}
+
+    CRITICAL: Your output must be ONLY the JSON response. Do not include any reasoning, analysis, or explanatory text outside of the json file. Do not show your thought process. Output ONLY the final JSON structure.
+    
+    Use the compile_final_supplement_recommendations tool to get structured data, then create the final 
+    implementable supplement protocol with proper Pydantic validation.
+    
+    The tool will provide:
     - supplement_recommendations (from Agent 6 - Medical Supplement Recommendation Specialist)
-    - focus_areas (from Agent 3 - Focus Area Prioritizer)
+    - focus_areas {focus_areas}
+    - compilation instructions and focus area mappings
     
-    Create complete supplement recommendations with:
-    1. Appropriate dosages based on clinical evidence
-    2. Optimal frequencies for each supplement
-    3. Focus area associations based on ingredient benefits
-    4. Patient-specific reasoning for each recommendation
+    For each supplement recommendation, provide:
+    1. ingredient_name: Exact ingredient name
+    2. recommended_dosage: Clinical dosage with proper units (mg, mcg, IU, CFU, etc.)
+    3. frequency: Optimal timing and frequency (e.g., "500mg twice daily with meals")
+    4. focus_area: List of 1-2 most relevant focus area codes (e.g., ["CM", "MITO"])
+    5. why: Keep the original patient-specific reasoning
     
-    CRITICAL: The output MUST follow this EXACT JSON structure:
+    DOSAGE GUIDELINES:
+    - Use evidence-based clinical dosages
+    - Consider safety and tolerability
+    - Include appropriate units and specify timing
+    - Follow clinical best practices for each ingredient
     
+    FOCUS AREA CODES:
+    - CM: Cardiometabolic & Metabolic Health
+    - COG: Cognitive & Mental Health
+    - DTX: Detoxification & Biotransformation
+    - IMM: Immune Function & Inflammation
+    - MITO: Mitochondrial & Energy Metabolism
+    - SKN: Skin & Barrier Function
+    - STR: Stress-Axis & Nervous System Resilience
+    - HRM: Hormonal Health (Transport)
+    - GA: Gut Health and assimilation
+    
+    
+  expected_output: >
+    ONLY the JSON response with complete recommendations list. No explanatory text, reasoning, or analysis. 
+    Just the pure JSON structure with proper Pydantic validation. Each recommendation must include: ingredient_name, 
+    recommended_dosage, frequency, focus_area (list of codes), and why. Follow the exact Pydantic model structure for validation.
+    OUTPUT FORMAT - RETURN ONLY THIS JSON STRUCTURE:
     {
       "supplement_recommendations": [
         {
@@ -233,8 +181,6 @@ compile_final_supplement_recommendations:
         }
       ]
     }
-  expected_output: >
-    JSON with key "supplement_recommendations": list of complete supplement protocols with dosages, frequencies, focus areas, and reasoning for clinical implementation.
   agent: final_supplement_compiler
 
 
