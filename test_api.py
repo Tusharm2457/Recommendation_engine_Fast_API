@@ -9,8 +9,10 @@ import json
 import sys
 from pathlib import Path
 
-# API endpoint
-API_URL = "http://localhost:8000/generate-protocol"
+# API endpoint - Change this to test different environments
+# Local: http://localhost:8000/generate-protocol
+# Cloud Run: https://aether-api-224321939514.us-central1.run.app/generate-protocol
+API_URL = "https://aether-api-224321939514.us-central1.run.app/generate-protocol"
 
 def load_test_data(file_path="inputs/combined_data.json"):
     """Load test data from combined_data.json"""
@@ -121,7 +123,7 @@ def test_generate_protocol(data, include_details=False):
             if recommendations:
                 print(f"\n   Top 3 Recommendations:")
                 for i, rec in enumerate(recommendations[:3], 1):
-                    print(f"   {i}. {rec.get('supplement_name', 'N/A')}")
+                    print(f"   {i}. {rec.get('ingredient_name', 'N/A')}")
 
             return True
         
