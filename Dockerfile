@@ -38,13 +38,12 @@ ENV PATH=/root/.local/bin:$PATH
 # Set Python path
 ENV PYTHONPATH=/app
 
-# Expose port
-EXPOSE 8000
+# Expose port (Cloud Run uses PORT env var, defaults to 8080)
+EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:8000/health')"
+# Set default PORT if not provided (for local testing)
+ENV PORT=8000
 
-# Run the API
-CMD ["uvicorn", "src.aether_2.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the API - use PORT environment variable
+CMD uvicorn src.aether_2.api.main:app --host 0.0.0.0 --port $PORT
 
