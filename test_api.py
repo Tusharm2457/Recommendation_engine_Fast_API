@@ -12,7 +12,7 @@ from pathlib import Path
 # API endpoint - Change this to test different environments
 # Local: http://localhost:8000/generate-protocol
 # Cloud Run: https://aether-api-224321939514.us-central1.run.app/generate-protocol
-API_URL = "https://aether-api-224321939514.us-central1.run.app/generate-protocol"
+API_URL = "http://localhost:8000/generate-protocol"
 
 def load_test_data(file_path="inputs/combined_data.json"):
     """Load test data from combined_data.json"""

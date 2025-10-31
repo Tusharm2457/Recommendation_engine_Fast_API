@@ -1,7 +1,7 @@
 # Dockerfile for Aether AI Engine API
 # Multi-stage build for smaller image size
 
-FROM python:3.10-slim as builder
+FROM python:3.10-slim AS builder
 
 # Set working directory
 WORKDIR /app
@@ -45,5 +45,5 @@ EXPOSE 8080
 ENV PORT=8000
 
 # Run the API - use PORT environment variable
-CMD uvicorn src.aether_2.api.main:app --host 0.0.0.0 --port $PORT
+CMD ["sh", "-c", "uvicorn src.aether_2.api.main:app --host 0.0.0.0 --port $PORT"]
 
