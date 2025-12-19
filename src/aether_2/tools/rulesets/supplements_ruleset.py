@@ -1,283 +1,402 @@
 """
-Supplements/Medications to health domain mapping ruleset.
-
-This module implements evidence-based mappings from prescription medications and supplements
-to health focus areas, including drug-nutrient interactions and functional medicine considerations.
+Current supplements-based focus area scoring ruleset.
 """
 
+import re
 from typing import Dict, List, Tuple
+from .constants import FOCUS_AREAS
 
 
 class SupplementsRuleset:
-    """
-    Handles medication/supplement-based adjustments to health focus areas.
+    """Ruleset for current supplements-based focus area scoring."""
     
-    Implements comprehensive medication-to-domain mapping with:
-    - Base weights by medication category (PPI, antibiotics, metformin, etc.)
-    - Drug-nutrient interaction considerations
-    - Functional medicine guardrails and tradeoffs
-    """
-    
-    FOCUS_AREAS = {
-        "CM": "Cardiometabolic & Metabolic Health",
-        "COG": "Cognitive & Mental Health",
-        "DTX": "Detoxification & Biotransformation",
-        "IMM": "Immune Function & Inflammation",
-        "MITO": "Mitochondrial & Energy Metabolism",
-        "SKN": "Skin & Barrier Function",
-        "STR": "Stress-Axis & Nervous System Resilience",
-        "HRM": "Hormonal Health (Transport)",
-        "GA": "Gut Health and assimilation",
-    }
-    
-    # Medication category keywords for classification
-    PPI_KEYWORDS = ["omeprazole", "esomeprazole", "lansoprazole", "pantoprazole", "rabeprazole", "ppi", "proton pump inhibitor"]
-    H2_BLOCKER_KEYWORDS = ["famotidine", "ranitidine", "cimetidine", "nizatidine", "h2 blocker", "h2ra"]
-    ANTIBIOTIC_KEYWORDS = ["antibiotic", "amoxicillin", "azithromycin", "ciprofloxacin", "doxycycline", "penicillin", "cephalexin", "clindamycin", "metronidazole"]
-    METFORMIN_KEYWORDS = ["metformin", "glucophage", "fortamet", "glumetza"]
-    OPIOID_KEYWORDS = ["morphine", "oxycodone", "hydrocodone", "fentanyl", "tramadol", "codeine", "opioid", "narcotic"]
-    NSAID_KEYWORDS = ["ibuprofen", "naproxen", "aspirin", "diclofenac", "celecoxib", "nsaid", "anti-inflammatory"]
-    BILE_ACID_SEQUESTRANT_KEYWORDS = ["cholestyramine", "colesevelam", "colestipol", "bile acid sequestrant"]
-    STATIN_KEYWORDS = ["atorvastatin", "simvastatin", "rosuvastatin", "pravastatin", "lovastatin", "statin", "lipitor", "zocor", "crestor"]
-    SSRI_SNRI_KEYWORDS = ["sertraline", "fluoxetine", "paroxetine", "citalopram", "escitalopram", "venlafaxine", "duloxetine", "ssri", "snri", "antidepressant"]
-    BENZODIAZEPINE_KEYWORDS = ["lorazepam", "diazepam", "alprazolam", "clonazepam", "temazepam", "benzodiazepine", "benzo"]
-    ANTICHOLINERGIC_KEYWORDS = ["diphenhydramine", "scopolamine", "oxybutynin", "tolterodine", "anticholinergic"]
-    GLP1_AGONIST_KEYWORDS = ["semaglutide", "tirzepatide", "liraglutide", "dulaglutide", "glp-1", "ozempic", "wegovy", "mounjaro"]
-    SGLT2_INHIBITOR_KEYWORDS = ["empagliflozin", "canagliflozin", "dapagliflozin", "sglt2", "jardiance", "invokana", "farxiga"]
-    CORTICOSTEROID_KEYWORDS = ["prednisone", "methylprednisolone", "dexamethasone", "hydrocortisone", "corticosteroid", "steroid"]
-    ESTROGEN_KEYWORDS = ["estradiol", "estrogen", "birth control", "oral contraceptive", "hrt", "hormone replacement"]
-    THYROID_KEYWORDS = ["levothyroxine", "synthroid", "levoxyl", "thyroid", "t4"]
-    ACE_INHIBITOR_KEYWORDS = ["lisinopril", "enalapril", "ramipril", "captopril", "ace inhibitor"]
-    DIURETIC_KEYWORDS = ["hydrochlorothiazide", "furosemide", "spironolactone", "diuretic", "hctz", "lasix"]
-    BETA_BLOCKER_KEYWORDS = ["metoprolol", "atenolol", "propranolol", "carvedilol", "beta blocker"]
-    
-    def get_supplement_medication_weights(self, supplements_data: List[Dict], medications: List[str] = None) -> Dict[str, float]:
+    def get_supplements_weights(
+        self,
+        current_supplements: List[Dict],
+        digestive_symptoms: str
+    ) -> Tuple[Dict[str, float], Dict[str, Dict[str, float]]]:
         """
-        Calculate medication/supplement-based weights for health focus areas.
+        Calculate focus area weights based on current supplements.
         
         Args:
-            supplements_data: List of supplement dictionaries with 'name', 'dose', 'frequency', 'purpose'
-            medications: List of medication names (from separate medications field)
+            current_supplements: List of supplement objects with 'name', 'dosage', 'frequency', 'purpose'
+            digestive_symptoms: Free-text digestive symptoms for adverse reaction detection
             
         Returns:
-            Dictionary mapping focus area codes to weight adjustments
+            Tuple of:
+                - Cumulative scores dict (all supplements combined, clamped at [0.0, 1.0])
+                - Per-supplement breakdown dict {supplement_name: {focus_area: score}}
         """
-        weights = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
+        # Early exit if no supplements
+        if not current_supplements:
+            return ({code: 0.0 for code in FOCUS_AREAS}, {})
         
-        # Combine supplements and medications for analysis
-        all_medications = []
+        cumulative_scores = {code: 0.0 for code in FOCUS_AREAS}
+        per_supplement_breakdown = {}
         
-        # Extract medication names from supplements data
-        if supplements_data:
-            for supplement in supplements_data:
-                name = supplement.get("name", "").lower()
-                purpose = supplement.get("purpose", "").lower()
-                all_medications.append(name)
+        # Track GA benefit for capping at -0.30
+        ga_benefit_total = 0.0
         
-        # Add separate medications list if provided
-        if medications:
-            all_medications.extend([med.lower() for med in medications])
-        
-        # Remove duplicates and empty strings
-        all_medications = list(set([med for med in all_medications if med.strip()]))
-        
-        # Apply medication-specific rules
-        for medication in all_medications:
-            med_weights = self._get_medication_weights(medication)
-            for code, weight in med_weights.items():
-                weights[code] += weight
-        
-        # Apply interaction modifiers
-        interaction_modifiers = self._get_interaction_modifiers(all_medications)
-        for code, modifier in interaction_modifiers.items():
-            weights[code] += modifier
-        
-        # Clamp weights at 1.0 to avoid over-weighting
-        for code in weights:
-            weights[code] = min(weights[code], 1.0)
-        
-        return weights
-    
-    def _get_medication_weights(self, medication: str) -> Dict[str, float]:
-        """Get base weights for specific medication."""
-        weights = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        med_lower = medication.lower()
-        
-        # 1) Acid suppression
-        if any(keyword in med_lower for keyword in self.PPI_KEYWORDS):
-            weights["GA"] += 0.30  # hypochlorhydria → dysbiosis/SIBO/C. diff
-            weights["DTX"] += 0.10  # nutrient/B12 reduction
-            weights["IMM"] += 0.10  # infection susceptibility
+        # Process each supplement
+        for supp in current_supplements:
+            supp_name = supp.get("name", "")
+            if not supp_name:
+                continue
             
-        elif any(keyword in med_lower for keyword in self.H2_BLOCKER_KEYWORDS):
-            weights["GA"] += 0.10  # weaker acid suppression
-            weights["DTX"] += 0.05  # B12 association if long-term
-        
-        # 2) Antibiotics
-        elif any(keyword in med_lower for keyword in self.ANTIBIOTIC_KEYWORDS):
-            weights["GA"] += 0.30  # microbiome disruption/C. diff susceptibility
-        
-        # 3) Metformin
-        elif any(keyword in med_lower for keyword in self.METFORMIN_KEYWORDS):
-            weights["GA"] += 0.20  # dose-dependent diarrhea
-        
-        # 4) Opioids
-        elif any(keyword in med_lower for keyword in self.OPIOID_KEYWORDS):
-            weights["GA"] += 0.25  # constipation, motility
-        
-        # 5) NSAIDs
-        elif any(keyword in med_lower for keyword in self.NSAID_KEYWORDS):
-            weights["GA"] += 0.15  # ulcer/mucosal injury/leakiness
-        
-        # 6) Bile-acid sequestrants
-        elif any(keyword in med_lower for keyword in self.BILE_ACID_SEQUESTRANT_KEYWORDS):
-            weights["GA"] += 0.20  # fat-soluble vitamin malabsorption
-            weights["DTX"] += 0.10  # nutrient-handling burden
-        
-        # 7) Statins
-        elif any(keyword in med_lower for keyword in self.STATIN_KEYWORDS):
-            weights["CM"] += 0.20  # cardiometabolic axis context
-            weights["MITO"] += 0.10  # lower circulating CoQ10 levels
-        
-        # 8) SSRIs/SNRIs
-        elif any(keyword in med_lower for keyword in self.SSRI_SNRI_KEYWORDS):
-            weights["COG"] += 0.10  # mood/anxiety modulation
-            weights["STR"] += 0.10  # HPA-axis modulation
-        
-        # 9) Benzodiazepines
-        elif any(keyword in med_lower for keyword in self.BENZODIAZEPINE_KEYWORDS):
-            weights["COG"] += 0.15  # cognitive effects/sedation
-            weights["STR"] += 0.10  # older adults higher risk
-        
-        # 10) Anticholinergics
-        elif any(keyword in med_lower for keyword in self.ANTICHOLINERGIC_KEYWORDS):
-            weights["GA"] += 0.15  # constipation/ileus
-            weights["COG"] += 0.10  # anticholinergic burden
-        
-        # 11) GLP-1 receptor agonists
-        elif any(keyword in med_lower for keyword in self.GLP1_AGONIST_KEYWORDS):
-            weights["GA"] += 0.20  # nausea, delayed gastric emptying
-            weights["CM"] -= 0.10  # beneficial metabolic effect offset
-        
-        # 12) SGLT2 inhibitors
-        elif any(keyword in med_lower for keyword in self.SGLT2_INHIBITOR_KEYWORDS):
-            weights["IMM"] += 0.05  # mycotic infections
-            weights["CM"] -= 0.10  # cardiometabolic/renal benefit context
-        
-        # 13) Systemic corticosteroids
-        elif any(keyword in med_lower for keyword in self.CORTICOSTEROID_KEYWORDS):
-            weights["IMM"] += 0.15  # immune suppression
-            weights["CM"] += 0.10  # glycemic effects
-            weights["SKN"] += 0.05  # skin effects
-        
-        # 14) Estrogen-containing medications
-        elif any(keyword in med_lower for keyword in self.ESTROGEN_KEYWORDS):
-            weights["DTX"] += 0.10  # hepatic handling
-            weights["CM"] += 0.05  # VTE vigilance
-            weights["GA"] += 0.05  # cholestasis signal
-        
-        # 15) Thyroid hormone
-        elif any(keyword in med_lower for keyword in self.THYROID_KEYWORDS):
-            weights["HRM"] += 0.15  # active hormonal management
-        
-        # 16) CV agents
-        elif any(keyword in med_lower for keyword in self.ACE_INHIBITOR_KEYWORDS):
-            weights["STR"] += 0.05  # cough/fatigue can stress sleep
+            dosage = supp.get("dosage", "")
+            purpose = supp.get("purpose", "")
             
-        elif any(keyword in med_lower for keyword in self.DIURETIC_KEYWORDS):
-            weights["MITO"] += 0.05  # electrolyte handling
-            weights["DTX"] += 0.05  # K+/Mg2+ losses
+            # Classify and score
+            supp_type = self._classify_supplement(supp_name)
             
-        elif any(keyword in med_lower for keyword in self.BETA_BLOCKER_KEYWORDS):
-            weights["STR"] += 0.05  # fatigue/exercise tolerance
-            weights["CM"] += 0.10  # BP benefit
+            # Skip unknown supplements
+            if supp_type == "unknown":
+                continue
+            
+            supp_scores = self._score_single_supplement(
+                supp_type,
+                dosage,
+                purpose,
+                digestive_symptoms,
+                supp_name
+            )
+            
+            # Track GA benefit separately for capping
+            if supp_scores.get("GA", 0) < 0:
+                ga_benefit_total += supp_scores["GA"]
+            
+            # Add to cumulative (before capping)
+            for code in FOCUS_AREAS:
+                cumulative_scores[code] += supp_scores[code]
+            
+            # Store per-supplement breakdown (use original name)
+            per_supplement_breakdown[supp_name] = supp_scores
         
-        return weights
+        # Apply GA benefit cap at -0.30
+        if cumulative_scores["GA"] < -0.30:
+            cumulative_scores["GA"] = -0.30
+        
+        # Clamp each focus area at [0.0, 1.0] (handle negative weights)
+        for code in FOCUS_AREAS:
+            cumulative_scores[code] = max(0.0, min(cumulative_scores[code], 1.0))
+        
+        return (cumulative_scores, per_supplement_breakdown)
     
-    def _get_interaction_modifiers(self, medications: List[str]) -> Dict[str, float]:
-        """Get interaction modifiers for medication combinations."""
-        modifiers = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        
-        meds_lower = [med.lower() for med in medications]
-        
-        # PPI + Antibiotics interaction
-        has_ppi = any(any(ppi in med for ppi in self.PPI_KEYWORDS) for med in meds_lower)
-        has_antibiotic = any(any(abx in med for abx in self.ANTIBIOTIC_KEYWORDS) for med in meds_lower)
-        
-        if has_ppi and has_antibiotic:
-            modifiers["GA"] += 0.05  # additional GA burden from PPI + antibiotic combo
-        
-        # PPI + Metformin interaction (B12 monitoring)
-        has_metformin = any(any(met in med for met in self.METFORMIN_KEYWORDS) for med in meds_lower)
-        
-        if has_ppi and has_metformin:
-            modifiers["DTX"] += 0.05  # synergistic B12 deficiency risk
-        
-        # Multiple medications burden
-        if len(medications) > 5:
-            modifiers["DTX"] += 0.05  # polypharmacy burden
-            modifiers["GA"] += 0.05  # increased GI burden
-        
-        return modifiers
-    
-    def get_explainability_trace(self, supplements_data: List[Dict], medications: List[str] = None) -> List[str]:
+    def _classify_supplement(self, supp_name: str) -> str:
         """
-        Generate human-readable explanations for medication mappings.
+        Classify supplement into type using keyword matching.
         
-        Args:
-            supplements_data: List of supplement dictionaries
-            medications: List of medication names
-            
         Returns:
-            List of explanation strings
+            Supplement type: 'omega3', 'vitamin_d', 'magnesium', 'probiotic', 
+                            'prebiotic', 'fiber', 'digestive_enzyme', 'bitters',
+                            'iron', 'vitamin_a', 'berberine', 'oregano_oil',
+                            'green_tea', 'turmeric', 'kava', 'melatonin',
+                            'ashwagandha', 'gut_directed', 'unknown'
         """
-        explanations = []
+        supp_lower = supp_name.lower()
         
-        # Combine all medications
-        all_medications = []
-        if supplements_data:
-            for supplement in supplements_data:
-                name = supplement.get("name", "")
-                if name:
-                    all_medications.append(name.lower())
+        # A) Omega-3
+        if any(keyword in supp_lower for keyword in [
+            "omega-3", "omega 3", "omega3", "fish oil", "epa", "dha", "algal oil", 
+            "krill oil", "cod liver oil", "icosapent", "vascepa", "lovaza"
+        ]):
+            return "omega3"
         
-        if medications:
-            all_medications.extend([med.lower() for med in medications])
+        # B) Vitamin D
+        if any(keyword in supp_lower for keyword in [
+            "vitamin d", "vit d", "cholecalciferol", "ergocalciferol", "d3", "d2"
+        ]):
+            return "vitamin_d"
         
-        all_medications = list(set([med for med in all_medications if med.strip()]))
+        # C) Magnesium
+        if any(keyword in supp_lower for keyword in [
+            "magnesium", "mag ", "mg oxide", "mg citrate", "mg glycinate", "mg threonate",
+            "mag oxide", "mag citrate", "mag glycinate"
+        ]):
+            return "magnesium"
         
-        for medication in all_medications:
-            med_lower = medication.lower()
-            
-            # Generate explanations based on medication type
-            if any(keyword in med_lower for keyword in self.PPI_KEYWORDS):
-                explanations.append(f"PPI ({medication}) → GA↑ DTX↑ IMM↑ (hypochlorhydria, B12, infection risk)")
-                
-            elif any(keyword in med_lower for keyword in self.ANTIBIOTIC_KEYWORDS):
-                explanations.append(f"Antibiotic ({medication}) → GA↑ (microbiome disruption)")
-                
-            elif any(keyword in med_lower for keyword in self.METFORMIN_KEYWORDS):
-                explanations.append(f"Metformin ({medication}) → GA↑ (GI effects)")
-                
-            elif any(keyword in med_lower for keyword in self.STATIN_KEYWORDS):
-                explanations.append(f"Statin ({medication}) → CM↑ MITO↑ (cardiometabolic, CoQ10)")
-                
-            elif any(keyword in med_lower for keyword in self.SSRI_SNRI_KEYWORDS):
-                explanations.append(f"SSRI/SNRI ({medication}) → COG↑ STR↑ (mood, HPA-axis)")
-                
-            elif any(keyword in med_lower for keyword in self.GLP1_AGONIST_KEYWORDS):
-                explanations.append(f"GLP-1 agonist ({medication}) → GA↑ CM↓ (GI effects, metabolic benefit)")
-                
-            elif any(keyword in med_lower for keyword in self.OPIOID_KEYWORDS):
-                explanations.append(f"Opioid ({medication}) → GA↑ (constipation, motility)")
-                
-            elif any(keyword in med_lower for keyword in self.NSAID_KEYWORDS):
-                explanations.append(f"NSAID ({medication}) → GA↑ (mucosal injury)")
-                
-            elif any(keyword in med_lower for keyword in self.THYROID_KEYWORDS):
-                explanations.append(f"Thyroid hormone ({medication}) → HRM↑ (hormonal management)")
-                
-            elif any(keyword in med_lower for keyword in self.ESTROGEN_KEYWORDS):
-                explanations.append(f"Estrogen ({medication}) → DTX↑ CM↑ GA↑ (hepatic, VTE, cholestasis)")
+        # D) Probiotics
+        if any(keyword in supp_lower for keyword in [
+            "probiotic", "lactobacillus", "bifidobacterium", "saccharomyces boulardii",
+            "acidophilus", "culturelle", "align", "florastor"
+        ]):
+            return "probiotic"
         
-        return explanations
+        # D) Prebiotics
+        if any(keyword in supp_lower for keyword in [
+            "prebiotic", "inulin", "gos", "fos", "galactooligosaccharide", "fructooligosaccharide"
+        ]):
+            return "prebiotic"
+        
+        # D) Fiber
+        if any(keyword in supp_lower for keyword in [
+            "psyllium", "metamucil", "fiber", "methylcellulose", "citrucel"
+        ]):
+            return "fiber"
+        
+        # D) Digestive enzymes
+        if any(keyword in supp_lower for keyword in [
+            "digestive enzyme", "pancreatic enzyme", "lipase", "protease", "amylase",
+            "bromelain", "papain", "creon", "pancreaze"
+        ]):
+            return "digestive_enzyme"
+        
+        # D) Digestive bitters
+        if any(keyword in supp_lower for keyword in [
+            "bitter", "gentian", "artemisia", "wormwood", "digestive bitter"
+        ]):
+            return "bitters"
+
+        # E) Iron
+        if any(keyword in supp_lower for keyword in [
+            "iron", "ferrous", "ferric", "fe ", "feosol", "slow fe"
+        ]):
+            return "iron"
+
+        # E) Vitamin A
+        if any(keyword in supp_lower for keyword in [
+            "vitamin a", "vit a", "retinol", "beta-carotene", "beta carotene"
+        ]):
+            return "vitamin_a"
+
+        # F) Berberine
+        if "berberine" in supp_lower:
+            return "berberine"
+
+        # F) Oregano oil
+        if any(keyword in supp_lower for keyword in [
+            "oregano oil", "oregano essential oil", "oil of oregano"
+        ]):
+            return "oregano_oil"
+
+        # G) Green tea extract
+        if any(keyword in supp_lower for keyword in [
+            "green tea extract", "egcg", "green tea catechin", "gte"
+        ]):
+            return "green_tea"
+
+        # G) Turmeric/Curcumin
+        if any(keyword in supp_lower for keyword in [
+            "turmeric", "curcumin", "piperine", "bioperine"
+        ]):
+            return "turmeric"
+
+        # G) Kava
+        if "kava" in supp_lower:
+            return "kava"
+
+        # H) Melatonin
+        if "melatonin" in supp_lower:
+            return "melatonin"
+
+        # H) Ashwagandha
+        if "ashwagandha" in supp_lower or "withania" in supp_lower:
+            return "ashwagandha"
+
+        # I) Other gut-directed (general prebiotics, bitters, teas)
+        if any(keyword in supp_lower for keyword in [
+            "digestive tea", "gut health", "gut support", "digestive support",
+            "gi support", "bowel support"
+        ]):
+            return "gut_directed"
+
+        return "unknown"
+
+    def _parse_dose_numeric(self, dosage: str) -> float:
+        """
+        Extract numeric dose from free-text dosage field.
+
+        Examples:
+            "1000mg" -> 1000.0
+            "2 capsules" -> 2.0
+            "1 tsp" -> 1.0
+            "500-1000mg" -> 750.0 (average)
+
+        Returns:
+            Numeric dose value, or 0.0 if unable to parse
+        """
+        if not dosage:
+            return 0.0
+
+        # Try to find numeric values
+        numbers = re.findall(r'\d+\.?\d*', dosage)
+
+        if not numbers:
+            return 0.0
+
+        # If range (e.g., "500-1000mg"), take average
+        if len(numbers) >= 2 and '-' in dosage:
+            return (float(numbers[0]) + float(numbers[1])) / 2.0
+
+        # Otherwise take first number
+        return float(numbers[0])
+
+    def _check_adverse_reaction(self, digestive_symptoms: str, keywords: List[str]) -> bool:
+        """Check if digestive symptoms contain any of the adverse reaction keywords."""
+        if not digestive_symptoms:
+            return False
+
+        symptoms_lower = digestive_symptoms.lower()
+        return any(keyword in symptoms_lower for keyword in keywords)
+
+    def _check_reported_benefit(self, purpose: str, keywords: List[str]) -> bool:
+        """Check if purpose field indicates reported benefit."""
+        if not purpose:
+            return False
+
+        purpose_lower = purpose.lower()
+        return any(keyword in purpose_lower for keyword in keywords)
+
+    def _score_single_supplement(
+        self,
+        supp_type: str,
+        dosage: str,
+        purpose: str,
+        digestive_symptoms: str,
+        supp_name: str = ""
+    ) -> Dict[str, float]:
+        """Score a single supplement based on type, dose, purpose, and adverse reactions."""
+        scores = {code: 0.0 for code in FOCUS_AREAS}
+
+        dose_numeric = self._parse_dose_numeric(dosage)
+
+        # A) Omega-3
+        if supp_type == "omega3":
+            # High dose (≥1000mg combined EPA+DHA)
+            if dose_numeric >= 1000:
+                scores["CM"] -= 0.25
+                scores["IMM"] -= 0.05
+                scores["MITO"] -= 0.05
+            # Low dose (<1000mg or unknown)
+            else:
+                scores["CM"] -= 0.10
+
+            # Adverse reactions (reflux, fishy burps, easy bruising)
+            if self._check_adverse_reaction(digestive_symptoms, ["reflux", "burp", "fishy", "heartburn"]):
+                scores["GA"] += 0.05
+
+        # B) Vitamin D
+        elif supp_type == "vitamin_d":
+            # Routine dose (800-2000 IU)
+            if 800 <= dose_numeric <= 2000 or dose_numeric == 0:  # 0 = unknown
+                scores["IMM"] -= 0.10
+            # High dose (>4000 IU)
+            elif dose_numeric > 4000:
+                scores["DTX"] += 0.15
+                scores["CM"] += 0.05
+
+        # C) Magnesium
+        elif supp_type == "magnesium":
+            # Check if for constipation and reported benefit
+            if self._check_reported_benefit(purpose, ["constipation", "bowel", "regularity"]):
+                scores["GA"] -= 0.10
+
+            # High-dose with diarrhea
+            if dose_numeric > 400 and self._check_adverse_reaction(digestive_symptoms, ["diarrhea", "loose stool"]):
+                scores["GA"] += 0.08
+
+        # D) Fiber (psyllium)
+        elif supp_type == "fiber":
+            # Used for bowel symptoms
+            if self._check_reported_benefit(purpose, ["bowel", "constipation", "ibs", "regularity", "fiber"]):
+                scores["GA"] -= 0.20
+
+        # D) Probiotics
+        elif supp_type == "probiotic":
+            # Reported GI improvement
+            if self._check_reported_benefit(purpose, ["gut", "digestive", "bowel", "ibs", "bloating", "gas"]):
+                scores["GA"] -= 0.10
+                scores["IMM"] -= 0.05
+
+            # Bloating/worsening
+            if self._check_adverse_reaction(digestive_symptoms, ["bloating", "gas", "worse", "worsening"]):
+                scores["GA"] += 0.05
+
+        # D) Prebiotics
+        elif supp_type == "prebiotic":
+            # Reported benefit
+            if self._check_reported_benefit(purpose, ["gut", "digestive", "bowel", "fiber"]):
+                scores["GA"] -= 0.05
+
+        # D) Digestive enzymes
+        elif supp_type == "digestive_enzyme":
+            # Known/suspected pancreatic insufficiency or clear benefit
+            if self._check_reported_benefit(purpose, ["pancreatic", "malabsorption", "fat", "enzyme", "digestion"]):
+                scores["GA"] -= 0.20
+
+        # D) Digestive bitters
+        elif supp_type == "bitters":
+            # Reported benefit
+            if self._check_reported_benefit(purpose, ["appetite", "motility", "digestion", "bitter"]):
+                scores["GA"] -= 0.05
+
+            # Nausea/heartburn
+            if self._check_adverse_reaction(digestive_symptoms, ["nausea", "heartburn"]):
+                scores["GA"] += 0.03
+
+        # E) Iron
+        elif supp_type == "iron":
+            # GI upset
+            if self._check_adverse_reaction(digestive_symptoms, ["nausea", "constipation", "upset"]):
+                scores["GA"] += 0.08
+
+        # E) Vitamin A (high-dose)
+        elif supp_type == "vitamin_a":
+            # High-dose (>10,000 IU or >3000 mcg RAE)
+            if dose_numeric > 10000 or dose_numeric > 3000:
+                scores["DTX"] += 0.15
+
+        # F) Berberine
+        elif supp_type == "berberine":
+            # Used for glycemic/lipid control and well-tolerated
+            if self._check_reported_benefit(purpose, ["blood sugar", "glucose", "diabetes", "cholesterol", "lipid", "metabolic"]):
+                scores["CM"] -= 0.10
+
+            # GI upset
+            if self._check_adverse_reaction(digestive_symptoms, ["upset", "nausea", "diarrhea"]):
+                scores["GA"] += 0.05
+
+        # F) Oregano oil
+        elif supp_type == "oregano_oil":
+            # GI irritation
+            if self._check_adverse_reaction(digestive_symptoms, ["nausea", "heartburn", "irritation"]):
+                scores["GA"] += 0.06
+
+        # G) Green tea extract
+        elif supp_type == "green_tea":
+            # High-EGCG or weight-loss formulas
+            scores["DTX"] += 0.15
+
+        # G) Turmeric/Curcumin
+        elif supp_type == "turmeric":
+            # Enhanced bioavailability (piperine/bioperine) - check name, dosage, and purpose
+            if any(keyword in text.lower() for text in [supp_name, dosage, purpose] for keyword in ["piperine", "bioperine"]):
+                scores["DTX"] += 0.12
+            else:
+                scores["DTX"] += 0.08  # Conservative default
+
+        # G) Kava
+        elif supp_type == "kava":
+            scores["DTX"] += 0.15
+            scores["STR"] -= 0.05
+
+        # H) Melatonin
+        elif supp_type == "melatonin":
+            # Chronic insomnia use (small/uncertain benefit)
+            if self._check_reported_benefit(purpose, ["sleep", "insomnia", "melatonin"]):
+                scores["STR"] -= 0.02
+
+        # H) Ashwagandha
+        elif supp_type == "ashwagandha":
+            # Check for hyperthyroid symptoms (rare thyrotoxicosis)
+            # Note: We don't have thyroid symptoms field, so skip this check
+            pass
+
+        # I) Other gut-directed
+        elif supp_type == "gut_directed":
+            # Reported benefit
+            if self._check_reported_benefit(purpose, ["gut", "digestive", "bowel"]):
+                scores["GA"] -= 0.05
+
+        return scores
+

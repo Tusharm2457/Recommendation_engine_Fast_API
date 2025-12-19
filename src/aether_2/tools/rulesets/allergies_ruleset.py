@@ -1,298 +1,201 @@
 """
-Allergies to health domain mapping ruleset.
-
-This module implements evidence-based mappings from allergies to health focus areas,
-including base weights by allergy type, severity modifiers, and integrative add-ons.
+Allergies-based focus area scoring ruleset.
 """
 
 from typing import Dict, List, Tuple
+from .constants import FOCUS_AREAS
 
 
 class AllergiesRuleset:
-    """
-    Handles allergy-based adjustments to health focus areas.
+    """Ruleset for allergies-based focus area scoring."""
     
-    Implements comprehensive allergy-to-domain mapping with:
-    - Base weights by allergy type (immediate, food, drug, environmental, etc.)
-    - Severity & context modifiers (anaphylaxis, multiple allergens, EpiPen)
-    - Integrative/functional-medicine add-ons (PPI use, Vit-D deficiency, omega-3)
-    """
-    
-    FOCUS_AREAS = {
-        "CM": "Cardiometabolic & Metabolic Health",
-        "COG": "Cognitive & Mental Health",
-        "DTX": "Detoxification & Biotransformation",
-        "IMM": "Immune Function & Inflammation",
-        "MITO": "Mitochondrial & Energy Metabolism",
-        "SKN": "Skin & Barrier Function",
-        "STR": "Stress-Axis & Nervous System Resilience",
-        "HRM": "Hormonal Health (Transport)",
-        "GA": "Gut Health and assimilation",
-    }
-    
-    # Allergy type keywords for classification
-    IMMEDIATE_ALLERGY_KEYWORDS = ["hives", "urticaria", "angioedema", "swelling", "rash", "itching", "wheezing", "shortness of breath", "anaphylaxis", "epinephrine", "epipen"]
-    FOOD_ALLERGY_KEYWORDS = ["peanut", "tree nut", "almond", "walnut", "cashew", "milk", "dairy", "egg", "soy", "wheat", "gluten", "sesame", "fish", "shellfish", "shrimp", "crab", "lobster"]
-    DRUG_ALLERGY_KEYWORDS = ["penicillin", "sulfa", "sulfonamide", "antibiotic", "medication", "drug", "contrast", "iodine"]
-    NSAID_ALLERGY_KEYWORDS = ["aspirin", "ibuprofen", "naproxen", "nsaid", "advil", "motrin", "aleve"]
-    LATEX_ALLERGY_KEYWORDS = ["latex", "rubber", "condom", "glove"]
-    LATEX_FRUIT_KEYWORDS = ["banana", "avocado", "kiwi", "papaya", "chestnut"]
-    ENVIRONMENTAL_ALLERGY_KEYWORDS = ["pollen", "dust", "mite", "mold", "dander", "pet", "cat", "dog", "grass", "tree", "weed"]
-    VENOM_ALLERGY_KEYWORDS = ["bee", "wasp", "hornet", "yellow jacket", "sting", "venom"]
-    ALPHA_GAL_KEYWORDS = ["alpha-gal", "red meat", "beef", "pork", "lamb", "mammal", "tick", "delayed reaction"]
-    EOE_KEYWORDS = ["eosinophilic esophagitis", "eoe", "esophageal", "swallowing difficulty"]
-    
-    def get_allergy_weights(self, allergies_data: List[Dict]) -> Dict[str, float]:
+    def get_allergies_weights(
+        self,
+        has_allergies: bool,
+        allergen_list: List[str],
+        reaction_list: List[str]
+    ) -> Tuple[Dict[str, float], Dict[str, Dict[str, float]]]:
         """
-        Calculate allergy-based weights for health focus areas.
+        Calculate focus area weights based on allergies.
         
         Args:
-            allergies_data: List of allergy dictionaries with 'allergen' and 'reaction' keys
+            has_allergies: Whether patient has allergies
+            allergen_list: List of allergen names
+            reaction_list: List of corresponding reactions
             
         Returns:
-            Dictionary mapping focus area codes to weight adjustments
+            Tuple of:
+                - Cumulative scores dict (all allergens combined, clamped at 1.0)
+                - Per-allergen breakdown dict {allergen_name: {focus_area: score}}
         """
-        if not allergies_data:
-            return {code: 0.0 for code in self.FOCUS_AREAS.keys()}
+        # Early exit if no allergies
+        if not has_allergies or not allergen_list:
+            return ({code: 0.0 for code in FOCUS_AREAS}, {})
         
-        weights = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        severity_modifiers = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
+        cumulative_scores = {code: 0.0 for code in FOCUS_AREAS}
+        per_allergen_breakdown = {}
         
-        anaphylaxis_count = 0
-        immediate_allergen_count = 0
-        epipen_carried = False
+        # Process each allergen
+        for allergen_name, reaction in zip(allergen_list, reaction_list):
+            allergen_scores = self._score_single_allergen(allergen_name, reaction)
+            
+            # Add to cumulative
+            for code in FOCUS_AREAS:
+                cumulative_scores[code] += allergen_scores[code]
+            
+            # Store per-allergen breakdown
+            per_allergen_breakdown[allergen_name] = allergen_scores
         
-        for allergy in allergies_data:
-            allergen = allergy.get("allergen", "").lower()
-            reaction = allergy.get("reaction", "").lower()
+        # Clamp each focus area at 1.0
+        for code in FOCUS_AREAS:
+            cumulative_scores[code] = min(cumulative_scores[code], 1.0)
+        
+        return (cumulative_scores, per_allergen_breakdown)
+    
+    def _score_single_allergen(self, allergen_name: str, reaction: str) -> Dict[str, float]:
+        """Score a single allergen based on type and severity."""
+        scores = {code: 0.0 for code in FOCUS_AREAS}
+        
+        # Classify allergen type
+        allergen_type = self._classify_allergen(allergen_name, reaction)
+        
+        # Detect severity modifiers
+        severity = self._detect_severity_modifiers(reaction)
+        
+        # Apply base weights by allergen type
+        if allergen_type == "food":
+            scores["GA"] += 0.40  # Mucosal immune reactivity
+            scores["STR"] += 0.05  # Food-related vigilance
+            scores["IMM"] += 0.45  # Immediate-type allergy
+            scores["SKN"] += 0.20  # Histamine-mediated
             
-            # Check for anaphylaxis
-            if "anaphylaxis" in reaction or "epinephrine" in reaction or "epipen" in reaction:
-                anaphylaxis_count += 1
-                epipen_carried = True
+        elif allergen_type == "drug":
+            scores["DTX"] += 0.25  # Med-safety & alternatives burden
+            scores["IMM"] += 0.15
             
-            # Classify and apply base weights
-            allergy_type = self._classify_allergy_type(allergen, reaction)
-            base_weights = self._get_base_weights(allergy_type, allergen, reaction)
+        elif allergen_type == "nsaid":
+            scores["DTX"] += 0.20
+            scores["IMM"] += 0.15
             
-            # Add base weights
-            for code, weight in base_weights.items():
-                weights[code] += weight
-                
-            # Count immediate-type allergens for modifier
-            if allergy_type in ["immediate", "food", "drug", "nsaid", "latex", "environmental", "venom", "alpha_gal"]:
-                immediate_allergen_count += 1
+        elif allergen_type == "latex":
+            scores["SKN"] += 0.30
+            scores["IMM"] += 0.20
+            # Check for latex-fruit syndrome
+            if self._has_latex_fruit_syndrome(allergen_name, reaction):
+                scores["GA"] += 0.10
+            
+        elif allergen_type == "venom":
+            scores["IMM"] += 0.30
+            scores["STR"] += 0.10  # Risk awareness/anxiety
+            
+        elif allergen_type == "alpha-gal":
+            scores["IMM"] += 0.50
+            scores["GA"] += 0.40
+            scores["DTX"] += 0.10
+            
+        elif allergen_type == "environmental":
+            scores["IMM"] += 0.25
+            scores["SKN"] += 0.20
+            scores["STR"] += 0.10  # Sleep/cognitive load from rhinitis
+            
+        elif allergen_type == "oral-allergy":
+            scores["IMM"] += 0.20
+            scores["GA"] += 0.20
+            scores["SKN"] += 0.10
+            
+        else:  # Unknown - apply generic immediate-type allergy weights
+            scores["IMM"] += 0.45
+            scores["SKN"] += 0.20
         
         # Apply severity modifiers
-        severity_modifiers = self._get_severity_modifiers(
-            anaphylaxis_count, immediate_allergen_count, epipen_carried
-        )
-        
-        # Combine base weights and modifiers
-        for code in weights:
-            weights[code] += severity_modifiers[code]
-            weights[code] = min(weights[code], 1.0)  # Clamp at 1.0
-        
-        return weights
-    
-    def _classify_allergy_type(self, allergen: str, reaction: str) -> str:
-        """Classify allergy type based on allergen and reaction keywords."""
-        combined_text = f"{allergen} {reaction}".lower()
-        
-        if any(keyword in combined_text for keyword in self.ALPHA_GAL_KEYWORDS):
-            return "alpha_gal"
-        elif any(keyword in combined_text for keyword in self.VENOM_ALLERGY_KEYWORDS):
-            return "venom"
-        elif any(keyword in combined_text for keyword in self.ENVIRONMENTAL_ALLERGY_KEYWORDS):
-            return "environmental"
-        elif any(keyword in combined_text for keyword in self.LATEX_ALLERGY_KEYWORDS):
-            return "latex"
-        elif any(keyword in combined_text for keyword in self.NSAID_ALLERGY_KEYWORDS):
-            return "nsaid"
-        elif any(keyword in combined_text for keyword in self.DRUG_ALLERGY_KEYWORDS):
-            return "drug"
-        elif any(keyword in combined_text for keyword in self.FOOD_ALLERGY_KEYWORDS):
+        if severity["anaphylaxis"]:
+            scores["IMM"] += 0.30
+            scores["STR"] += 0.10
+            scores["COG"] += 0.05  # Fear/avoidance
+            
+        if severity["epipen"]:
+            scores["IMM"] += 0.05
+
+        return scores
+
+    def _classify_allergen(self, allergen_name: str, reaction: str) -> str:
+        """
+        Classify allergen into type category.
+
+        Returns: 'food', 'drug', 'environmental', 'latex', 'venom',
+                 'alpha-gal', 'oral-allergy', 'nsaid', 'unknown'
+        """
+        allergen_lower = allergen_name.lower()
+        reaction_lower = reaction.lower()
+
+        # Food allergens
+        food_keywords = [
+            "nuts", "peanut", "tree nut", "almond", "cashew", "walnut",
+            "dairy", "milk", "cheese", "lactose",
+            "egg", "gluten", "wheat", "soy", "fish", "shellfish",
+            "shrimp", "crab", "lobster", "sesame", "corn", "gelatin"
+        ]
+        if any(kw in allergen_lower for kw in food_keywords):
             return "food"
-        elif any(keyword in combined_text for keyword in self.IMMEDIATE_ALLERGY_KEYWORDS):
-            return "immediate"
-        else:
-            return "unknown"
-    
-    def _get_base_weights(self, allergy_type: str, allergen: str, reaction: str) -> Dict[str, float]:
-        """Get base weights for specific allergy type."""
-        weights = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        combined_text = f"{allergen} {reaction}".lower()
-        
-        if allergy_type == "immediate":
-            # Immediate-type (IgE-pattern) allergy present
-            weights["IMM"] += 0.45
-            weights["SKN"] += 0.20
-            
-        elif allergy_type == "food":
-            # Food allergy
-            weights["GA"] += 0.40
-            weights["STR"] += 0.05
-            
-            # Check for EoE
-            if any(keyword in combined_text for keyword in self.EOE_KEYWORDS):
-                weights["GA"] = 0.50  # Override base GA weight
-                weights["IMM"] += 0.10
-                
-        elif allergy_type == "drug":
-            # Drug allergy
-            weights["DTX"] += 0.25
-            weights["IMM"] += 0.15
-            
-        elif allergy_type == "nsaid":
-            # NSAID hypersensitivity
-            weights["DTX"] += 0.20
-            weights["IMM"] += 0.15
-            
-        elif allergy_type == "latex":
-            # Latex allergy
-            weights["SKN"] += 0.30
-            weights["IMM"] += 0.20
-            
-            # Check for latex-fruit syndrome
-            if any(keyword in combined_text for keyword in self.LATEX_FRUIT_KEYWORDS):
-                weights["GA"] += 0.10
-                
-        elif allergy_type == "environmental":
-            # Environmental allergy
-            weights["IMM"] += 0.25
-            weights["SKN"] += 0.20
-            weights["STR"] += 0.10
-            
-        elif allergy_type == "venom":
-            # Venom allergy
-            weights["IMM"] += 0.30
-            weights["STR"] += 0.10
-            
-        elif allergy_type == "alpha_gal":
-            # Alpha-gal syndrome
-            weights["IMM"] += 0.50
-            weights["GA"] += 0.40
-            weights["DTX"] += 0.10
-            
-        elif allergy_type == "unknown":
-            # Oral-allergy syndrome / Pollen-Food Allergy Syndrome (default for unknown)
-            weights["IMM"] += 0.20
-            weights["GA"] += 0.20
-            weights["SKN"] += 0.10
-        
-        return weights
-    
-    def _get_severity_modifiers(self, anaphylaxis_count: int, immediate_allergen_count: int, epipen_carried: bool) -> Dict[str, float]:
-        """Get severity and context modifiers."""
-        modifiers = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        
-        # Anaphylaxis history
-        if anaphylaxis_count > 0:
-            modifiers["IMM"] += 0.30
-            modifiers["STR"] += 0.10
-            modifiers["COG"] += 0.05
-            
-            # EpiPen carried
-            if epipen_carried:
-                modifiers["IMM"] += 0.05
-        
-        # Multiple distinct immediate-type allergens
-        if immediate_allergen_count > 1:
-            additional_imm = min(0.05 * (immediate_allergen_count - 1), 0.15)
-            modifiers["IMM"] += additional_imm
-        
-        return modifiers
-    
-    def get_integrative_addons(self, medications: List[str], lab_results: Dict = None, diet_info: Dict = None) -> Dict[str, float]:
-        """
-        Get integrative/functional-medicine add-ons based on medications, labs, and diet.
-        
-        Args:
-            medications: List of current medications
-            lab_results: Dictionary of lab results (optional)
-            diet_info: Dictionary of diet information (optional)
-            
-        Returns:
-            Dictionary mapping focus area codes to integrative add-on adjustments
-        """
-        addons = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        
-        if not medications:
-            medications = []
-        
-        meds_lower = [med.lower() for med in medications]
-        
-        # Long-term acid suppression (PPI/H2RA)
-        acid_suppression_meds = ["omeprazole", "pantoprazole", "lansoprazole", "esomeprazole", 
-                               "rabeprazole", "famotidine", "ranitidine", "cimetidine", "ppi", "h2ra"]
-        
-        if any(any(med in med_lower for med in acid_suppression_meds) for med_lower in meds_lower):
-            addons["GA"] += 0.05
-            addons["IMM"] += 0.05
-        
-        # Vitamin-D deficiency (if lab results provided)
-        if lab_results:
-            vit_d = lab_results.get("vitamin_d", lab_results.get("25_oh_d", lab_results.get("25-hydroxyvitamin_d")))
-            if vit_d and isinstance(vit_d, (int, float)) and vit_d < 30:  # ng/mL threshold
-                addons["IMM"] += 0.05
-        
-        # Very low omega-3 intake (if diet info provided)
-        if diet_info:
-            omega_3_intake = diet_info.get("omega_3_intake", diet_info.get("fish_intake", diet_info.get("epa_dha")))
-            if omega_3_intake and isinstance(omega_3_intake, (int, float)) and omega_3_intake < 250:  # mg/day threshold
-                addons["IMM"] += 0.05
-        
-        return addons
-    
-    def get_explainability_trace(self, allergies_data: List[Dict]) -> List[str]:
-        """
-        Generate human-readable decision tree explanations for allergy mappings.
-        
-        Args:
-            allergies_data: List of allergy dictionaries
-            
-        Returns:
-            List of explanation strings
-        """
-        explanations = []
-        
-        if not allergies_data:
-            return explanations
-        
-        for allergy in allergies_data:
-            allergen = allergy.get("allergen", "")
-            reaction = allergy.get("reaction", "")
-            combined_text = f"{allergen} {reaction}".lower()
-            
-            # Generate explanation based on allergy type and severity
-            if "anaphylaxis" in combined_text or "epinephrine" in combined_text:
-                if any(keyword in combined_text for keyword in self.FOOD_ALLERGY_KEYWORDS):
-                    explanations.append(f"{allergen} anaphylaxis → IMM↑ STR↑ GA↑")
-                else:
-                    explanations.append(f"{allergen} anaphylaxis → IMM↑ STR↑")
-                    
-            elif any(keyword in combined_text for keyword in self.DRUG_ALLERGY_KEYWORDS):
-                if "penicillin" in combined_text:
-                    explanations.append(f"Penicillin ({reaction}) → DTX↑; consider de-labeling")
-                else:
-                    explanations.append(f"{allergen} allergy → DTX↑ IMM↑")
-                    
-            elif any(keyword in combined_text for keyword in self.LATEX_ALLERGY_KEYWORDS):
-                if any(keyword in combined_text for keyword in self.LATEX_FRUIT_KEYWORDS):
-                    explanations.append(f"Latex + fruit reactions → SKN↑ IMM↑ GA↑ (latex–fruit cross-reactivity)")
-                else:
-                    explanations.append(f"Latex allergy → SKN↑ IMM↑")
-                    
-            elif any(keyword in combined_text for keyword in self.ALPHA_GAL_KEYWORDS):
-                explanations.append(f"Alpha-gal syndrome → IMM↑ GA↑ DTX↑ (delayed mammal product reactions)")
-                
-            elif any(keyword in combined_text for keyword in self.EOE_KEYWORDS):
-                explanations.append(f"EoE + food allergy → GA↑ IMM↑ (mucosal immune reactivity)")
-                
-            else:
-                # Generic explanation
-                allergy_type = self._classify_allergy_type(allergen, reaction)
-                if allergy_type != "unknown":
-                    explanations.append(f"{allergen} allergy → domain adjustments applied")
-        
-        return explanations
+
+        # NSAID (check before general drug)
+        nsaid_keywords = ["aspirin", "ibuprofen", "naproxen", "nsaid", "advil", "motrin", "aleve"]
+        if any(kw in allergen_lower or kw in reaction_lower for kw in nsaid_keywords):
+            return "nsaid"
+
+        # Drug allergens
+        drug_keywords = [
+            "penicillin", "sulfa", "antibiotic", "medication", "medicine",
+            "amoxicillin", "cephalosporin", "contrast", "iodine"
+        ]
+        if any(kw in allergen_lower or kw in reaction_lower for kw in drug_keywords):
+            return "drug"
+
+        # Latex
+        if "latex" in allergen_lower or "rubber" in allergen_lower:
+            return "latex"
+
+        # Venom
+        venom_keywords = ["bee", "wasp", "hornet", "venom", "sting", "yellow jacket"]
+        if any(kw in allergen_lower for kw in venom_keywords):
+            return "venom"
+
+        # Alpha-gal
+        if "alpha" in allergen_lower or "red meat" in allergen_lower or "mammal" in allergen_lower:
+            return "alpha-gal"
+
+        # Oral allergy syndrome
+        oas_keywords = [
+            "apple", "cherry", "peach", "pear", "plum", "apricot",
+            "carrot", "celery", "parsley", "hazelnut", "almond"
+        ]
+        if any(kw in allergen_lower for kw in oas_keywords):
+            return "oral-allergy"
+
+        # Environmental
+        env_keywords = [
+            "pollen", "mite", "mold", "dander", "dust", "pet",
+            "grass", "tree", "ragweed", "cat", "dog", "animal"
+        ]
+        if any(kw in allergen_lower or kw in reaction_lower for kw in env_keywords):
+            return "environmental"
+
+        return "unknown"
+
+    def _detect_severity_modifiers(self, reaction: str) -> Dict[str, bool]:
+        """Check reaction text for severity indicators."""
+        reaction_lower = reaction.lower()
+
+        return {
+            "anaphylaxis": "anaphylaxis" in reaction_lower or "anaphylactic" in reaction_lower,
+            "epipen": "epipen" in reaction_lower or "epinephrine" in reaction_lower or "epi-pen" in reaction_lower,
+            "severe_swelling": "swelling" in reaction_lower or "angioedema" in reaction_lower,
+            "hives": "hives" in reaction_lower or "urticaria" in reaction_lower
+        }
+
+    def _has_latex_fruit_syndrome(self, allergen_name: str, reaction: str) -> bool:
+        """Check for latex-fruit cross-reactivity."""
+        combined = (allergen_name + " " + reaction).lower()
+        latex_fruit_keywords = ["banana", "avocado", "kiwi", "papaya", "chestnut", "fig"]
+        return any(kw in combined for kw in latex_fruit_keywords)
+

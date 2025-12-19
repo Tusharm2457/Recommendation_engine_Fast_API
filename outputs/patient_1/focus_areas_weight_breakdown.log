@@ -1,5 +1,5 @@
 ================================================================================
-FOCUS AREA EVALUATION WEIGHT BREAKDOWN - 2025-10-15 17:29:06
+FOCUS AREA EVALUATION WEIGHT BREAKDOWN - 2025-11-04 09:32:17
 ================================================================================
 
 PATIENT INPUT DATA:
@@ -13,6 +13,31 @@ PATIENT INPUT DATA:
   Allergies: []
   Supplements: [{'name': 'Vitamin D3', 'dose': '4000 IU', 'frequency': 'Daily', 'purpose': 'Correct deficiency'}, {'name': 'Melatonin (low dose)', 'dose': '0.5 mg', 'frequency': 'Night shift days', 'purpose': 'Sleep onset'}, {'name': 'Magnesium glycinate', 'dose': '300 mg', 'frequency': 'Nightly', 'purpose': 'Sleep quality'}]
   Family History: {'has_family_history': True, 'conditions_detail': {'asthma': ['mother']}, 'other_conditions_text': None}
+  Smoking Data: {'use_status': 'never', 'quit_year': None, 'duration_category': None}
+  Alcohol Data: {'frequency': 'rarely', 'typical_amount': 'special_occasions'}
+  Work Stress Data: {'job_title': 'Registered Nurse (Night Shift)', 'work_stress_level': 8}
+  Exercise Data: {'exercise_days_per_week': 3}
+  Skin Health Data: {'has_skin_issues': True, 'skin_condition_details': 'Mask-related acne, dry skin'}
+  Chronic Pain Data: {'has_chronic_pain': True, 'pain_details': None}
+  Headache Data: {'frequent_headaches_migraines': True, 'headache_details': 'Shift-related; dehydration triggers'}
+  Male Sexual Concerns: True
+  Female Reproductive Concerns: True
+  Digestive Symptoms: irregular_bowel_habits
+  Pets/Animals: {'has_pets': True}
+  Mold Exposure: True
+  Chemical Exposures: ['hospital_disinfectants']
+  Oral Hygiene: brush_only
+  Mercury Filling Removal: True
+  Dental Work: {'silver_mercury_fillings': 1, 'gold_fillings': 0, 'root_canals': 0, 'implants': 0, 'caps_crowns': 0, 'other_dental_work': 0}
+  Childhood Development: yes
+  C-Section Birth: yes
+  Eating Out Frequency: 2_3_per_week
+  Sunlight Exposure: {'days_per_week': 4, 'average_minutes_per_day': 15}
+  Snoring/Sleep Apnea: no
+  Wake Feeling Refreshed: False
+  Trouble Staying Asleep: True
+  Trouble Falling Asleep: True
+  Diet Style: ['balanced']
 
 RULESET WEIGHT CONTRIBUTIONS:
 
@@ -87,20 +112,189 @@ RULESET WEIGHT CONTRIBUTIONS:
    Family Condition Weights:
      Immune Function & Inflammation (IMM): 0.200
 
+10. SMOKING RULESET:
+   Smoking Status Weights:
+     (No weights applied)
+
+11. ALCOHOL RULESET:
+   Alcohol Consumption Weights:
+     Detoxification & Biotransformation (DTX): 0.050
+     Cardiometabolic & Metabolic Health (CM): 0.050
+     Gut Health and assimilation (GA): 0.050
+     Immune Function & Inflammation (IMM): 0.050
+     Mitochondrial & Energy Metabolism (MITO): 0.050
+     Stress-Axis & Nervous System Resilience (STR): 0.050
+
+12. WORK STRESS RULESET:
+   Work Stress & Shift Work Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.200
+     Cognitive & Mental Health (COG): 0.100
+     Immune Function & Inflammation (IMM): 0.200
+     Stress-Axis & Nervous System Resilience (STR): 0.300
+     Gut Health and assimilation (GA): 0.300
+
+13. EXERCISE RULESET:
+   Exercise Frequency Weights:
+     (No weights applied)
+
+14. SLEEP RULESET:
+   Sleep Duration & Quality Weights:
+     Stress-Axis & Nervous System Resilience (STR): 0.100
+
+15. SKIN HEALTH RULESET:
+   Skin Condition Weights:
+     Detoxification & Biotransformation (DTX): 0.100
+     Immune Function & Inflammation (IMM): 0.170
+     Skin & Barrier Function (SKN): 0.380
+     Gut Health and assimilation (GA): 0.100
+
+16. CHRONIC PAIN RULESET:
+   Chronic Pain Weights:
+     Cognitive & Mental Health (COG): 0.050
+     Immune Function & Inflammation (IMM): 0.150
+     Mitochondrial & Energy Metabolism (MITO): 0.250
+     Stress-Axis & Nervous System Resilience (STR): 0.200
+     Gut Health and assimilation (GA): 0.100
+
+17. HEADACHE RULESET:
+   Headache/Migraine Weights:
+     Cognitive & Mental Health (COG): 0.200
+     Immune Function & Inflammation (IMM): 0.050
+     Mitochondrial & Energy Metabolism (MITO): 0.150
+     Stress-Axis & Nervous System Resilience (STR): 0.300
+     Hormonal Health (Transport) (HRM): 0.100
+     Gut Health and assimilation (GA): 0.100
+
+18. MALE SEXUAL HEALTH RULESET:
+   Male Sexual Health Weights:
+     (No weights applied)
+
+19. FEMALE REPRODUCTIVE HEALTH RULESET:
+   Female Reproductive Health Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.200
+     Cognitive & Mental Health (COG): 0.100
+     Mitochondrial & Energy Metabolism (MITO): 0.050
+     Skin & Barrier Function (SKN): 0.050
+     Stress-Axis & Nervous System Resilience (STR): 0.100
+     Hormonal Health (Transport) (HRM): 0.600
+     Gut Health and assimilation (GA): 0.050
+
+20. DIGESTIVE SYMPTOMS RULESET:
+   Digestive Symptoms Weights:
+     (No weights applied)
+
+21. PET ANIMALS RULESET:
+   Pet Animals Weights:
+     Immune Function & Inflammation (IMM): 0.150
+     Skin & Barrier Function (SKN): 0.100
+     Gut Health and assimilation (GA): 0.100
+
+22. MOLD EXPOSURE RULESET:
+   Mold Exposure Weights:
+     Cognitive & Mental Health (COG): 0.100
+     Detoxification & Biotransformation (DTX): 0.200
+     Immune Function & Inflammation (IMM): 0.250
+     Mitochondrial & Energy Metabolism (MITO): 0.100
+     Skin & Barrier Function (SKN): 0.050
+     Gut Health and assimilation (GA): 0.200
+
+23. CHEMICAL EXPOSURE RULESET:
+   Chemical Exposure Weights:
+     Cognitive & Mental Health (COG): 0.050
+     Detoxification & Biotransformation (DTX): 0.150
+     Immune Function & Inflammation (IMM): 0.050
+     Skin & Barrier Function (SKN): 0.050
+     Gut Health and assimilation (GA): 0.050
+
+24. ORAL HYGIENE RULESET:
+   Oral Hygiene Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.050
+     Immune Function & Inflammation (IMM): 0.150
+     Gut Health and assimilation (GA): 0.100
+
+25. MERCURY FILLING REMOVAL RULESET:
+   Mercury Filling Removal Weights:
+     Detoxification & Biotransformation (DTX): 0.050
+
+26. DENTAL WORK RULESET:
+   Dental Work Weights:
+     Detoxification & Biotransformation (DTX): 0.030
+     Immune Function & Inflammation (IMM): 0.010
+
+27. CHILDHOOD DEVELOPMENT RULESET:
+   Childhood Development Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.250
+     Mitochondrial & Energy Metabolism (MITO): 0.050
+     Hormonal Health (Transport) (HRM): 0.050
+     Gut Health and assimilation (GA): 0.250
+
+28. C-SECTION BIRTH RULESET:
+   C-Section Birth Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.050
+     Immune Function & Inflammation (IMM): 0.200
+     Skin & Barrier Function (SKN): 0.100
+     Gut Health and assimilation (GA): 0.150
+
+29. EATING OUT FREQUENCY RULESET:
+   Eating Out Frequency Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.600
+     Detoxification & Biotransformation (DTX): 0.400
+     Immune Function & Inflammation (IMM): 0.300
+     Skin & Barrier Function (SKN): 0.200
+     Gut Health and assimilation (GA): 0.350
+
+30. SUNLIGHT EXPOSURE RULESET:
+   Sunlight Exposure Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.050
+     Immune Function & Inflammation (IMM): 0.150
+     Gut Health and assimilation (GA): 0.100
+
+31. SNORING/SLEEP APNEA RULESET:
+   Snoring/Sleep Apnea Weights:
+     (No weights applied)
+
+32. WAKE FEELING REFRESHED RULESET:
+   Wake Feeling Refreshed Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.100
+     Cognitive & Mental Health (COG): 0.100
+     Immune Function & Inflammation (IMM): 0.050
+     Mitochondrial & Energy Metabolism (MITO): 0.200
+     Stress-Axis & Nervous System Resilience (STR): 0.300
+
+33. TROUBLE STAYING ASLEEP RULESET:
+   Trouble Staying Asleep Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.050
+     Cognitive & Mental Health (COG): 0.100
+     Immune Function & Inflammation (IMM): 0.050
+     Mitochondrial & Energy Metabolism (MITO): 0.050
+     Stress-Axis & Nervous System Resilience (STR): 0.300
+
+34. TROUBLE FALLING ASLEEP RULESET:
+   Trouble Falling Asleep Weights:
+     Cardiometabolic & Metabolic Health (CM): 0.050
+     Cognitive & Mental Health (COG): 0.150
+     Immune Function & Inflammation (IMM): 0.050
+     Mitochondrial & Energy Metabolism (MITO): 0.050
+     Stress-Axis & Nervous System Resilience (STR): 0.250
+
+35. DIET STYLE RULESET:
+   Diet Style Weights:
+     (No weights applied)
+
 FINAL COMBINED SCORES:
-     Cardiometabolic & Metabolic Health (CM): 1.350
-     Cognitive & Mental Health (COG): 0.950
-     Detoxification & Biotransformation (DTX): 0.850
-     Immune Function & Inflammation (IMM): 1.000
-     Mitochondrial & Energy Metabolism (MITO): 0.950
-     Skin & Barrier Function (SKN): 0.700
-     Stress-Axis & Nervous System Resilience (STR): 1.150
-     Hormonal Health (Transport) (HRM): 1.100
-     Gut Health and assimilation (GA): 0.850
+     Cardiometabolic & Metabolic Health (CM): 2.800
+     Cognitive & Mental Health (COG): 1.850
+     Detoxification & Biotransformation (DTX): 1.830
+     Immune Function & Inflammation (IMM): 2.980
+     Mitochondrial & Energy Metabolism (MITO): 1.750
+     Skin & Barrier Function (SKN): 1.630
+     Stress-Axis & Nervous System Resilience (STR): 2.950
+     Hormonal Health (Transport) (HRM): 1.850
+     Gut Health and assimilation (GA): 2.750
 
 TOP 3 FOCUS AREAS:
-  1. Cardiometabolic & Metabolic Health (CM): 1.350
-  2. Stress-Axis & Nervous System Resilience (STR): 1.150
-  3. Hormonal Health (Transport) (HRM): 1.100
+  1. Immune Function & Inflammation (IMM): 2.980
+  2. Stress-Axis & Nervous System Resilience (STR): 2.950
+  3. Cardiometabolic & Metabolic Health (CM): 2.800
 
 ================================================================================

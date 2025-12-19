@@ -22,4 +22,5 @@ chromadb>=0.4.0
 langchain>=0.1.0
 langchain-community>=0.0.1
 google-cloud-aiplatform>=1.38.0
+google-cloud-storage>=2.10.0
 

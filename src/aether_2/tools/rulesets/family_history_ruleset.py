@@ -1,421 +1,426 @@
 """
-Family history to health domain mapping ruleset.
+Family Medical History Ruleset for Focus Area Scoring.
 
-This module implements evidence-based mappings from family medical history
-to health focus areas, including sex-based and premature condition modifiers.
+Scores based on first-degree relative (FDR) family medical history.
 """
 
+import json
+import re
 from typing import Dict, List, Tuple
+from .constants import FOCUS_AREAS
 
 
 class FamilyHistoryRuleset:
-    """
-    Handles family history-based adjustments to health focus areas.
+    """Ruleset for family medical history-based focus area scoring."""
     
-    Implements comprehensive family condition-to-domain mapping with:
-    - Base weights by family condition type
-    - Sex-based modifiers (male/female specific adjustments)
-    - Premature condition modifiers (early onset conditions)
-    """
-    
-    FOCUS_AREAS = {
-        "CM": "Cardiometabolic & Metabolic Health",
-        "COG": "Cognitive & Mental Health",
-        "DTX": "Detoxification & Biotransformation",
-        "IMM": "Immune Function & Inflammation",
-        "MITO": "Mitochondrial & Energy Metabolism",
-        "SKN": "Skin & Barrier Function",
-        "STR": "Stress-Axis & Nervous System Resilience",
-        "HRM": "Hormonal Health (Transport)",
-        "GA": "Gut Health and assimilation",
-    }
-    
-    def get_family_history_weights(self, family_history_data: Dict, patient_sex: str = None) -> Dict[str, float]:
+    def get_family_history_weights(
+        self,
+        has_family_history: bool,
+        family_conditions_detail: str,
+        family_other_conditions: str,
+        patient_sex: str
+    ) -> Tuple[Dict[str, float], Dict[str, Dict[str, float]]]:
         """
-        Calculate family history-based weights for health focus areas.
+        Calculate focus area weights based on family medical history.
         
         Args:
-            family_history_data: Dictionary containing family history information
+            has_family_history: Whether patient has family history
+            family_conditions_detail: JSON string of conditions and relations
+            family_other_conditions: Free-text other conditions
             patient_sex: Patient's biological sex for sex-based modifiers
             
         Returns:
-            Dictionary mapping focus area codes to weight adjustments
+            Tuple of (cumulative_scores, per_condition_breakdown)
         """
-        weights = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
+        # Early exit if no family history
+        if not has_family_history:
+            return ({code: 0.0 for code in FOCUS_AREAS}, {})
         
-        if not family_history_data:
-            return weights
+        cumulative_scores = {code: 0.0 for code in FOCUS_AREAS}
+        per_condition_breakdown = {}
         
-        # Extract family conditions from the data structure
-        family_conditions = self._extract_family_conditions(family_history_data)
+        # Parse conditions_detail (JSON string)
+        conditions_dict = self._parse_conditions_detail(family_conditions_detail)
         
-        # Apply base weights for each family condition
-        for condition, details in family_conditions.items():
-            base_weights = self._get_family_condition_weights(condition, details)
+        # Process each condition
+        for condition_name in conditions_dict.keys():
+            # Normalize condition name (lowercase with underscores)
+            normalized_name = self._normalize_condition_name(condition_name)
             
-            # Apply sex-based modifiers
-            sex_modifiers = self._get_sex_modifiers(condition, patient_sex)
+            # Score the condition
+            condition_scores = self._score_single_condition(normalized_name, patient_sex)
             
-            # Apply premature condition modifiers
-            premature_modifiers = self._get_premature_modifiers(condition, details)
+            if any(score != 0 for score in condition_scores.values()):
+                # Add to cumulative
+                for code in FOCUS_AREAS:
+                    cumulative_scores[code] += condition_scores[code]
+                
+                # Store breakdown (use original condition name for display)
+                display_name = condition_name.replace('_', ' ').title()
+                per_condition_breakdown[display_name] = condition_scores.copy()
+        
+        # Process other_conditions_text
+        if family_other_conditions:
+            other_scores = self._parse_other_conditions(family_other_conditions, patient_sex)
             
-            # Combine all weights
-            for code in weights:
-                weights[code] += base_weights[code] + sex_modifiers[code] + premature_modifiers[code]
+            for condition_name, condition_scores in other_scores.items():
+                # Add to cumulative
+                for code in FOCUS_AREAS:
+                    cumulative_scores[code] += condition_scores[code]
+                
+                # Store breakdown
+                per_condition_breakdown[condition_name] = condition_scores.copy()
         
-        # Clamp weights at 1.0 to avoid over-weighting
-        for code in weights:
-            weights[code] = min(weights[code], 1.0)
+        # Clamp each focus area at [0.0, 1.0]
+        for code in FOCUS_AREAS:
+            cumulative_scores[code] = max(0.0, min(cumulative_scores[code], 1.0))
         
-        return weights
+        return (cumulative_scores, per_condition_breakdown)
     
-    def _extract_family_conditions(self, family_history_data: Dict) -> Dict[str, Dict]:
-        """Extract family conditions from the data structure."""
-        conditions = {}
+    def _parse_conditions_detail(self, conditions_detail: str) -> Dict:
+        """Parse the conditions_detail JSON string."""
+        if not conditions_detail:
+            return {}
         
-        # Check for conditions_detail field
-        conditions_detail = family_history_data.get("conditions_detail", {})
+        # Handle both string (JSON) and dict formats
+        if isinstance(conditions_detail, str):
+            try:
+                return json.loads(conditions_detail)
+            except (json.JSONDecodeError, ValueError):
+                return {}
+        elif isinstance(conditions_detail, dict):
+            return conditions_detail
         
-        for condition, family_members in conditions_detail.items():
-            if family_members:  # Only include conditions that have family members listed
-                conditions[condition] = {
-                    "family_members": family_members,
-                    "is_premature": self._check_premature_condition(condition, family_members)
-                }
-        
-        return conditions
+        return {}
     
-    def _get_family_condition_weights(self, condition: str, details: Dict) -> Dict[str, float]:
-        """Get base weights for specific family condition."""
-        weights = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        condition_lower = condition.lower()
+    def _normalize_condition_name(self, condition_name: str) -> str:
+        """Normalize condition name to lowercase with underscores."""
+        # Replace spaces and hyphens with underscores
+        normalized = condition_name.lower().replace(' ', '_').replace('-', '_')
+        # Remove multiple consecutive underscores
+        normalized = re.sub(r'_+', '_', normalized)
+        return normalized.strip('_')
+    
+    def _score_single_condition(self, condition_name: str, patient_sex: str) -> Dict[str, float]:
+        """Score a single family history condition."""
+        scores = {code: 0.0 for code in FOCUS_AREAS}
         
         # Anxiety Disorder
-        if condition_lower == "anxiety_disorder":
-            weights["STR"] += 0.10
-            weights["COG"] += 0.05
-            
-        # Arthritis (family)
-        elif condition_lower == "arthritis":
-            # Check if RA/psoriatic noted in details
-            family_members = details.get("family_members", [])
-            if any("ra" in str(member).lower() or "psoriatic" in str(member).lower() for member in family_members):
-                weights["IMM"] += 0.20
-            else:  # OA only
-                weights["MITO"] += 0.05
-                
+        if condition_name == "anxiety_disorder":
+            scores["STR"] += 0.10
+            scores["COG"] += 0.05
+        
+        # Arthritis (default to OA)
+        elif condition_name == "arthritis":
+            scores["MITO"] += 0.05
+        
         # Asthma
-        elif condition_lower == "asthma":
-            weights["IMM"] += 0.20
-            
+        elif condition_name == "asthma":
+            scores["IMM"] += 0.20
+        
         # Bleeding Disorder
-        elif condition_lower == "bleeding_disorder":
-            weights["IMM"] += 0.10
-            weights["DTX"] += 0.05
-            
+        elif condition_name == "bleeding_disorder":
+            scores["IMM"] += 0.10
+            scores["DTX"] += 0.05
+        
         # Blood Clots (DVT)
-        elif condition_lower == "blood_clots_or_dvt":
-            weights["CM"] += 0.20
-            
+        elif condition_name == "blood_clots" or condition_name == "dvt":
+            scores["CM"] += 0.20
+        
         # Cancer (unspecified)
-        elif condition_lower == "cancer":
-            weights["DTX"] += 0.10
-            weights["IMM"] += 0.10
-            
+        elif condition_name == "cancer":
+            scores["DTX"] += 0.10
+            scores["IMM"] += 0.10
+        
         # Coronary Artery Disease
-        elif condition_lower == "coronary_artery_disease":
-            weights["CM"] += 0.25
-            
+        elif condition_name == "coronary_artery_disease" or condition_name == "cad":
+            scores["CM"] += 0.25
+        
         # Claustrophobic
-        elif condition_lower == "claustrophobic":
-            weights["STR"] += 0.05
-            weights["COG"] += 0.05
-            
-        # Diabetes – Insulin (likely T1D)
-        elif condition_lower == "diabetes_insulin":
-            weights["IMM"] += 0.15
-            weights["CM"] += 0.15
-            
-        # Diabetes – Non-Insulin (T2D)
-        elif condition_lower == "diabetes_non_insulin":
-            weights["CM"] += 0.25
-            
+        elif condition_name == "claustrophobic":
+            scores["STR"] += 0.05
+            scores["COG"] += 0.05
+        
+        # Diabetes - Insulin (T1D)
+        elif condition_name == "diabetes_insulin":
+            scores["IMM"] += 0.15
+            scores["CM"] += 0.15
+        
+        # Diabetes - Non-Insulin (T2D)
+        elif condition_name == "diabetes_non_insulin" or condition_name == "diabetes":
+            scores["CM"] += 0.25
+
         # Dialysis (CKD proxy)
-        elif condition_lower == "dialysis":
-            weights["CM"] += 0.15
-            weights["DTX"] += 0.10
-            
+        elif condition_name == "dialysis":
+            scores["CM"] += 0.15
+            scores["DTX"] += 0.10
+
         # Diverticulitis
-        elif condition_lower == "diverticulitis":
-            weights["GA"] += 0.10
-            
+        elif condition_name == "diverticulitis":
+            scores["GA"] += 0.10
+
         # Fibromyalgia
-        elif condition_lower == "fibromyalgia":
-            weights["STR"] += 0.10
-            weights["COG"] += 0.05
-            weights["MITO"] += 0.05
-            
+        elif condition_name == "fibromyalgia":
+            scores["STR"] += 0.10
+            scores["COG"] += 0.05
+            scores["MITO"] += 0.05
+
         # Gout
-        elif condition_lower == "gout":
-            weights["CM"] += 0.15
-            weights["DTX"] += 0.05
-            weights["GA"] += 0.05
-            
-        # Has Pacemaker (arrhythmia)
-        elif condition_lower == "has_pacemaker":
-            weights["CM"] += 0.20
-            
-        # Heart Attack
-        elif condition_lower == "heart_attack":
-            weights["CM"] += 0.25
-            
-        # Heart Murmur (valvular)
-        elif condition_lower == "heart_murmur":
-            weights["CM"] += 0.15
-            
-        # Hiatal Hernia or Reflux Disease
-        elif condition_lower == "hiatal_hernia_or_reflux_disease":
-            weights["GA"] += 0.15
-            
-        # HIV or AIDS
-        elif condition_lower == "hiv_or_aids":
-            # Record only, no weights
-            pass
-            
-        # High Cholesterol
-        elif condition_lower == "high_cholesterol":
-            weights["CM"] += 0.25
-            
-        # High Blood Pressure
-        elif condition_lower == "high_blood_pressure":
-            weights["CM"] += 0.15
-            
-        # Overactive Thyroid (Graves proxy) - Note: This might be missing from the form
-        elif "overactive_thyroid" in condition_lower or "graves" in condition_lower:
-            weights["IMM"] += 0.15
-            weights["HRM"] += 0.20
-            
-        # Kidney Disease
-        elif condition_lower == "kidney_disease":
-            weights["CM"] += 0.15
-            weights["DTX"] += 0.10
-            
-        # Kidney Stones
-        elif condition_lower == "kidney_stones":
-            weights["GA"] += 0.15
-            
-        # Leg/Foot Ulcers
-        elif condition_lower == "leg_foot_ulcers":
-            weights["SKN"] += 0.10
-            weights["CM"] += 0.10
-            
-        # Liver Disease
-        elif condition_lower == "liver_disease":
-            weights["DTX"] += 0.20
-            weights["CM"] += 0.10
-            
-        # Osteoporosis (parental hip fracture)
-        elif condition_lower == "osteoporosis":
-            weights["HRM"] += 0.20
-            
-        # Polio
-        elif condition_lower == "polio":
-            # Record only, no weights
-            pass
-            
-        # Pulmonary Embolism
-        elif condition_lower == "pulmonary_embolism":
-            weights["CM"] += 0.20
-            
-        # Reflux or Ulcers
-        elif condition_lower == "reflux_or_ulcers":
-            weights["GA"] += 0.15
-            
-        # Stroke
-        elif condition_lower == "stroke":
-            weights["COG"] += 0.20
-            weights["CM"] += 0.10
-            
-        # Tuberculosis
-        elif condition_lower == "tuberculosis":
-            # Record only, no weights
-            pass
-            
-        # Other conditions - try to map to nearest rule
-        else:
-            other_weights = self._map_other_conditions(condition_lower)
-            for code, weight in other_weights.items():
-                weights[code] += weight
-        
-        return weights
-    
-    def _get_sex_modifiers(self, condition: str, patient_sex: str) -> Dict[str, float]:
-        """Get sex-based modifiers for family conditions."""
-        modifiers = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        
-        if not patient_sex:
-            return modifiers
-        
-        condition_lower = condition.lower()
-        sex_lower = patient_sex.lower()
-        
-        # Gout - 10% increase if male patient
-        if condition_lower == "gout" and sex_lower == "male":
-            modifiers["CM"] += 0.015  # 10% of 0.15
-            modifiers["DTX"] += 0.005  # 10% of 0.05
-            modifiers["GA"] += 0.005   # 10% of 0.05
-            
-        # Overactive Thyroid - 10% increase if female patient
-        elif ("overactive_thyroid" in condition_lower or "graves" in condition_lower) and sex_lower == "female":
-            modifiers["IMM"] += 0.015  # 10% of 0.15
-            modifiers["HRM"] += 0.020  # 10% of 0.20
-            
-        # Osteoporosis - 10% increase if female patient
-        elif condition_lower == "osteoporosis" and sex_lower == "female":
-            modifiers["HRM"] += 0.020  # 10% of 0.20
-            
-        # Kidney Stones - 5% increase if male patient
-        elif condition_lower == "kidney_stones" and sex_lower == "male":
-            modifiers["GA"] += 0.0075  # 5% of 0.15
-        
-        return modifiers
-    
-    def _get_premature_modifiers(self, condition: str, details: Dict) -> Dict[str, float]:
-        """Get premature condition modifiers."""
-        modifiers = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        
-        if not details.get("is_premature", False):
-            return modifiers
-        
-        condition_lower = condition.lower()
-        
-        # Coronary Artery Disease - premature adds +0.10
-        if condition_lower == "coronary_artery_disease":
-            modifiers["CM"] += 0.10
-            
-        # Heart Attack - premature adds +0.10
-        elif condition_lower == "heart_attack":
-            modifiers["CM"] += 0.10
-        
-        return modifiers
-    
-    def _check_premature_condition(self, condition: str, family_members: List) -> bool:
-        """Check if condition is premature based on family member details."""
-        # This is a simplified check - in a real implementation, you'd parse
-        # age information from family member details
-        condition_lower = condition.lower()
-        
-        # Define premature age thresholds
-        premature_conditions = {
-            "coronary_artery_disease": 55,  # CAD before 55
-            "heart_attack": 55,  # MI before 55
-            "stroke": 65,  # Stroke before 65
-            "diabetes_insulin": 40,  # T1D before 40
-            "diabetes_non_insulin": 40,  # T2D before 40
-        }
-        
-        for condition_key, age_threshold in premature_conditions.items():
-            if condition_key in condition_lower:
-                # In a real implementation, you'd extract age from family_members
-                # For now, we'll assume some conditions are premature
-                return True
-        
-        return False
-    
-    def _map_other_conditions(self, condition: str) -> Dict[str, float]:
-        """Map other conditions to nearest rules."""
-        weights = {code: 0.0 for code in self.FOCUS_AREAS.keys()}
-        
-        # Celiac/IBD/Polyps/Barrett's → GA rules
-        if any(keyword in condition for keyword in ["celiac", "ibd", "crohn", "ulcerative colitis", "polyps", "barrett"]):
-            weights["GA"] += 0.15
-            
-        # Autoimmune conditions → IMM rules
-        elif any(keyword in condition for keyword in ["autoimmune", "lupus", "scleroderma", "sjogren"]):
-            weights["IMM"] += 0.20
-            
-        # Neurological conditions → COG rules
-        elif any(keyword in condition for keyword in ["alzheimer", "dementia", "parkinson", "ms", "multiple sclerosis"]):
-            weights["COG"] += 0.20
-            
-        # Metabolic conditions → CM rules
-        elif any(keyword in condition for keyword in ["metabolic", "syndrome", "obesity"]):
-            weights["CM"] += 0.20
-        
-        return weights
-    
-    def get_explainability_trace(self, family_history_data: Dict, patient_sex: str = None) -> List[str]:
-        """
-        Generate human-readable explanations for family history mappings.
-        
-        Args:
-            family_history_data: Dictionary containing family history information
-            patient_sex: Patient's biological sex
-            
-        Returns:
-            List of explanation strings
-        """
-        explanations = []
-        
-        if not family_history_data:
-            return explanations
-        
-        family_conditions = self._extract_family_conditions(family_history_data)
-        
-        for condition, details in family_conditions.items():
-            family_members = details.get("family_members", [])
-            is_premature = details.get("is_premature", False)
-            
-            # Generate explanation based on condition type
-            if condition.lower() == "anxiety_disorder":
-                explanations.append(f"Family anxiety → STR↑ COG↑")
-                
-            elif condition.lower() == "arthritis":
-                if any("ra" in str(member).lower() or "psoriatic" in str(member).lower() for member in family_members):
-                    explanations.append(f"Family RA/psoriatic arthritis → IMM↑")
-                else:
-                    explanations.append(f"Family arthritis → MITO↑")
-                    
-            elif condition.lower() == "asthma":
-                explanations.append(f"Family asthma → IMM↑")
-                
-            elif condition.lower() == "diabetes_insulin":
-                explanations.append(f"Family T1D → IMM↑ CM↑")
-                    
-            elif condition.lower() == "diabetes_non_insulin":
-                explanations.append(f"Family T2D → CM↑")
-                    
-            elif condition.lower() == "heart_attack":
-                if is_premature:
-                    explanations.append(f"Family premature MI → CM↑ (premature modifier)")
-                else:
-                    explanations.append(f"Family MI → CM↑")
-                    
-            elif condition.lower() == "stroke":
-                explanations.append(f"Family stroke → COG↑ CM↑")
-                
-            elif condition.lower() == "cancer":
-                explanations.append(f"Family cancer → DTX↑ IMM↑")
-                
-            elif condition.lower() == "high_cholesterol":
-                explanations.append(f"Family high cholesterol → CM↑")
-                
-            elif condition.lower() == "high_blood_pressure":
-                explanations.append(f"Family high blood pressure → CM↑")
-                
-            elif condition.lower() == "osteoporosis":
-                if patient_sex and patient_sex.lower() == "female":
-                    explanations.append(f"Family osteoporosis → HRM↑ (female modifier)")
-                else:
-                    explanations.append(f"Family osteoporosis → HRM↑")
-                    
-            elif condition.lower() == "gout":
-                if patient_sex and patient_sex.lower() == "male":
-                    explanations.append(f"Family gout → CM↑ DTX↑ GA↑ (male modifier)")
-                else:
-                    explanations.append(f"Family gout → CM↑ DTX↑ GA↑")
-                    
+        elif condition_name == "gout":
+            base_cm = 0.15
+            base_dtx = 0.05
+            base_ga = 0.05
+
+            # +10% if male patient
+            if patient_sex and patient_sex.lower() == "male":
+                scores["CM"] += base_cm * 1.10
+                scores["DTX"] += base_dtx * 1.10
+                scores["GA"] += base_ga * 1.10
             else:
-                explanations.append(f"Family {condition} → domain adjustments applied")
-        
-        return explanations
+                scores["CM"] += base_cm
+                scores["DTX"] += base_dtx
+                scores["GA"] += base_ga
+
+        # Has Pacemaker (arrhythmia)
+        elif condition_name == "has_pacemaker" or condition_name == "pacemaker":
+            scores["CM"] += 0.20
+
+        # Heart Attack
+        elif condition_name == "heart_attack":
+            scores["CM"] += 0.25
+
+        # Heart Murmur (valvular)
+        elif condition_name == "heart_murmur":
+            scores["CM"] += 0.15
+
+        # Hiatal Hernia or Reflux Disease
+        elif condition_name == "hiatal_hernia" or condition_name == "reflux_disease":
+            scores["GA"] += 0.15
+
+        # HIV or AIDS (record only)
+        elif condition_name == "hiv" or condition_name == "aids" or condition_name == "hiv_or_aids":
+            pass  # Record only, no scoring
+
+        # High Cholesterol
+        elif condition_name == "high_cholesterol":
+            scores["CM"] += 0.25
+
+        # High Blood Pressure
+        elif condition_name == "high_blood_pressure":
+            scores["CM"] += 0.15
+
+        # Overactive Thyroid (Graves proxy)
+        elif condition_name == "overactive_thyroid":
+            base_imm = 0.15
+            base_hrm = 0.20
+
+            # +10% if female patient
+            if patient_sex and patient_sex.lower() == "female":
+                scores["IMM"] += base_imm * 1.10
+                scores["HRM"] += base_hrm * 1.10
+            else:
+                scores["IMM"] += base_imm
+                scores["HRM"] += base_hrm
+
+        # Kidney Disease
+        elif condition_name == "kidney_disease":
+            scores["CM"] += 0.15
+            scores["DTX"] += 0.10
+
+        # Kidney Stones
+        elif condition_name == "kidney_stones":
+            base_ga = 0.15
+
+            # +5% if male patient
+            if patient_sex and patient_sex.lower() == "male":
+                scores["GA"] += base_ga * 1.05
+            else:
+                scores["GA"] += base_ga
+
+        # Leg/Foot Ulcers
+        elif condition_name == "leg_foot_ulcers" or condition_name == "foot_ulcers":
+            scores["SKN"] += 0.10
+            scores["CM"] += 0.10
+
+        # Liver Disease
+        elif condition_name == "liver_disease":
+            scores["DTX"] += 0.20
+            scores["CM"] += 0.10
+
+        # Osteoporosis (parental hip fracture)
+        elif condition_name == "osteoporosis":
+            base_hrm = 0.20
+
+            # +10% if female patient
+            if patient_sex and patient_sex.lower() == "female":
+                scores["HRM"] += base_hrm * 1.10
+            else:
+                scores["HRM"] += base_hrm
+
+        # Polio (record only)
+        elif condition_name == "polio":
+            pass  # Record only, no scoring
+
+        # Pulmonary Embolism
+        elif condition_name == "pulmonary_embolism":
+            scores["CM"] += 0.20
+
+        # Reflux or Ulcers
+        elif condition_name == "reflux_or_ulcers" or condition_name == "reflux" or condition_name == "ulcers":
+            scores["GA"] += 0.15
+
+        # Stroke
+        elif condition_name == "stroke":
+            scores["COG"] += 0.20
+            scores["CM"] += 0.10
+
+        # Tuberculosis (record only)
+        elif condition_name == "tuberculosis":
+            pass  # Record only, no scoring
+
+        return scores
+
+    def _parse_other_conditions(self, other_text: str, patient_sex: str) -> Dict[str, Dict[str, float]]:
+        """
+        Parse other_conditions_text and map to known conditions.
+
+        Returns:
+            Dict mapping condition names to their scores
+        """
+        if not other_text:
+            return {}
+
+        other_text_lower = other_text.lower()
+        parsed_conditions = {}
+
+        # Celiac Disease
+        if any(keyword in other_text_lower for keyword in ["celiac", "coeliac"]):
+            parsed_conditions["Celiac Disease"] = {
+                "GA": 0.20,
+                "IMM": 0.05,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["GA", "IMM"]}
+            }
+
+        # IBD (Crohn's, Ulcerative Colitis)
+        if any(keyword in other_text_lower for keyword in ["ibd", "crohn", "ulcerative colitis", "inflammatory bowel"]):
+            parsed_conditions["IBD"] = {
+                "GA": 0.20,
+                "IMM": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["GA", "IMM"]}
+            }
+
+        # Polyps
+        if "polyp" in other_text_lower:
+            parsed_conditions["Polyps"] = {
+                "GA": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code != "GA"}
+            }
+
+        # Barrett's Esophagus
+        if "barrett" in other_text_lower:
+            parsed_conditions["Barrett's Esophagus"] = {
+                "GA": 0.15,
+                **{code: 0.0 for code in FOCUS_AREAS if code != "GA"}
+            }
+
+        # Rheumatoid Arthritis (RA)
+        if any(keyword in other_text_lower for keyword in ["rheumatoid", "ra ", " ra"]):
+            parsed_conditions["Rheumatoid Arthritis"] = {
+                "IMM": 0.20,
+                **{code: 0.0 for code in FOCUS_AREAS if code != "IMM"}
+            }
+
+        # Psoriatic Arthritis
+        if "psoriatic" in other_text_lower:
+            parsed_conditions["Psoriatic Arthritis"] = {
+                "IMM": 0.20,
+                **{code: 0.0 for code in FOCUS_AREAS if code != "IMM"}
+            }
+
+        # Lupus
+        if "lupus" in other_text_lower:
+            parsed_conditions["Lupus"] = {
+                "IMM": 0.20,
+                **{code: 0.0 for code in FOCUS_AREAS if code != "IMM"}
+            }
+
+        # Multiple Sclerosis
+        if any(keyword in other_text_lower for keyword in ["multiple sclerosis", "ms ", " ms"]):
+            parsed_conditions["Multiple Sclerosis"] = {
+                "IMM": 0.20,
+                "COG": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["IMM", "COG"]}
+            }
+
+        # Alzheimer's / Dementia
+        if any(keyword in other_text_lower for keyword in ["alzheimer", "dementia"]):
+            parsed_conditions["Alzheimer's/Dementia"] = {
+                "COG": 0.25,
+                **{code: 0.0 for code in FOCUS_AREAS if code != "COG"}
+            }
+
+        # Parkinson's
+        if "parkinson" in other_text_lower:
+            parsed_conditions["Parkinson's"] = {
+                "COG": 0.20,
+                "MITO": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["COG", "MITO"]}
+            }
+
+        # Depression
+        if "depression" in other_text_lower or "depressive" in other_text_lower:
+            parsed_conditions["Depression"] = {
+                "COG": 0.10,
+                "STR": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["COG", "STR"]}
+            }
+
+        # Bipolar
+        if "bipolar" in other_text_lower:
+            parsed_conditions["Bipolar Disorder"] = {
+                "COG": 0.15,
+                "STR": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["COG", "STR"]}
+            }
+
+        # Schizophrenia
+        if "schizophrenia" in other_text_lower:
+            parsed_conditions["Schizophrenia"] = {
+                "COG": 0.20,
+                **{code: 0.0 for code in FOCUS_AREAS if code != "COG"}
+            }
+
+        # Eczema / Psoriasis
+        if "eczema" in other_text_lower or "psoriasis" in other_text_lower:
+            parsed_conditions["Eczema/Psoriasis"] = {
+                "SKN": 0.15,
+                "IMM": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["SKN", "IMM"]}
+            }
+
+        # Melanoma
+        if "melanoma" in other_text_lower:
+            parsed_conditions["Melanoma"] = {
+                "SKN": 0.20,
+                "DTX": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["SKN", "DTX"]}
+            }
+
+        # PCOS
+        if "pcos" in other_text_lower or "polycystic ovary" in other_text_lower:
+            parsed_conditions["PCOS"] = {
+                "HRM": 0.20,
+                "CM": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["HRM", "CM"]}
+            }
+
+        # Endometriosis
+        if "endometriosis" in other_text_lower:
+            parsed_conditions["Endometriosis"] = {
+                "HRM": 0.15,
+                "IMM": 0.10,
+                **{code: 0.0 for code in FOCUS_AREAS if code not in ["HRM", "IMM"]}
+            }
+
+        return parsed_conditions
+

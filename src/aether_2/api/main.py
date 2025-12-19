@@ -14,6 +14,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 
 from src.aether_2.pipeline import run_aether_pipeline
+from src.aether_2.utils.gcs_helper import generate_and_upload_protocol_excel
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -139,6 +140,14 @@ class SupplementRecommendation(BaseModel):
     focus_areas: Optional[List[str]] = []
 
 
+class ExcelFileInfo(BaseModel):
+    """Information about generated Excel file in GCS"""
+    file_path: str = Field(..., description="GCS file path (e.g., 'test_example_com/test_example_com.xlsx')")
+    signed_url: str = Field(..., description="Temporary signed URL for downloading the file")
+    bucket: str = Field(..., description="GCS bucket name")
+    expires_in_hours: int = Field(24, description="Number of hours until the signed URL expires")
+
+
 class ProtocolResponse(BaseModel):
     """Response model for successful protocol generation"""
     status: str = Field(..., description="Status of the request (success/error)")
@@ -155,6 +164,10 @@ class ProtocolResponse(BaseModel):
     message: Optional[str] = Field(
         None,
         description="Additional information or success message"
+    )
+    excel_file: Optional[ExcelFileInfo] = Field(
+        None,
+        description="Excel file information (only present if generate_excel=true)"
     )
 
 
@@ -208,6 +221,10 @@ async def generate_protocol(
     include_details: bool = Query(
         False,
         description="Include preprocessing outputs and detailed information in the response"
+    ),
+    generate_excel: bool = Query(
+        False,
+        description="Generate Excel file and upload to GCS. Returns signed URL in response."
     )
 ):
     """
@@ -217,6 +234,7 @@ async def generate_protocol(
     1. Runs preprocessing (biomarker evaluation, user profile compilation, focus area analysis)
     2. Executes CrewAI pipeline (web discovery, RAG ranking, recommendations, final compilation)
     3. Returns cleaned JSON protocol
+    4. Optionally generates Excel file and uploads to GCS (if generate_excel=true)
 
     **Input:** Patient data (supports multiple formats)
 
@@ -224,6 +242,7 @@ async def generate_protocol(
 
     **Query Parameters:**
     - `include_details` (optional): Set to `true` to include preprocessing outputs in the response
+    - `generate_excel` (optional): Set to `true` to generate Excel file and upload to GCS
     """
     try:
         # Convert request to dict
@@ -288,6 +307,36 @@ async def generate_protocol(
         # Only include preprocessing outputs if requested
         if include_details:
             response_data["preprocessing_outputs"] = result.get("preprocessing_outputs")
+
+        # Generate and upload Excel file if requested
+        if generate_excel:
+            try:
+                # Get bucket name from environment variable or use default
+                bucket_name = os.getenv("GCS_BUCKET_NAME", "recc_engine_data")
+
+                # Extract user email from metadata
+                user_email = patient_data.get("metadata", {}).get("email", "unknown@example.com")
+
+                print(f"📊 Generating Excel file for {user_email}...")
+
+                # Generate and upload Excel
+                excel_info = generate_and_upload_protocol_excel(
+                    protocol_data=result["protocol"],
+                    input_data=patient_data,
+                    user_id=result["user_id"],
+                    user_email=user_email,
+                    bucket_name=bucket_name
+                )
+
+                response_data["excel_file"] = excel_info
+                print(f"✅ Excel file uploaded: {excel_info['file_path']}")
+
+            except Exception as e:
+                # Don't fail the entire request if Excel generation fails
+                print(f"⚠️ Warning: Excel generation failed: {str(e)}")
+                import traceback
+                traceback.print_exc()
+                # Excel file will be None/omitted in response
 
         return ProtocolResponse(**response_data)
         

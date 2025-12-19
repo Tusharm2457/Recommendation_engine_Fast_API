@@ -2,12 +2,12 @@
   {
     "user_full_data": {
       "metadata": {
-        "email": "test@example.com",
+        "email": "tusharmhatre2424@gmail.com",
         "phase_status": {
-          "id": "test-id",
-          "user_id": "test-user-id",
-          "created_at": "2025-09-30T08:44:25.45717+00:00",
-          "updated_at": "2025-10-10T12:09:44.590617+00:00",
+          "id": "6ac17e0f-2dd8-499a-9185-7b44091961de",
+          "user_id": "e5ef349e-ca45-406c-bc80-2a34ca2f4fee",
+          "created_at": "2025-11-11T20:54:45.877309+00:00",
+          "updated_at": "2025-11-18T02:52:26.626664+00:00",
           "phase1_status": "completed",
           "phase2_status": "completed",
           "phase3_status": "pending"
@@ -15,143 +15,269 @@
       },
       "patient_data": {
         "phase1_basic_intake": {
-          "demographics": {
-            "age": 34,
-            "biological_sex": "female",
-            "biological_sex_other": null,
-            "height_feet": 5,
-            "height_inches": 4,
-            "weight_lbs": 135,
-            "ancestry": ["African American"],
-            "ancestry_other": null
-          },
-          "medical_history": {
-            "diagnoses": ["vitamin_d_deficiency", "seasonal_allergies"],
-            "diagnoses_years": { "vitamin_d_deficiency": "2023", "seasonal_allergies": "2012" },
-            "diagnoses_other": null,
-            "surgeries": null
+          "allergies": {
+            "has_allergies": true,
+            "known_allergies": [
+              {
+                "allergen": "other",
+                "reaction": "Swelling",
+                "allergen_other": "Misc"
+              }
+            ]
           },
           "medications": {
+            "has_medications": true,
             "current_medications": [
-              { "name": "Cetirizine", "dose": "10 mg", "frequency": "Daily", "purpose": "Allergies" }
-            ],
-            "has_medications": true
+              {
+                "dose": "20mg",
+                "name": "Omeprazole",
+                "purpose": "GERD",
+                "frequency": "daily"
+              },
+              {
+                "dose": "10mg",
+                "name": "Atorvastatin",
+                "purpose": "High Blood Pressure",
+                "frequency": "daily"
+              }
+            ]
           },
           "supplements": {
-            "current_supplements": [
-              { "name": "Vitamin D3", "dose": "4000 IU", "frequency": "Daily", "purpose": "Correct deficiency" },
-              { "name": "Melatonin (low dose)", "dose": "0.5 mg", "frequency": "Night shift days", "purpose": "Sleep onset" },
-              { "name": "Magnesium glycinate", "dose": "300 mg", "frequency": "Nightly", "purpose": "Sleep quality" }
-            ],
-            "has_supplements": true
+            "has_supplements": false,
+            "current_supplements": []
           },
-          "allergies": { "known_allergies": [], "has_allergies": false },
-          "complementary_approaches": {
-            "selected_approaches": ["functional", "tcm"],
-            "functional_medicine": true,
-            "ayurveda": false,
-            "traditional_chinese_medicine": true,
-            "homeopathy": false,
-            "korean_medicine": false
+          "demographics": {
+            "age": 26,
+            "ancestry": [
+              "Asian"
+            ],
+            "weight_lbs": 169,
+            "height_feet": 5,
+            "height_inches": 10,
+            "ancestry_other": null,
+            "biological_sex": "Male",
+            "biological_sex_other": null
+          },
+          "medical_history": {
+            "diagnoses": [
+              "kidney_stones_",
+              "tuberculosis_",
+              "celiac"
+            ],
+            "surgeries": "Covid-19 in 2022",
+            "diagnoses_other": null,
+            "diagnoses_years": {
+              "tuberculosis_": "2004",
+              "kidney_stones_": "2012"
+            }
           },
           "wearable_devices": {
             "fitbit": false,
-            "apple_watch": true,
-            "google_pixel_watch": false,
-            "oura_ring": true,
-            "samsung_galaxy_watch": false,
+            "oura_ring": false,
+            "apple_watch": false,
             "other_device": null,
-            "has_any_wearables": true
+            "has_any_wearables": false,
+            "google_pixel_watch": false,
+            "samsung_galaxy_watch": false
+          },
+          "complementary_approaches": {
+            "ayurveda": false,
+            "homeopathy": false,
+            "korean_medicine": false,
+            "functional_medicine": false,
+            "selected_approaches": null,
+            "traditional_chinese_medicine": false
           }
         },
         "phase2_detailed_intake": {
-          "family_medical_history": { "has_family_history": true, "conditions_detail": { "asthma": ["mother"] }, "other_conditions_text": null },
-          "medication_side_effects": { "has_adverse_reactions": false, "reaction_details": null },
-          "childhood_antibiotics": { "took_antibiotics_as_child": true },
-          "lifestyle_factors": {
-            "tobacco": { "use_status": "never", "quit_year": null, "duration_category": null },
-            "alcohol": { "frequency": "rarely", "typical_amount": "special_occasions" },
-            "recreational_drugs": { "uses_substances": false, "substance_details": null }
+          "pets_animals": {
+            "has_pets": true
           },
-          "occupation_wellness": { "job_title": "Registered Nurse (Night Shift)", "work_stress_level": 8 },
-          "physical_activity": { "exercise_days_per_week": 3 },
-          "sunlight_exposure": { "days_per_week": 4, "average_minutes_per_day": 15 },
+          "dental_health": {
+            "dental_work": {
+              "implants": 1,
+              "caps_crowns": 0,
+              "root_canals": 0,
+              "gold_fillings": 0,
+              "other_dental_work": null,
+              "silver_mercury_fillings": 0
+            },
+            "daily_brush_floss": "brush_only",
+            "removal_timeframe": null,
+            "mercury_fillings_removed": false
+          },
+          "dietary_habits": {
+            "diet_style": "low_carb_keto,dairy_free",
+            "diet_style_other": null,
+            "eating_out_frequency": "more_than_2_per_week"
+          },
           "sleep_patterns": {
-            "hours_category": "6_to_8",
+            "hours_category": "less_than_6",
+            "snoring_sleep_apnea": "yes",
+            "night_wake_frequency": 2,
             "trouble_falling_asleep": true,
             "trouble_staying_asleep": true,
-            "night_wake_frequency": 2,
-            "night_urination_frequency": 1,
             "wake_feeling_refreshed": false,
-            "snoring_sleep_apnea": "no"
+            "night_urination_frequency": 2
           },
-          "dietary_habits": { "diet_style": ["balanced"], "diet_style_other": null, "eating_out_frequency": "2_3_per_week" },
-          "childhood_development": { "born_via_c_section": "no", "high_sugar_childhood_diet": "yes" },
-          "dental_health": {
-            "mercury_fillings_removed": false,
-            "removal_timeframe": null,
-            "daily_brush_floss": "both_daily",
-            "dental_work": { "silver_mercury_fillings": 1, "gold_fillings": 0, "root_canals": 0, "implants": 0, "caps_crowns": 0, "other_dental_work": 0 }
+          "systems_review": {
+            "digestive_symptoms": "bloating,heartburn"
           },
-          "environmental_exposures": { "chemical_exposures": ["hospital_disinfectants"], "chemical_exposure_other": null, "mold_exposure": false },
-          "pets_animals": { "has_pets": true },
-          "systems_review": { "digestive_symptoms": "irregular_bowel_habits" },
-          "reproductive_hormonal_health": { "female_specific": { "menstrual_concerns": "yes", "concern_details": "Cycle irregular with shift work" }, "male_specific": null },
+          "lifestyle_factors": {
+            "alcohol": {
+              "frequency": "daily",
+              "typical_amount": "one Can of Beer every day"
+            },
+            "tobacco": {
+              "quit_year": "2022",
+              "use_status": "yes",
+              "duration_category": "more_than_5_years"
+            },
+            "recreational_drugs": {
+              "uses_substances": true,
+              "substance_details": "Cannabis weekends"
+            }
+          },
+          "physical_activity": {
+            "exercise_days_per_week": 8
+          },
+          "sunlight_exposure": {
+            "days_per_week": 7,
+            "average_minutes_per_day": "30 minutes"
+          },
+          "occupation_wellness": {
+            "job_title": "Nurse",
+            "work_stress_level": 3
+          },
           "pain_and_skin_health": {
-            "headaches": { "frequent_headaches_migraines": true, "headache_details": "Shift-related; dehydration triggers" },
-            "chronic_pain": { "has_chronic_pain": false, "pain_details": null },
-            "skin_health": { "has_skin_issues": true, "skin_condition_details": "Mask-related acne, dry skin" }
+            "headaches": {
+              "headache_details": null,
+              "frequent_headaches_migraines": true
+            },
+            "skin_health": {
+              "has_skin_issues": true,
+              "skin_condition_details": "I have Eczema"
+            },
+            "chronic_pain": {
+              "pain_details": null,
+              "has_chronic_pain": true
+            }
+          },
+          "childhood_antibiotics": {
+            "took_antibiotics_as_child": true
+          },
+          "childhood_development": {
+            "born_via_c_section": "yes",
+            "high_sugar_childhood_diet": "not_sure"
+          },
+          "family_medical_history": {
+            "conditions_detail": "{\"dialysis\":[\"mother\"],\"diabetes_insulin\":[\"father\"],\"high_blood_pressure\":[\"father\"]}",
+            "has_family_history": true,
+            "other_conditions_text": null
+          },
+          "environmental_exposures": {
+            "mold_exposure": true,
+            "chemical_exposures": "yes",
+            "chemical_exposure_other": null
+          },
+          "medication_side_effects": {
+            "reaction_details": "rash from omeprazole",
+            "has_adverse_reactions": true
+          },
+          "reproductive_hormonal_health": {
+            "male_specific": {
+              "concern_details": null,
+              "hormonal_concerns": "yes"
+            },
+            "female_specific": null
           }
+        }
+        ,
+        "phase3_detailed_intake": {
+          "What are your top three health goals right now?": "lose weight; reduce stress; improve heart health",
+          "Why do YOU think these issues are happening?": "Over Eating, fatige, irregular eating patterns",
+          "Are you willing to make lifestyle changes?": "Yes",
+          "When did you last feel really well—body and mind?": "Summer 2022",
+          "Did anything specific start or worsen your wellness?": "Started new job with high stress, moved to new city",
+          "What makes your symptoms WORSE?": "lack of sleep, stress, large meals",
+          "Part of Day, what time of the day does it get worse?":  "Morning; after breakfast",
+          "Where do your symptoms get worse?": "Home, mold in basement",
+          "Do any foods/drinks trigger your symptoms?": "Alcohol, dairy, processed foods",
+          "And what seems to HELP?": "small meals, walk after dinner, meditation",
+          "Have you taken antibiotics, steroids, reflux meds, or daily pain-relievers for long periods? List which and how long.": "Omeprazole daily 6 mo in 2020",
+          "What kinds of activity and how intense?": "walking daily, yoga Sunday",
+          "Rank your days of sunlight exposure from most to least during a week.": "Mon, Tue, Wed, Thu, Fri, Sat, Sun",
+          "Do you use any sleep aids or medicines?": "Yes; Melatonin 3mg, helps with sleep",
+          "Do you go to sleep around the same time every day?": "Yes",
+          "Do you wake up around the same time every day?": "Yes",
+          "Walk me through your typical meals and snacks.": "Bagel with cream cheese for breakfast. Fast-food burger and fries with soda for lunch. Pizza for dinner 3 times a week. I drink diet soda most days and usually have a late snack before bed.",
+          "Any foods you avoid because they cause issues?": "Yes; Gluten causes bloating and brain fog, dairy gives me cramps and acne, wine causes hives",
+          "What kind of food cravings do you usually have?": "Sweets, salty snacks",
+          "How would you describe your mood lately?" :"Energized, low, anxious at work, flat, irritable?",
+          "On a scale of 1-10, how high is your current stress?": "8",
+          "What are your biggest sources of stress right now?": "Work deadlines, night shift burnout, and financial stress from bills",
+          "Which relaxation techniques do you use?": "Meditation, Yoga",
+          "Who or what do you lean on for support?": "Partner, Therapist",
+          "Have you experienced significant trauma or abuse?": "Yes; childhood abuse, EMDR 10 sessions",
+          "Any significant illnesses during childhood?": "Yes; recurrent ear infections as a toddler, 5 courses of antibiotics, asthma",
+          "Was your childhood home happy and secure?": "No; frequent moves, high conflict, financial stress",
+          "Were you breast-fed as an infant?": "Yes; 6 months",
+          "Any early exposure to smoke, lead paint, pesticides, etc.?": "Yes; lived in a home with lead paint as a toddler for 3 years",
+          "Do you have tooth sensitivity?": "Yes; cold drinks and citrus hurt; I have heartburn",
+          "Any current home or workplace factors you're exposed to?": "Water leaks / Dampness, Gas stove, Poor ventilation / Stale air",
+          "Are you unusually sensitive (headache, nausea, rashes) to small amounts of chemicals, perfumes, smoke, or exhaust?": "Yes; perfume, cleaning aisle, paint, diesel exhaust; reactions: migraine, rash, brain fog",
+          "How do you typically react to caffeine?": "Sensitive",
+          "Does a small amount of alcohol make you flush or feel unwell?": "Yes; red wine causes facial flush and nausea after a few sips",
+          "Do you regularly wear any of the following fibers?": "Polyester, Nylon, Spandex; I wear polyester workout clothes daily and sweat heavily; I have a rash on my chest",
+          "Do you get seasonal allergies?": "Yes; birch pollen → sneezing, itchy eyes, congestion every night; oral itch after raw apples; I use nasal saline rinse",
+          "Do you use an air filter?": "Yes; Coway Airmega 400S True HEPA with activated carbon"
         }
       },
       "latest_biomarker_results": {
-        "Kit Type": "METABOLIC_EASY_DRAW",
-        "Total Biomarkers": 40,
-        "Order ID": 34,
-        "Test Date": "2025-09-18T01:54:59.221Z",
+        "Iron": "94.83 ug/dL",
+        "eGFR": "74.16 mL/min/1.73 m2",
         "Gender": "Male",
-        "Apolipoprotein A1 (APOA1)": "190.98 mg/dL",
-        "Apolipoprotein B (APOB)": "77.41 mg/dL",
-        "Dehydroepiandrosterone Sulfate (DHEA-S)": "317.86 ug/dL",
-        "HDL Cholesterol": "66.12 mg/dL",
-        "% Hemoglobin A1C": "3.3 %",
-        "High-Sensitivity CRP": "0.22 mg/L",
-        "Iron": "100.42 ug/dL",
-        "Calcium": "8.16 mg/dL",
-        "C-Peptide": "2.6 ng/mL",
-        "LDL Cholesterol": "127.53 mg/dL",
-        "Testosterone, Total (Males)": "365.98 ng/dL",
-        "Testosterone, Free (calc)": "11.31 ng/dL",
-        "Ferritin": "113.35 ng/mL",
-        "Triglycerides": "40.63 mg/dL",
-        "Triglycerides:HDL Ratio": "1.29 ",
-        "Total Cholesterol": "181.65 mg/dL",
-        "25-(OH) Vitamin D": "97.88 ng/mL",
-        "Total Cholesterol:HDL Ratio": "1.75 ",
-        "Thyroid Stimulating Hormone (TSH)": "1.41 uIU/mL",
-        "Total Protein": "5.2 g/dL",
-        "Unsaturated iron-binding capacity test (UIBC)": "166.57 ug/dL",
-        "Sex Hormone-Binding Globulin (SHBG)": "71.72 nmol/L",
-        "Albumin": "6.58 g/dL",
-        "Alanine Aminotransferase (ALT)": "30.87 U/L",
-        "Aspartate Aminotransferase (AST)": "28.35 U/L",
-        "eGFR": "86.9 mL/min/1.73 m2",
-        "Creatinine": "1.19 mg/dL",
-        "Lipoprotein (a)": "12.38 mg/dL",
-        "Blood Urea Nitrogen (BUN)": "22.28 mg/dL",
-        "Total Bilirubin": "0.97 mg/dL",
-        "Direct Bilirubin": "0.19 mg/dL",
-        "BUN:Creatinine Ratio": "18.72 ",
-        "% Free Testosterone": "3.09 %",
-        "Estim. Avg Glu (eAG)": "48 mg/dL",
-        "LDL-C:HDL-C Ratio": "1.92 ",
-        "Calculated Cholesterol, Total": "201.77 mg/dL",
-        "ApoB:ApoA1 Ratio": "0.4 ",
-        "VLDL Cholesterol (Calc)": "8.12 mg/dL",
-        "AST:ALT Ratio": "0.91 N/A",
-        "LDL-C:ApoB Ratio": "1.64 N/A"
+        "Albumin": "3.78 g/dL",
+        "Calcium": "9.37 mg/dL",
+        "Ferritin": "119.72 ng/mL",
+        "Order ID": 84,
+        "C-Peptide": "2.51 ng/mL",
+        "Test Date": "2025-11-11T20:51:47.051",
+        "Creatinine": "0.88 mg/dL",
+        "AST:ALT Ratio": "0.98 N/A",
+        "Total Protein": "6.54 g/dL",
+        "Triglycerides": "62.01 mg/dL",
+        "HDL Cholesterol": "36 mg/dL",
+        "LDL Cholesterol": "0 mg/dL",
+        "Lipoprotein (a)": "24.21 mg/dL",
+        "Total Bilirubin": "0.67 mg/dL",
+        "% Hemoglobin A1C": "5.21 %",
+        "ApoB:ApoA1 Ratio": "0.32",
+        "Direct Bilirubin": "0.05 mg/dL",
+        "Total Biomarkers": 39,
+        "25-(OH) Vitamin D": "95.89 ng/mL",
+        "Total Cholesterol": "139.73 mg/dL",
+        "% Free Testosterone": "1.38 %",
+        "BUN:Creatinine Ratio": "24.13",
+        "Estim. Avg Glu (eAG)": "102.82 mg/dL",
+        "High-Sensitivity CRP": "0.74 mg/L",
+        "Apolipoprotein B (APOB)": "61.58 mg/dL",
+        "Triglycerides:HDL Ratio": "0.9",
+        "VLDL Cholesterol (Calc)": "12.4 mg/dL",
+        "Apolipoprotein A1 (APOA1)": "191.81 mg/dL",
+        "Blood Urea Nitrogen (BUN)": "21.24 mg/dL",
+        "Free Androgen Index (FAI)": "152.58",
+        "Testosterone, Free (calc)": "11.39 ng/dL",
+        "Testosterone, Total (Males)": "820.1 ng/dL",
+        "Total Cholesterol:HDL Ratio": "5.17",
+        "Calculated Cholesterol, Total": "48.4 mg/dL",
+        "Alanine Aminotransferase (ALT)": "32.33 U/L",
+        "Aspartate Aminotransferase (AST)": "32 U/L",
+        "Thyroid Stimulating Hormone (TSH)": "5.3 uIU/mL",
+        "Sex Hormone-Binding Globulin (SHBG)": "18.65 nmol/L",
+        "Dehydroepiandrosterone Sulfate (DHEA-S)": "496.92 ug/dL",
+        "Unsaturated iron-binding capacity test (UIBC)": "139.75 ug/dL"
       }
     }
   }
 ]
-

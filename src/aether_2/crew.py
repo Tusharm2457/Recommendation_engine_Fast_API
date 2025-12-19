@@ -1,4 +1,4 @@
-from crewai import Agent, Crew, Process, Task
+from crewai import Agent, Crew, Process, Task, LLM
 from crewai.tasks.conditional_task import ConditionalTask
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
@@ -22,7 +22,12 @@ from src.aether_2.tools.final_supplement_compiler import FinalSupplementCompiler
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
-
+llm = LLM(
+    model="vertex_ai/gemini-2.5-flash",
+    #base_url="http://localhost:11434",
+    temperature=0,
+    seed=42
+)
 @CrewBase
 class Aether2():
     """Aether2 crew"""
@@ -50,7 +55,8 @@ class Aether2():
         return Agent(
             config=self.agents_config['web_ingredient_discovery'],
             verbose=True,
-            tools=[WebIngredientDiscoveryTool(kickoff_inputs=self.kickoff_inputs)]
+            tools=[WebIngredientDiscoveryTool(kickoff_inputs=self.kickoff_inputs)],
+            llm=llm
         )
 
     # Temporarily disabled for testing
@@ -59,7 +65,8 @@ class Aether2():
         return Agent(
             config=self.agents_config['ingredient_ranker_rag'],
             verbose=True,
-            tools=[IngredientRankerRAGTool(kickoff_inputs=self.kickoff_inputs)]
+            tools=[IngredientRankerRAGTool(kickoff_inputs=self.kickoff_inputs)],
+            llm=llm
         )
 
     # @agent
@@ -83,7 +90,8 @@ class Aether2():
         return Agent(
             config=self.agents_config['supplement_recommender'],
             verbose=True,
-            tools=[SupplementRecommendationTool(kickoff_inputs=self.kickoff_inputs)]
+            tools=[SupplementRecommendationTool(kickoff_inputs=self.kickoff_inputs)],
+            llm=llm
         )
 
     @agent
@@ -91,7 +99,8 @@ class Aether2():
         return Agent(
             config=self.agents_config['final_supplement_compiler'],
             verbose=True,
-            tools=[FinalSupplementCompilerTool(kickoff_inputs=self.kickoff_inputs)]
+            tools=[FinalSupplementCompilerTool(kickoff_inputs=self.kickoff_inputs)],
+            llm=llm
         )
 
     

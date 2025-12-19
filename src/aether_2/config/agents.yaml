@@ -13,7 +13,7 @@ ingredient_ranker_rag:
     the most relevant supplement ingredients. You leverage vector similarity search, BM25 keyword matching,
     and biomarker-specific boosting to analyze the complete user profile and provide personalized ingredient
     recommendations with enhanced accuracy.
-  llm: vertex_ai/gemini-2.5-flash
+  #llm: vertex_ai/gemini-2.5-flash
 
 web_ingredient_discovery:
   role: >
@@ -28,7 +28,7 @@ web_ingredient_discovery:
     that might not be in static databases but are backed by scientific research. You focus on
     PubMed, NIH, Examine.com, and other authoritative sources to ensure all recommendations
     are evidence-based and scientifically validated.
-  llm: vertex_ai/gemini-2.5-flash
+  #llm: vertex_ai/gemini-2.5-flash
 
 
 
@@ -44,7 +44,7 @@ supplement_recommender:
     You are a board-certified physician and clinical nutritionist with 20+ years of experience in personalized medicine. 
     You excel at analyzing patient health profiles, biomarker data, and multiple recommendation sources to create 
     evidence-based supplement protocols tailored to each patient's unique clinical needs and health priorities.
-  llm: vertex_ai/gemini-2.5-flash
+  #llm: vertex_ai/gemini-2.5-flash
 
 # Final compiler agent for complete supplement recommendations
 final_supplement_compiler:
@@ -58,5 +58,5 @@ final_supplement_compiler:
     medical recommendations into practical, implementable supplement protocols. You excel at 
     determining appropriate dosages, frequencies, and focus area associations based on clinical 
     evidence and patient-specific health priorities.
-  llm: vertex_ai/gemini-2.5-flash
+  #llm: vertex_ai/gemini-2.5-flash
 

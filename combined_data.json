@@ -1,0 +1,292 @@
+[
+  {
+    "user_full_data": {
+      "metadata": {
+        "email": "ruchida83@gmail.com",
+        "phase_status": {
+          "id": "bfd3115a-ae99-4b0b-b4f9-458003dc70ad",
+          "user_id": "70a09722-78ff-44d4-a4ee-7d2e316bd6de",
+          "created_at": "2025-09-06T20:29:30.233353+00:00",
+          "updated_at": "2025-10-23T05:40:43.417793+00:00",
+          "phase1_status": "completed",
+          "phase2_status": "completed",
+          "phase3_status": "pending"
+        }
+      },
+      "patient_data": {
+        "phase1_basic_intake": {
+          "allergies": {
+            "has_allergies": false,
+            "known_allergies": []
+          },
+          "medications": {
+            "has_medications": true,
+            "current_medications": [
+              {
+                "dose": "200mg",
+                "name": "hydrochloroquine",
+                "purpose": "swelling and pain in hands (very new prescription)",
+                "frequency": "2 daily"
+              },
+              {
+                "dose": "?",
+                "name": "B12",
+                "purpose": "low B12",
+                "frequency": "1/mo"
+              },
+              {
+                "dose": "6000iu",
+                "name": "Vit D",
+                "purpose": "low vit D",
+                "frequency": "daily"
+              },
+              {
+                "dose": "50mg",
+                "name": "Sertraline",
+                "purpose": "depression",
+                "frequency": "daily"
+              },
+              {
+                "dose": "?",
+                "name": "Yogaraj Guggulu",
+                "purpose": "hand swelling/pain",
+                "frequency": "daily"
+              },
+              {
+                "dose": "?",
+                "name": "kaishore guggulu",
+                "purpose": "hand swelling/pain",
+                "frequency": "daily"
+              }
+            ]
+          },
+          "supplements": {
+            "has_supplements": true,
+            "current_supplements": [
+              {
+                "dose": "6000 IU",
+                "name": "Vit D",
+                "purpose": "low vit D",
+                "frequency": "daily"
+              }
+            ]
+          },
+          "demographics": {
+            "age": 42,
+            "ancestry": [
+              "Asian",
+              "Caucasian"
+            ],
+            "weight_lbs": 152,
+            "height_feet": 5,
+            "height_inches": 0,
+            "ancestry_other": null,
+            "biological_sex": "Female",
+            "biological_sex_other": null
+          },
+          "medical_history": {
+            "diagnoses": [
+              "anxiety_disorder_",
+              "other"
+            ],
+            "surgeries": "Hysterectomy 2023",
+            "diagnoses_other": "Uterine mass (hysterectomy 2023), meningioma (potential surgery needed 2026-2028)",
+            "diagnoses_years": {
+              "anxiety_disorder_": "2005"
+            }
+          },
+          "wearable_devices": {
+            "fitbit": false,
+            "oura_ring": false,
+            "apple_watch": false,
+            "other_device": null,
+            "has_any_wearables": false,
+            "google_pixel_watch": false,
+            "samsung_galaxy_watch": false
+          },
+          "complementary_approaches": {
+            "ayurveda": true,
+            "homeopathy": true,
+            "korean_medicine": true,
+            "functional_medicine": true,
+            "selected_approaches": [
+              "functional",
+              "ayurveda",
+              "tcm",
+              "homeopathy",
+              "hanyak"
+            ],
+            "traditional_chinese_medicine": true
+          }
+        },
+        "phase2_detailed_intake": {
+          "pets_animals": {
+            "has_pets": true
+          },
+          "dental_health": {
+            "dental_work": {
+              "implants": 0,
+              "caps_crowns": 0,
+              "root_canals": 0,
+              "gold_fillings": 0,
+              "other_dental_work": "No",
+              "silver_mercury_fillings": 2
+            },
+            "daily_brush_floss": "both_daily",
+            "removal_timeframe": null,
+            "mercury_fillings_removed": false
+          },
+          "dietary_habits": {
+            "diet_style": "none",
+            "diet_style_other": null,
+            "eating_out_frequency": "1_2_per_week"
+          },
+          "sleep_patterns": {
+            "hours_category": "6_to_8",
+            "snoring_sleep_apnea": "yes",
+            "night_wake_frequency": 1,
+            "trouble_falling_asleep": true,
+            "trouble_staying_asleep": true,
+            "wake_feeling_refreshed": true,
+            "night_urination_frequency": 1
+          },
+          "systems_review": {
+            "digestive_symptoms": "diarrhea"
+          },
+          "lifestyle_factors": {
+            "alcohol": {
+              "frequency": "sometimes",
+              "typical_amount": "Maybe a drink or two 2-3 times a month"
+            },
+            "tobacco": {
+              "quit_year": null,
+              "use_status": "never",
+              "duration_category": null
+            },
+            "recreational_drugs": {
+              "uses_substances": true,
+              "substance_details": "Cannabis very very rarely. Maybe once or twice a year."
+            }
+          },
+          "physical_activity": {
+            "exercise_days_per_week": 0
+          },
+          "sunlight_exposure": {
+            "days_per_week": 2,
+            "average_minutes_per_day": "30"
+          },
+          "occupation_wellness": {
+            "job_title": "Supply chain in a biotech company",
+            "work_stress_level": 8
+          },
+          "pain_and_skin_health": {
+            "headaches": {
+              "headache_details": null,
+              "frequent_headaches_migraines": true
+            },
+            "skin_health": {
+              "has_skin_issues": true,
+              "skin_condition_details": null
+            },
+            "chronic_pain": {
+              "pain_details": null,
+              "has_chronic_pain": true
+            }
+          },
+          "childhood_antibiotics": {
+            "took_antibiotics_as_child": true
+          },
+          "childhood_development": {
+            "born_via_c_section": "no",
+            "high_sugar_childhood_diet": "yes"
+          },
+          "family_medical_history": {
+            "conditions_detail": {
+              "cancer": [
+                "mother",
+                "grand-parent"
+              ],
+              "heart_attack": [
+                "grand-parent"
+              ],
+              "osteoporosis": [
+                "grand-parent"
+              ],
+              "anxiety_disorder": [
+                "mother"
+              ],
+              "high_blood_pressure": [
+                "father"
+              ]
+            },
+            "has_family_history": true,
+            "other_conditions_text": null
+          },
+          "environmental_exposures": {
+            "mold_exposure": false,
+            "chemical_exposures": "none",
+            "chemical_exposure_other": null
+          },
+          "medication_side_effects": {
+            "reaction_details": null,
+            "has_adverse_reactions": false
+          },
+          "reproductive_hormonal_health": {
+            "male_specific": null,
+            "female_specific": {
+              "concern_details": null,
+              "menstrual_concerns": "no"
+            }
+          }
+        }
+      },
+      "latest_biomarker_results": {
+        "Iron": "170 ug/dL",
+        "eGFR": "99.17 mL/min/1.73 m2",
+        "Gender": "Female",
+        "Calcium": "8.7 mg/dL",
+        "Ferritin": "153.6 ng/mL",
+        "Order ID": 37,
+        "C-Peptide": "1.76 ng/mL",
+        "Test Date": "2025-10-15T07:20:40.82083",
+        "Creatinine": "0.69 mg/dL",
+        "LH:FSH Ratio": "1.63",
+        "AST:ALT Ratio": "3.25 N/A",
+        "Total Protein": "8.1 g/dL",
+        "Triglycerides": "84 mg/dL",
+        "HDL Cholesterol": "50 mg/dL",
+        "Iron Saturation": "69 %",
+        "Lipoprotein (a)": "6.6 mg/dL",
+        "Total Bilirubin": "1 mg/dL",
+        "% Hemoglobin A1C": "5.6 %",
+        "ApoB:ApoA1 Ratio": "0.62",
+        "Daytime Cortisol": "21.8 ug/dL",
+        "Direct Bilirubin": "0.23 mg/dL",
+        "LDL-C:ApoB Ratio": "1.26",
+        "Total Biomarkers": 41,
+        "25-(OH) Vitamin D": "31.2 ng/mL",
+        "LDL-C:HDL-C Ratio": "2.38",
+        "Total Cholesterol": "186 mg/dL",
+        "BUN:Creatinine Ratio": "17.39",
+        "Estim. Avg Glu (eAG)": "114.02 mg/dL",
+        "High-Sensitivity CRP": "1.4 mg/L",
+        "Estradiol (Sensitive)": "210 pg/mL",
+        "Apolipoprotein B (APOB)": "94 mg/dL",
+        "Triglycerides:HDL Ratio": "1.68",
+        "VLDL Cholesterol (Calc)": "16.8 mg/dL",
+        "Luteinizing Hormone (LH)": "4.18 mIU/mL",
+        "Apolipoprotein A1 (APOA1)": "150 mg/dL",
+        "Blood Urea Nitrogen (BUN)": "12 mg/dL",
+        "Alkaline Phosphatase (ALP)": "42 U/L",
+        "Calculated LDL-Cholesterol": "119.2 mg/dL",
+        "Total Cholesterol:HDL Ratio": "3.71",
+        "Alanine Aminotransferase (ALT)": "8 U/L",
+        "Aspartate Aminotransferase (AST)": "26 U/L",
+        "Thyroid Stimulating Hormone (TSH)": "1.31 uIU/mL",
+        "Follicle-Stimulating Hormone (FSH)": "2.56 mIU/mL",
+        "Dehydroepiandrosterone Sulfate (DHEA-S)": "231 ug/dL",
+        "Unsaturated iron-binding capacity test (UIBC)": "78 ug/dL"
+      }
+    }
+  }
+]

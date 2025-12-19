@@ -1,0 +1,266 @@
+[
+  {
+    "user_full_data": {
+      "metadata": {
+        "email": "geetahj@gmail.com",
+        "phase_status": {
+          "id": "c3b5dcdd-dfb6-4a82-938f-0723f952d6c3",
+          "user_id": "1bcd7a05-4ea7-428f-92e0-d307c45b9b42",
+          "created_at": "2025-09-07T20:44:24.580519+00:00",
+          "updated_at": "2025-10-31T21:59:46.698094+00:00",
+          "phase1_status": "completed",
+          "phase2_status": "completed",
+          "phase3_status": "pending"
+        }
+      },
+      "patient_data": {
+        "phase1_basic_intake": {
+          "allergies": {
+            "has_allergies": false,
+            "known_allergies": []
+          },
+          "medications": {
+            "has_medications": false,
+            "current_medications": []
+          },
+          "supplements": {
+            "has_supplements": true,
+            "current_supplements": [
+              {
+                "dose": "20g",
+                "name": "Collagen Peptides",
+                "purpose": "Skin, Hair, Bone + Joint Support",
+                "frequency": "1/2 tsp first thing in the morning after coffee"
+              },
+              {
+                "dose": "1000 IU / 25 mcg",
+                "name": "D3",
+                "purpose": "Supports immune health",
+                "frequency": "1 daily with breakfast"
+              },
+              {
+                "dose": "500 mg",
+                "name": "C",
+                "purpose": "Supports immune system",
+                "frequency": "1 daily in the afternoon or evening"
+              },
+              {
+                "dose": "1000 mcg",
+                "name": "B12",
+                "purpose": "Supports Energy Production, heart and nerve health",
+                "frequency": "1 daily in the afternoon or evening"
+              },
+              {
+                "dose": "45 mg",
+                "name": "Slow Fe Iron",
+                "purpose": "Iron Supplemeny",
+                "frequency": "1 every Monday and Thursday"
+              }
+            ]
+          },
+          "demographics": {
+            "age": 50, 
+            "ancestry": [
+              "South Asian" 
+            ],
+            "weight_lbs": 114,
+            "height_feet": 5,
+            "height_inches": 2,
+            "ancestry_other": null,
+            "biological_sex": "Female",
+            "biological_sex_other": null
+          },
+          "medical_history": {
+            "diagnoses": [
+              "other"
+            ],
+            "surgeries": "None",
+            "diagnoses_other": "Depression",
+            "diagnoses_years": {}
+          },
+          "wearable_devices": {
+            "fitbit": false,
+            "oura_ring": false,
+            "apple_watch": false,
+            "other_device": "Garmin Forerunner 245",
+            "has_any_wearables": true,
+            "google_pixel_watch": false,
+            "samsung_galaxy_watch": false
+          },
+          "complementary_approaches": {
+            "ayurveda": true,
+            "homeopathy": false,
+            "korean_medicine": false,
+            "functional_medicine": true,
+            "selected_approaches": [
+              "functional",
+              "ayurveda"
+            ],
+            "traditional_chinese_medicine": false
+          }
+        },
+        "phase2_detailed_intake": {
+          "pets_animals": {
+            "has_pets": false
+          },
+          "dental_health": {
+            "dental_work": {
+              "implants": 0,
+              "caps_crowns": 0,
+              "root_canals": 0,
+              "gold_fillings": 0,
+              "other_dental_work": null,
+              "silver_mercury_fillings": 0
+            },
+            "daily_brush_floss": "brush_only",
+            "removal_timeframe": null,
+            "mercury_fillings_removed": false
+          },
+          "dietary_habits": {
+            "diet_style": "vegetarian",
+            "diet_style_other": null,
+            "eating_out_frequency": "1_2_per_week"
+          },
+          "sleep_patterns": {
+            "hours_category": "6_to_8",
+            "snoring_sleep_apnea": "no",
+            "night_wake_frequency": null,
+            "trouble_falling_asleep": true,
+            "trouble_staying_asleep": false,
+            "wake_feeling_refreshed": true,
+            "night_urination_frequency": null
+          },
+          "systems_review": {
+            "digestive_symptoms": "bloating,constipation"
+          },
+          "lifestyle_factors": {
+            "alcohol": {
+              "frequency": "never",
+              "typical_amount": null
+            },
+            "tobacco": {
+              "quit_year": null,
+              "use_status": "never",
+              "duration_category": null
+            },
+            "recreational_drugs": {
+              "uses_substances": false,
+              "substance_details": null
+            }
+          },
+          "physical_activity": {
+            "exercise_days_per_week": 5
+          },
+          "sunlight_exposure": {
+            "days_per_week": 3,
+            "average_minutes_per_day": "15 - 30 minutes"
+          },
+          "occupation_wellness": {
+            "job_title": "Looking for FT opportunity. Previous held Project Manager, Systems Engineer roles",
+            "work_stress_level": 5
+          },
+          "pain_and_skin_health": {
+            "headaches": {
+              "headache_details": null,
+              "frequent_headaches_migraines": false
+            },
+            "skin_health": {
+              "has_skin_issues": false,
+              "skin_condition_details": null
+            },
+            "chronic_pain": {
+              "pain_details": null,
+              "has_chronic_pain": true
+            }
+          },
+          "childhood_antibiotics": {
+            "took_antibiotics_as_child": false
+          },
+          "childhood_development": {
+            "born_via_c_section": "no",
+            "high_sugar_childhood_diet": "not_sure"
+          },
+          "family_medical_history": {
+            "conditions_detail": {
+              "tuberculosis": [
+                "brother"
+              ],
+              "kidney_stones": [
+                "brother"
+              ],
+              "diabetes_insulin": [
+                "mother"
+              ],
+              "high_blood_pressure": [
+                "mother"
+              ]
+            },
+            "has_family_history": true,
+            "other_conditions_text": null
+          },
+          "environmental_exposures": {
+            "mold_exposure": false,
+            "chemical_exposures": "none",
+            "chemical_exposure_other": null
+          },
+          "medication_side_effects": {
+            "reaction_details": null,
+            "has_adverse_reactions": false
+          },
+          "reproductive_hormonal_health": {
+            "male_specific": null,
+            "female_specific": {
+              "concern_details": "This year - 2025 - I feel am approaching menopause.",
+              "menstrual_concerns": "yes"
+            }
+          }
+        }
+      },
+      "latest_biomarker_results": {
+        "Iron": "200 ug/dL",
+        "eGFR": "83.09 mL/min/1.73 m2",
+        "Gender": "Female",
+        "Calcium": "8.6 mg/dL",
+        "Ferritin": "107.4 ng/mL",
+        "Order ID": 39,
+        "C-Peptide": "0.94 ng/mL",
+        "Test Date": "2025-10-07T11:53:39.992813",
+        "Creatinine": "0.78 mg/dL",
+        "LH:FSH Ratio": "0.6",
+        "AST:ALT Ratio": "2.31 N/A",
+        "Total Protein": "8.1 g/dL",
+        "Triglycerides": "84 mg/dL",
+        "HDL Cholesterol": "60 mg/dL",
+        "Lipoprotein (a)": "20.2 mg/dL",
+        "Total Bilirubin": "1.5 mg/dL",
+        "% Hemoglobin A1C": "5.1 %",
+        "ApoB:ApoA1 Ratio": "0.44",
+        "Daytime Cortisol": "4 ug/dL",
+        "Direct Bilirubin": "0.28 mg/dL",
+        "LDL-C:ApoB Ratio": "1.17",
+        "Total Biomarkers": 39,
+        "25-(OH) Vitamin D": "21.4 ng/mL",
+        "LDL-C:HDL-C Ratio": "1.45",
+        "Total Cholesterol": "164 mg/dL",
+        "BUN:Creatinine Ratio": "10.25",
+        "Estim. Avg Glu (eAG)": "99.66 mg/dL",
+        "High-Sensitivity CRP": "0.76 mg/L",
+        "Estradiol (Sensitive)": "48 pg/mL",
+        "Apolipoprotein B (APOB)": "74 mg/dL",
+        "Triglycerides:HDL Ratio": "1.4",
+        "VLDL Cholesterol (Calc)": "16.8 mg/dL",
+        "Luteinizing Hormone (LH)": "19.24 mIU/mL",
+        "Apolipoprotein A1 (APOA1)": "166 mg/dL",
+        "Blood Urea Nitrogen (BUN)": "8 mg/dL",
+        "Alkaline Phosphatase (ALP)": "44 U/L",
+        "Calculated LDL-Cholesterol": "87.2 mg/dL",
+        "Total Cholesterol:HDL Ratio": "2.73",
+        "Alanine Aminotransferase (ALT)": "22 U/L",
+        "Aspartate Aminotransferase (AST)": "51 U/L",
+        "Thyroid Stimulating Hormone (TSH)": "3.23 uIU/mL",
+        "Follicle-Stimulating Hormone (FSH)": "31.92 mIU/mL",
+        "Dehydroepiandrosterone Sulfate (DHEA-S)": "38.4 ug/dL"
+      }
+    }
+  }
+]

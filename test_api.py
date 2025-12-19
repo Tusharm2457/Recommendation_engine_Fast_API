@@ -12,7 +12,7 @@ from pathlib import Path
 # API endpoint - Change this to test different environments
 # Local: http://localhost:8000/generate-protocol
 # Cloud Run: https://aether-api-224321939514.us-central1.run.app/generate-protocol
-API_URL = "http://localhost:8000/generate-protocol"
+API_URL = "https://aether-api-224321939514.us-central1.run.app/generate-protocol"
 
 def load_test_data(file_path="inputs/combined_data.json"):
     """Load test data from combined_data.json"""
@@ -41,10 +41,10 @@ def load_test_data(file_path="inputs/combined_data.json"):
             return data
 
     except FileNotFoundError:
-        print(f"❌ Error: File not found: {file_path}")
+        print(f" Error: File not found: {file_path}")
         sys.exit(1)
     except json.JSONDecodeError as e:
-        print(f"❌ Error: Invalid JSON in {file_path}: {e}")
+        print(f" Error: Invalid JSON in {file_path}: {e}")
         sys.exit(1)
 
 
@@ -53,40 +53,56 @@ def test_health_check():
     print("\n" + "="*60)
     print("🏥 Testing Health Check Endpoint")
     print("="*60)
-    
+
+    # Derive health endpoint from API_URL
+    base_url = API_URL.replace("/generate-protocol", "")
+    health_url = f"{base_url}/health"
+
     try:
-        response = requests.get("http://localhost:8000/health")
+        response = requests.get(health_url)
         print(f"Status Code: {response.status_code}")
         print(f"Response: {json.dumps(response.json(), indent=2)}")
-        
+
         if response.status_code == 200:
             print("✅ Health check passed")
             return True
         else:
-            print("❌ Health check failed")
+            print(" Health check failed")
             return False
-    
+
     except requests.exceptions.ConnectionError:
-        print("❌ Error: Could not connect to API. Is the server running?")
+        print(" Error: Could not connect to API. Is the server running?")
         print("   Run: ./run_api.sh or python src/aether_2/api/main.py")
         return False
 
 
-def test_generate_protocol(data, include_details=False):
+def test_generate_protocol(data, include_details=False, generate_excel=False):
     """Test the generate protocol endpoint"""
-    mode = "with details" if include_details else "clean (default)"
+    mode_parts = []
+    if include_details:
+        mode_parts.append("with details")
+    if generate_excel:
+        mode_parts.append("with Excel")
+    mode = f"({', '.join(mode_parts)})" if mode_parts else "(clean - default)"
+
     print("\n" + "="*60)
-    print(f"🧪 Testing Generate Protocol Endpoint ({mode})")
+    print(f"🧪 Testing Generate Protocol Endpoint {mode}")
     print("="*60)
 
-    # Add query parameter if needed
-    url = API_URL
+    # Build query parameters
+    params = []
     if include_details:
-        url = f"{API_URL}?include_details=true"
+        params.append("include_details=true")
+    if generate_excel:
+        params.append("generate_excel=true")
+
+    url = API_URL
+    if params:
+        url = f"{API_URL}?{'&'.join(params)}"
 
     print(f"\n📤 Sending request to: {url}")
     print(f"📊 Patient data keys: {list(data.keys())}")
-    
+
     try:
         # Send POST request (use the url variable with query params)
         response = requests.post(
@@ -95,11 +111,16 @@ def test_generate_protocol(data, include_details=False):
             headers={"Content-Type": "application/json"},
             timeout=600  # 10 minutes timeout (pipeline can take time)
         )
-        
+
         print(f"\n📥 Response Status Code: {response.status_code}")
-        
+
         if response.status_code == 200:
             result = response.json()
+
+            # Print the actual JSON response
+            print("\n📄 API Response:")
+            print(json.dumps(result, indent=2))
+
             print("\n✅ Protocol Generated Successfully!")
             print(f"👤 User ID: {result.get('user_id')}")
             print(f"⏱️  Execution Time: {result.get('execution_time_seconds', 0):.2f} seconds")
@@ -107,6 +128,23 @@ def test_generate_protocol(data, include_details=False):
             # Check if preprocessing outputs are included
             has_details = 'preprocessing_outputs' in result
             print(f"📊 Preprocessing outputs included: {'✅ Yes' if has_details else '❌ No (use ?include_details=true to include)'}")
+
+            # Check if Excel file was generated
+            excel_file = result.get('excel_file')
+            if excel_file:
+                print(f"\n📊 Excel File Generated:")
+                print(f"   ✅ File Path: {excel_file.get('file_path')}")
+                print(f"   ✅ Bucket: {excel_file.get('bucket')}")
+                print(f"   ✅ Expires In: {excel_file.get('expires_in_hours')} hours")
+                print(f"\n🔗 Signed URL:")
+                signed_url = excel_file.get('signed_url', '')
+                print(f"   {signed_url[:80]}...")
+                print(f"\n💡 Download Excel file:")
+                print(f"   wget \"{signed_url}\" -O protocol.xlsx")
+                print(f"   open protocol.xlsx")
+            elif generate_excel:
+                print(f"\n⚠️  Excel generation was requested but no file info in response")
+                print(f"   (This is expected for local testing - signed URLs require service account)")
 
             # Save the response
             output_file = "test_api_response.json"
@@ -126,22 +164,22 @@ def test_generate_protocol(data, include_details=False):
                     print(f"   {i}. {rec.get('ingredient_name', 'N/A')}")
 
             return True
-        
+
         else:
-            print(f"\n❌ Error: {response.status_code}")
+            print(f"\n Error: {response.status_code}")
             print(f"Response: {response.text}")
             return False
-    
+
     except requests.exceptions.Timeout:
-        print("❌ Error: Request timed out (pipeline took too long)")
+        print(" Error: Request timed out (pipeline took too long)")
         return False
-    
+
     except requests.exceptions.ConnectionError:
-        print("❌ Error: Could not connect to API. Is the server running?")
+        print(" Error: Could not connect to API. Is the server running?")
         return False
-    
+
     except Exception as e:
-        print(f"❌ Error: {str(e)}")
+        print(f" Error: {str(e)}")
         return False
 
 
@@ -155,7 +193,23 @@ def main():
         action="store_true",
         help="Include preprocessing outputs in the response"
     )
+    parser.add_argument(
+        "--generate-excel",
+        action="store_true",
+        help="Generate Excel file and upload to GCS (returns signed URL)"
+    )
+    parser.add_argument(
+        "--cloud",
+        action="store_true",
+        help="Test against Cloud Run endpoint instead of localhost"
+    )
     args = parser.parse_args()
+
+    # Update API URL if testing cloud
+    global API_URL
+    if args.cloud:
+        API_URL = "https://aether-api-224321939514.us-central1.run.app/generate-protocol"
+        print(f"\n🌐 Testing Cloud Run endpoint: {API_URL}")
 
     print("\n" + "="*60)
     print("🧪 Aether AI Engine API Test Suite")
@@ -163,7 +217,7 @@ def main():
 
     # Test 1: Health check
     if not test_health_check():
-        print("\n❌ Health check failed. Exiting.")
+        print("\n Health check failed. Exiting.")
         sys.exit(1)
 
     # Test 2: Load test data
@@ -175,7 +229,11 @@ def main():
     print(f"✅ Loaded test data with keys: {list(test_data.keys())}")
 
     # Test 3: Generate protocol
-    success = test_generate_protocol(test_data, include_details=args.include_details)
+    success = test_generate_protocol(
+        test_data,
+        include_details=args.include_details,
+        generate_excel=args.generate_excel
+    )
 
     # Summary
     print("\n" + "="*60)
@@ -187,8 +245,16 @@ def main():
         print("\n📝 Next steps:")
         print("   1. Check test_api_response.json for the full response")
         print("   2. Review the generated protocol")
-        print("   3. Test with different patient data")
-        print("\n💡 Tip: Run with --include-details to get preprocessing outputs")
+        if args.generate_excel:
+            print("   3. Download and open the Excel file using the signed URL")
+            print("   4. Verify Excel file in GCS bucket")
+        else:
+            print("   3. Test with different patient data")
+        print("\n💡 Tips:")
+        print("   - Run with --include-details to get preprocessing outputs")
+        print("   - Run with --generate-excel to generate Excel file")
+        print("   - Run with --cloud to test Cloud Run deployment")
+        print("   - Combine flags: --include-details --generate-excel --cloud")
     else:
         print("❌ Some tests failed")
         sys.exit(1)
